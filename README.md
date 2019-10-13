@@ -1,1 +1,0 @@
-# solarfluxx.github.io
