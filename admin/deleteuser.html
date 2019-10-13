@@ -40,6 +40,9 @@
 
 		<!-- General Scripts -->
 		<script>
+			// Variable declaration
+			var email_input = document.getElementById("email");
+
 			// Show / Hide Password
 			function show_hide_password() {
 				var show_password_checkbox = document.getElementById("show_password");
@@ -52,7 +55,7 @@
 			}
 
       function delete_user() {
-        firebase.auth().getUserByEmail(email).then(function(userRecord) {
+        firebase.auth().getUserByEmail(email_input).then(function(userRecord) {
           console.log("Successfully fetched user data:", userRecord.toJSON());
         }).catch(function(error) {
           console.log("Error fetching user data:", error);
