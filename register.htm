@@ -1,0 +1,136 @@
+<html>
+	<head>
+		<title>Register | Cart Chart</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/icons.css">
+	</head>
+
+	<body>
+		<div class="form">
+			<h2 class="title">Registration</h2>
+			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_mail"></span></span><input class="form_item" type="email" name="email" id="email" placeholder="Email"></div></div>
+			<div class="form_item sec_end"><div class="form_item_group"><span class="form_item_extra"><span class="icon_key"></span></span><input class="form_item" type="password" name="password" id="password" placeholder="Password"><span class="form_item_extra"><input class="form_item_extra" type="checkbox" name="show_password" id="show_password" onclick="show_hide_password();"></span></div></div>
+			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_profile"></span></span><input class="form_item" type="text" name="first_name" id="first_name" placeholder="First Name"></div></div>
+			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="arrow_carrot-right"></span></span><input class="form_item" type="text" name="last_name" id="last_name" placeholder="Last Name"></div></div>
+			<div class="form_item"><div class="form_item_group submit_group"><button class="submit" onclick="register_account();">Register</button></div></div>
+			<div class="align_center"><span class="error_message" id="error_text"></span></div>
+		</div>
+
+		<!-- Firebase Scripts -->
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+		<script>
+		  // Your web app's Firebase configuration
+		  var firebaseConfig = {
+		    apiKey: "AIzaSyDccM8NijKEohOCjqGQ0ikeyMpf8kI3tz4",
+		    authDomain: "jw-cart-scheduler.firebaseapp.com",
+		    databaseURL: "https://jw-cart-scheduler.firebaseio.com",
+		    projectId: "jw-cart-scheduler",
+		    storageBucket: "jw-cart-scheduler.appspot.com",
+		    messagingSenderId: "88108065951",
+		    appId: "1:88108065951:web:17aa36f528d6db6977aeaa",
+		    measurementId: "G-8J2DPL43FW"
+		  };
+		  // Initialize Firebase
+		  firebase.initializeApp(firebaseConfig);
+		  firebase.analytics();
+			var database = firebase.database();
+		</script>
+
+		<!-- General Scripts -->
+		<script>
+			// Show / Hide Password
+			function show_hide_password() {
+				var show_password_checkbox = document.getElementById("show_password");
+				var password_input = document.getElementById("password");
+				if(show_password_checkbox.checked == true) {
+					password_input.type="text"
+				} else {
+					password_input.type="password"
+				}
+			}
+
+			function register_account() {
+				var email = document.getElementById("email");
+				var emailValue = email.value;
+				var passwordValue = "{emptypassword}";
+				firebase.auth().signInWithEmailAndPassword(emailValue, passwordValue).then(function(){
+					console.log("User has signed in");
+					var user = firebase.auth().currentUser;
+					var displayName = user.displayName;
+					var email = user.email;
+					var emailVerified = user.emailVerified;
+					var photoURL = user.photoURL;
+					var isAnonymous = user.isAnonymous;
+					var uid = user.uid;
+					var providerData = user.providerData;
+
+					var first_name_input = document.getElementById("first_name");
+					var last_name_input = document.getElementById("last_name");
+					var password_input = document.getElementById("password");
+					var first_name_value = first_name_input.value;
+					var last_name_value = last_name_input.value;
+					var password_value = password_input.value;
+
+					firebase.database().ref('users/' + uid).set({
+				    firstname: first_name_value,
+				    lastname: last_name_value
+				  });
+
+					user.updatePassword(password_value).then(function(){
+						console.log("Password was updated");
+          }).catch(function(error){
+						var errorCode = error.code;
+						var errorMessage = error.message;
+						console.log(errorCode);
+						console.log(errorMessage);
+          });
+
+					setError("");
+
+					changePage("home");
+
+				}).catch(function(error) {
+				  // Handle Errors here.
+				  var errorCode = error.code;
+				  var errorMessage = error.message;
+					console.log(errorCode);
+					console.log(errorMessage);
+
+					if (errorCode == "auth/wrong-password") {
+						setError("There is already an account registered to this email address");
+					} else if (errorCode == "auth/user-not-found") {
+						setError("There is no account for that email address");
+					}
+
+				});
+
+			}
+
+			function setError(value) {
+				document.getElementById('error_text').innerHTML = value;
+			}
+
+			function changePage(page) {
+				var offline = window.location.href;
+				var final_page;
+
+				if (offline.includes("file:///")) {
+					final_page = "/Users/robbi/OneDrive/Cart%20Scheduler/" + page;
+				} else {
+					final_page = "/" + page;
+				}
+
+				if (!final_page.includes(".")) {
+					final_page = final_page + ".htm";
+				}
+
+				window.location = final_page;
+			}
+		</script>
+
+	</body>
+</html>
