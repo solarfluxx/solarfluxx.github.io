@@ -11,7 +11,7 @@
 		<div class="form">
 			<h2 class="title">Cart Chart</h2>
 			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_profile"></span></span><input class="form_item" type="email" name="email" id="email" placeholder="Email"></div></div>
-			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_key"></span></span><input class="form_item" type="password" name="password" id="password" placeholder="Password"><span class="form_item_extra"><input class="form_item_extra" type="checkbox" name="show_password" id="show_password" onclick="show_hide_password();"></span></div></div>
+			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_key"></span></span><input class="form_item" type="password" name="password" id="password" placeholder="Password"><span class="form_item_extra"><input class="form_item_extra" type="checkbox" name="show_password" id="show_password"></span></div></div>
 			<div class="form_item"><div class="form_item_group submit_group"><button class="submit" onclick="login();">Login</button></div></div>
 			<div class="form_item"><div class="form_item_group submit_group"><button onclick="changePage('register');">Register</button></div></div>
 			<div class="align_center"><span class="error_message" id="error_text"></span></div>
@@ -40,35 +40,35 @@
 
 		<!-- General Scripts -->
 		<script>
-			// Show / Hide Password
-			function show_hide_password() {
-				var show_password_checkbox = document.getElementById("show_password");
-				var password_input = document.getElementById("password");
-				if(show_password_checkbox.checked == true) {
-					password_input.type="text"
-				} else {
-					password_input.type="password"
-				}
+			// Variable declaration
+			var email_input = document.getElementById("email");
+			var show_password_checkbox = document.getElementById("show_password");
+			var password_input = document.getElementById("password");
+			var email_value = email.value;
+			var password_value = password.value;
+
+			show_password_checkbox.addEventListener("click", handleToggleClick, false);
+			function handleToggleClick(event) {
+			  if (this.checked) {
+			    password_input.type = "text";
+			  } else {
+			    password_input.type = "password";
+			  }
 			}
 
 			// Submit form
 			function login() {
-				var email = document.getElementById("email");
-				var password = document.getElementById("password");
-				var emailValue = email.value;
-				var passwordValue = password.value;
-
-				firebase.auth().signInWithEmailAndPassword(emailValue, passwordValue).catch(function(error) {
+				firebase.auth().signInWithEmailAndPassword(email_value, password_value).catch(function(error) {
 				  // Handle Errors here.
 				  var errorCode = error.code;
 				  var errorMessage = error.message;
 					console.log(errorCode);
 					console.log(errorMessage);
-					if (emailValue == "") {
+					if (email_value == "") {
 						setError("Please enter an email address");
 					} else if (errorCode == "auth/invalid-email") {
             setError("Please enter a valid email address");
-          } else if (passwordValue == "") {
+          } else if (password_value == "") {
 						setError("Please enter a password");
 					} else if (errorCode == "auth/wrong-password") {
             setError("That password is incorrect");
@@ -107,13 +107,7 @@
 			function changePage(page) {
 				var offline = window.location.href;
 				var final_page;
-
-				if (offline.includes("file:///")) {
-					final_page = "/Users/robbi/OneDrive/Cart%20Scheduler/" + page;
-				} else {
-					final_page = "/" + page;
-				}
-
+				if (offline.includes("file:///")) final_page = "/Users/robbi/OneDrive/Cart%20Scheduler/" + page; else final_page = "/" + page;
 				window.location = final_page;
 			}
 
