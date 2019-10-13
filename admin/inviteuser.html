@@ -43,7 +43,8 @@
 				var first_name_value = document.getElementById("first_name").value;
 				var last_name_value = document.getElementById("last_name").value;
         secondaryApp.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
-					var uid = firebaseUser.uid;
+					var user = secondaryApp.auth().currentUser;
+					var uid = user.uid;
 					firebase.database().ref('users/' + uid).set({
 				    firstname: first_name_value,
 				    lastname: last_name_value
