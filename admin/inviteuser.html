@@ -9,6 +9,8 @@
 	<body>
 		<div class="form">
 			<h2 class="title">Invite A New User</h2>
+			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_profile"></span></span><input class="form_item" type="text" name="first_name" id="first_name" placeholder="First Name"></div></div>
+			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="arrow_carrot-right"></span></span><input class="form_item" type="text" name="last_name" id="last_name" placeholder="Last Name"></div></div>
 			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_mail"></span></span><input class="form_item" type="email" name="email" id="email" placeholder="Email"></div></div>
 			<div class="form_item"><div class="form_item_group submit_group"><button class="submit" onclick="create_user();">Invite</button></div></div>
 			<div class="align_center"><span class="error_message" id="error_text"></span></div>
@@ -38,7 +40,14 @@
         var email_input = document.getElementById("email");
         var email = email_input.value;
         var password = "{emptypassword}";
+				var first_name_value = document.getElementById("first_name").value;
+				var last_name_value = document.getElementById("last_name").value;
         secondaryApp.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
+					var uid = user.uid;
+					firebase.database().ref('users/' + uid).set({
+				    firstname: first_name_value,
+				    lastname: last_name_value
+				  });
           secondaryApp.auth().signOut();
 
         }).catch(function(error) {
