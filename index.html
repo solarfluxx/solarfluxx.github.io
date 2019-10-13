@@ -29,8 +29,6 @@
 			var email_input = document.getElementById("email");
 			var show_password_checkbox = document.getElementById("show_password");
 			var password_input = document.getElementById("password");
-			var email_value = email_input.value;
-			var password_value = password_input.value;
 
 			show_password_checkbox.addEventListener("click", handleToggleClick, false);
 			function handleToggleClick(event) {
@@ -43,6 +41,8 @@
 
 			// Submit form
 			function login() {
+				var email_value = email_input.value;
+				var password_value = password_input.value;
 				firebase.auth().signInWithEmailAndPassword(email_value, password_value).catch(function(error) {
 				  // Handle Errors here.
 				  var errorCode = error.code;
