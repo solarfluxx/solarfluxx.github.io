@@ -13,7 +13,7 @@
 			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_profile"></span></span><input class="form_item" type="email" name="email" id="email" placeholder="Email"></div></div>
 			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_key"></span></span><input class="form_item" type="password" name="password" id="password" placeholder="Password"><span class="form_item_extra"><input class="form_item_extra" type="checkbox" name="show_password" id="show_password" onclick="show_hide_password();"></span></div></div>
 			<div class="form_item"><div class="form_item_group submit_group"><button class="submit" onclick="login();">Login</button></div></div>
-			<div class="form_item"><div class="form_item_group submit_group"><button onclick="changePage('register.htm');">Register</button></div></div>
+			<div class="form_item"><div class="form_item_group submit_group"><button onclick="changePage('register');">Register</button></div></div>
 			<div class="align_center"><span class="error_message" id="error_text"></span></div>
 		</div>
 
@@ -112,10 +112,6 @@
 					final_page = "/Users/robbi/OneDrive/Cart%20Scheduler/" + page;
 				} else {
 					final_page = "/" + page;
-				}
-
-				if (!final_page.includes(".")) {
-					final_page = final_page + ".htm";
 				}
 
 				window.location = final_page;
