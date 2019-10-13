@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<title>Delete User | Cart Chart</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/css/icons.css">
+	</head>
+
+	<body>
+		<div class="form">
+			<h2 class="title">Delete A User</h2>
+			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_mail"></span></span><input class="form_item" type="email" name="email" id="email" placeholder="Email"></div></div>
+			<div class="form_item"><div class="form_item_group submit_group"><button class="submit" onclick="delete_user();">Invite</button></div></div>
+			<div class="align_center"><span class="error_message" id="error_text"></span></div>
+		</div>
+
+		<!-- Firebase Scripts -->
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+		<script>
+		  // Your web app's Firebase configuration
+		  var firebaseConfig = {
+		    apiKey: "AIzaSyDccM8NijKEohOCjqGQ0ikeyMpf8kI3tz4",
+		    authDomain: "jw-cart-scheduler.firebaseapp.com",
+		    databaseURL: "https://jw-cart-scheduler.firebaseio.com",
+		    projectId: "jw-cart-scheduler",
+		    storageBucket: "jw-cart-scheduler.appspot.com",
+		    messagingSenderId: "88108065951",
+		    appId: "1:88108065951:web:17aa36f528d6db6977aeaa",
+		    measurementId: "G-8J2DPL43FW"
+		  };
+
+		  // Initialize Firebase
+		  firebase.initializeApp(firebaseConfig);
+		  firebase.analytics();
+			var database = firebase.database();
+		</script>
+
+		<!-- General Scripts -->
+		<script>
+			// Show / Hide Password
+			function show_hide_password() {
+				var show_password_checkbox = document.getElementById("show_password");
+				var password_input = document.getElementById("password");
+				if(show_password_checkbox.checked == true) {
+					password_input.type="text"
+				} else {
+					password_input.type="password"
+				}
+			}
+
+      function delete_user() {
+        firebase.auth().getUserByEmail(email).then(function(userRecord) {
+          console.log("Successfully fetched user data:", userRecord.toJSON());
+        }).catch(function(error) {
+          console.log("Error fetching user data:", error);
+        });
+      }
+
+		</script>
+
+		<script src="inputs.js"></script>
+
+	</body>
+</html>
