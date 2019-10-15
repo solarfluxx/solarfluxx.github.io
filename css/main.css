@@ -93,6 +93,11 @@ input.form_item {
   width: 100%;
 }
 
+input.form_item:last-child {
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+}
+
 span.form_item_extra {
   border-width: 1px;
   border-style: solid;
