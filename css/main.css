@@ -27,6 +27,10 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+button:focus {
+  outline:0;
+}
+
 div.align_center {
   text-align: center;
 }
