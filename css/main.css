@@ -24,6 +24,7 @@ button {
   border-color: #ccc;
   float: right;
   transition: all 100ms ease-in;
+  -webkit-tap-highlight-color: transparent;
 }
 
 div.align_center {
@@ -32,10 +33,6 @@ div.align_center {
 
 button:hover {
   border-color: #e6e6e6;
-}
-
-button:active {
-  background-color: yellow;
 }
 
 button.submit {
