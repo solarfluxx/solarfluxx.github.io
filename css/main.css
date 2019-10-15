@@ -94,15 +94,15 @@ input.form_item {
 }
 
 input.form_item:last-child {
-  border-top-right-radius: 100px;
-  border-bottom-right-radius: 100px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 
 span.form_item_extra {
   border-width: 1px;
   border-style: solid;
   border-color: #d3d7d7;
-  border-radius: 100px;
+  border-radius: 3px;
   padding: 12px;
   width: 1%;
   display: table;
