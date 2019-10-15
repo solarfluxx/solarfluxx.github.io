@@ -31,6 +31,10 @@ button:focus {
   outline:0;
 }
 
+button:active {
+  box-shadow: inset 0px 2px 1px 0px #0000001a;
+}
+
 div.align_center {
   text-align: center;
 }
