@@ -124,4 +124,8 @@ span.form_item_extra:last-child {
   div.form_item_group {
     width: 100%;
   }
+
+  .form {
+    width: 0;
+  }
 }
