@@ -126,6 +126,6 @@ span.form_item_extra:last-child {
   }
 
   .form {
-    width: 0;
+    width: unset;
   }
 }
