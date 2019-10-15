@@ -124,6 +124,10 @@ input.form_item_extra {
   height: 100%;
 }
 
+input[type="checkbox"].form_item_extra {
+  margin-top: 1px;
+}
+
 span.form_item_extra:first-child {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
