@@ -24,6 +24,13 @@ var database = firebase.database();
 function changePage(page) {
   var offline = window.location.href;
   var final_page;
-  if (offline.includes("file:///")) final_page = "/Users/robbi/OneDrive/Cart%20Scheduler/" + page; else final_page = "/" + page;
+  if (offline.includes("file:///")) {
+    final_page = "/Users/robbi/OneDrive/Documents/GitHub/solarfluxx.github.io/" + page;
+    final_page = final_page + ".html";
+  } else final_page = "/" + page;
   window.location = final_page;
+}
+
+function logout() {
+  firebase.auth().signOut();
 }

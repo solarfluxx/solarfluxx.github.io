@@ -1,6 +1,6 @@
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-    // User is signed in.
+    console.log("User is signed in");
     var displayName = user.displayName;
     var email = user.email;
     var emailVerified = user.emailVerified;
@@ -8,9 +8,10 @@ firebase.auth().onAuthStateChanged(function(user) {
     var isAnonymous = user.isAnonymous;
     var uid = user.uid;
     var providerData = user.providerData;
-    // ...
   } else {
-    // User is signed out.
-    // ...
+    console.log("User is not signed in");
+    if (window.location.host == "") {
+      changePage("index");
+    }
   }
 });
