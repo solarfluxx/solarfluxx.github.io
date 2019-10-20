@@ -93,3 +93,9 @@ div.heading:last-child {
 .heading_icon:hover {
   color: white;
 }
+
+@media only screen and (max-width:400px) {
+  .heading_text {
+    font-size: 0.8em;
+  }
+}
