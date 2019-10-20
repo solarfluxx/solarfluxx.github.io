@@ -3,7 +3,7 @@ body {
   font-family: "Open Sans";
 }
 
-button {
+button.btn {
   display: inline-block;
   padding: 6px 12px;
   margin-bottom: 0;
@@ -26,31 +26,31 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-button:focus {
+button.btn:focus {
   outline:0;
 }
 
-button:active {
+button.btn:active {
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.125);
 }
 
-div.align_center {
-  text-align: center;
-}
-
-button:hover {
+button.btn:hover {
   border-color: #e6e6e6;
 }
 
-button.submit {
+button.btn.submit {
   color: white;
   background-color: #da893b;
   border-color: #da893b;
 }
 
-button.submit:hover {
+button.btn.submit:hover {
   background-color: #e0a35d;
   border-color: #e0a35d;
+}
+
+div.align_center {
+  text-align: center;
 }
 
 .navbar {
@@ -64,6 +64,7 @@ button.submit:hover {
   display: flex;
   padding-right: 10px;
   padding-left: 10px;
+  z-index: 10;
 }
 
 .heading_text {
@@ -73,6 +74,7 @@ button.submit:hover {
   color: white;
   align-self: center;
   padding-bottom: 2px;
+  font-weight: 400;
 }
 
 div.heading:last-child {

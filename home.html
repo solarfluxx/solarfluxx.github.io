@@ -3,8 +3,10 @@
 	<head>
 		<title>Home | Cart Chart</title>
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/home.css">
 		<link rel="stylesheet" type="text/css" href="css/icons.css">
+		<link rel="stylesheet" type="text/css" href="css/calendar.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 
@@ -19,9 +21,55 @@
       </div>
     </div>
 
-    <div>
-      <h2>My upcoming shifts:</h2>
-    </div>
+		<div>
+			<div class="calendar-container">
+			  <div class="calendar-header">
+			    <h1>
+			      <button>October ▾</button>
+			    </h1>
+			    <p id="year"></p>
+			  </div>
+			  <div class="calendar" id="calendar"><span class="day-name">Sun</span><span class="day-name">Mon</span><span class="day-name">Tue</span><span class="day-name">Wed</span><span class="day-name">Thu</span><span class="day-name">Fri</span><span class="day-name">Sat</span>
+			    <div class="day day--disabled"></div>
+			    <div class="day day--disabled"></div>
+			    <div class="day">1</div>
+			    <div class="day">2</div>
+			    <div class="day">3</div>
+			    <div class="day">4</div>
+			    <div class="day">5</div>
+			    <div class="day">6</div>
+			    <div class="day">7</div>
+			    <div class="day">8</div>
+			    <div class="day">9</div>
+			    <div class="day">10</div>
+			    <div class="day">11</div>
+			    <div class="day">12</div>
+			    <div class="day">13</div>
+			    <div class="day">14</div>
+			    <div class="day">15</div>
+			    <div class="day">16</div>
+			    <div class="day">17</div>
+			    <div class="day">18</div>
+			    <div class="day">19</div>
+			    <div class="day">20</div>
+			    <div class="day">21</div>
+			    <div class="day">22</div>
+			    <div class="day">23</div>
+			    <div class="day">24</div>
+			    <div class="day">25</div>
+			    <div class="day">26</div>
+			    <div class="day">27</div>
+			    <div class="day">28</div>
+			    <div class="day">29</div>
+			    <div class="day">30</div>
+			    <div class="day">31</div>
+			    <div class="day day--disabled"></div>
+			    <div class="day day--disabled"></div>
+			  </div>
+			</div>
+		</div>
+
+		<footer></footer>
 
 		<!-- Firebase Scripts -->
 		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
@@ -30,6 +78,79 @@
 		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-database.js"></script>
 		<script src="main.js"></script>
 		<script src="auth.js"></script>
+		<script>
+			var container = document.getElementById('calendar');
+			var items = container.getElementsByClassName('day');
+
+			for (i = 0; i < items.length; i++) {
+			  if (i == 9) {
+					createAccept(i, "2");
+					createDecline(i, "4");
+					createUnconfirm(i, "2");
+					items[i].setAttribute("class", "day has-info");
+				}
+
+				if (i == 24) {
+					createAccept(i, "5");
+					// createDecline(i, "2");
+					createUnconfirm(i, "7");
+					items[i].setAttribute("class", "day has-info");
+				}
+			}
+
+			function compact() {
+				for (i = 0; i < items.length; i++) {
+				  if (!items[i].classList.contains("has-info")) {
+						items[i].style.setProperty("transition", "all 500ms ease 400ms, opacity 500ms ease 0s");
+						items[i].style.setProperty("padding", "0");
+						items[i].style.setProperty("opacity", "0");
+						items[i].style.setProperty("height", "0");
+					}
+				}
+			}
+
+			function expand() {
+				for (i = 0; i < items.length; i++) {
+				  if (!items[i].classList.contains("has-info")) {
+						items[i].style.setProperty("transition", "all 500ms ease 0s, opacity 500ms ease 400ms");
+						items[i].style.setProperty("padding", "");
+						items[i].style.setProperty("opacity", "");
+						items[i].style.setProperty("height", "");
+					}
+				}
+			}
+
+			function createAccept(item, count) {
+				var secL = document.createElement("section");
+				var secS = document.createElement("section");
+				secL.setAttribute("class", "task accept large");
+				secS.setAttribute("class", "task accept small");
+				secL.innerHTML = count + " Accepted";
+				secS.innerHTML = count;
+				items[item].appendChild(secL);
+				items[item].appendChild(secS);
+			}
+			function createDecline(item, count) {
+				var secL = document.createElement("section");
+				var secS = document.createElement("section");
+				secL.setAttribute("class", "task decline large");
+				secS.setAttribute("class", "task decline small");
+				secL.innerHTML = count + " Declined";
+				secS.innerHTML = count;
+				items[item].appendChild(secL);
+				items[item].appendChild(secS);
+			}
+			function createUnconfirm(item, count) {
+				var secL = document.createElement("section");
+				var secS = document.createElement("section");
+				secL.setAttribute("class", "task unconfirm large");
+				secS.setAttribute("class", "task unconfirm small");
+				secL.innerHTML = count + " Unconfirmed";
+				secS.innerHTML = count;
+				items[item].appendChild(secL);
+				items[item].appendChild(secS);
+			}
+		</script>
 
 	</body>
 </html>
