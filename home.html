@@ -25,7 +25,7 @@
 			<div class="calendar-container">
 			  <div class="calendar-header">
 			    <h1>
-			      <button>October ▾</button>
+			      <button onclick="toggle();">October ▾</button>
 			    </h1>
 			    <p id="year"></p>
 			  </div>
@@ -79,6 +79,8 @@
 		<script src="main.js"></script>
 		<script src="auth.js"></script>
 		<script>
+			var compactState = false;
+
 			var container = document.getElementById('calendar');
 			var items = container.getElementsByClassName('day');
 
@@ -98,7 +100,12 @@
 				}
 			}
 
+			function toggle() {
+				if (compactState == false) compact(); else expand();
+			}
+
 			function compact() {
+				compactState = true;
 				for (i = 0; i < items.length; i++) {
 				  if (!items[i].classList.contains("has-info")) {
 						items[i].style.setProperty("transition", "all 500ms ease 400ms, opacity 500ms ease 0s");
@@ -110,6 +117,7 @@
 			}
 
 			function expand() {
+				compactState = false;
 				for (i = 0; i < items.length; i++) {
 				  if (!items[i].classList.contains("has-info")) {
 						items[i].style.setProperty("transition", "all 500ms ease 0s, opacity 500ms ease 400ms");
