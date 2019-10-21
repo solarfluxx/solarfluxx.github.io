@@ -20,6 +20,8 @@ firebase.auth().onAuthStateChanged(function(user) {
   } else {
     if (window.location.host == "") {
       changePage("index");
+    } else {
+      changePage("");
     }
   }
 });
