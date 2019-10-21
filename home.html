@@ -24,10 +24,10 @@
 		<div>
 			<div class="calendar-container">
 			  <div class="calendar-header">
+					<button class="compact" onclick="toggle();"><span id="compact" class="arrow_condense"></span></button>
 			    <h1>
 			      <button>October ▾</button>
 			    </h1>
-			    <button onclick="toggle();"><span class="arrow_condense"></span></button>
 			    <p id="year"></p>
 			  </div>
 			  <div class="calendar" id="calendar"><span class="day-name">Sun</span><span class="day-name">Mon</span><span class="day-name">Tue</span><span class="day-name">Wed</span><span class="day-name">Thu</span><span class="day-name">Fri</span><span class="day-name">Sat</span>
@@ -102,7 +102,14 @@
 			}
 
 			function toggle() {
-				if (compactState == false) compact(); else expand();
+				var compact_icon = document.getElementById("compact");
+				if (compactState == false) {
+					compact_icon.setAttribute("class", "arrow_expand");
+					compact();
+				} else {
+					compact_icon.setAttribute("class", "arrow_condense");
+					expand();
+				}
 			}
 
 			function compact() {

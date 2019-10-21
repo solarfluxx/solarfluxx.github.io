@@ -42,6 +42,7 @@ body {
   color: rgba(81,86,93,0.7);
   cursor: pointer;
   outline: 0;
+  transition: all 100ms ease 0s;
 }
 .calendar-header button:hover {
   color: black;
@@ -206,6 +207,11 @@ body {
   margin-bottom: 0;
   font-weight: 500;
   color: rgba(81,86,93,0.7);
+}
+.compact {
+  float: left;
+  margin-left: 20px;
+  font-size: 20px;
 }
 
 @media only screen and (max-width:1300px) {
