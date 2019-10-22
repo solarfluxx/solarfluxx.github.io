@@ -19,7 +19,6 @@ var secondaryApp = firebase.initializeApp(config, "Secondary");
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
-var database = firebase.database();
 
 function changePage(page) {
   var offline = window.location.href;

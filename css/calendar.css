@@ -59,7 +59,15 @@ body {
   position: relative;
   pointer-events: none;
   z-index: 1;
+}
+.day.hide {
   transition: all 500ms ease 400ms, opacity 500ms ease 0s;
+  padding: 0;
+  opacity: 0;
+  height: 0;
+}
+.day.show {
+  transition: all 500ms ease 0s, opacity 500ms ease 400ms;
 }
 .day:nth-of-type(7n + 7) {
   border-right: 0;
@@ -212,7 +220,9 @@ body {
   float: left;
   margin-left: 20px;
   font-size: 20px;
+  display: none;
 }
+
 
 @media only screen and (max-width:1300px) {
   .task {
@@ -229,9 +239,6 @@ body {
   }
   .task {
     font-size: 12px;
-  }
-  .day {
-    text-align: -webkit-right;
   }
 }
 
@@ -257,5 +264,8 @@ body {
   }
   .day.has-info {
     height: unset;
+  }
+  .compact {
+    display: unset;
   }
 }

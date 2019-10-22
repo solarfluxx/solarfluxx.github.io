@@ -63,32 +63,19 @@
 					}
 
 				});
-				checkStatus();
 			}
 
-			function checkStatus() {
-				firebase.auth().onAuthStateChanged(function(user) {
-					if (user) {
-					  // User is signed in.
-					  var displayName = user.displayName;
-					  var email = user.email;
-					  var emailVerified = user.emailVerified;
-					  var photoURL = user.photoURL;
-					  var isAnonymous = user.isAnonymous;
-					  var uid = user.uid;
-					  var providerData = user.providerData;
-						setError("");
-						changePage("home");
-					} else {
-					  // User is signed out.
-					  // ...
-					}
-				});
+			function UserIsLoggedIn(data) {
+				setError("");
+				changePage("home");
 			}
+
+			function UserIsLoggedOut() {}
 
 		</script>
 
 		<script src="inputs.js"></script>
+		<script src="user.js"></script>
 
 	</body>
 </html>
