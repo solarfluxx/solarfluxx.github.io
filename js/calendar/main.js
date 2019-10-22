@@ -1,6 +1,10 @@
 var calendar = {
-  container: "",
+  container: "text",
   items: [],
+  date: {
+    full: new Date(),
+    year: this.calendar
+  },
   populate: function(date) {
     var days_in_month = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
     for (i = 1; i <= days_in_month; i++) {
