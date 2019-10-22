@@ -1,12 +1,12 @@
-var compactState = false;
+var compact_state = false;
 
 function toggle() {
-  if (compactState == false) compact(); else expand(true);
+  if (compact_state == false) compact(); else expand(true);
 }
 
 function compact() {
-  compact_icon.setAttribute("class", "arrow_expand");
-  compactState = true;
+  icon_compact.setAttribute("class", "arrow_expand");
+  compact_state = true;
   for (i = 0; i < items.length; i++) {
     if (!items[i].classList.contains("has-info") && !items[i].classList.contains("day--disabled")) {
       items[i].setAttribute("class", "day hide");
@@ -15,8 +15,8 @@ function compact() {
 }
 
 function expand(animation) {
-  compact_icon.setAttribute("class", "arrow_condense");
-  compactState = false;
+  icon_compact.setAttribute("class", "arrow_condense");
+  compact_state = false;
   for (i = 0; i < items.length; i++) {
     if (!items[i].classList.contains("has-info") && !items[i].classList.contains("day--disabled")) {
       if (animation) {
