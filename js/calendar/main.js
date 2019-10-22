@@ -1,6 +1,16 @@
 var calendar = {
+  container: "",
   items: [],
-  populate: function() {
+  populate: function(date) {
+    var days_in_month = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
+    for (i = 1; i <= days_in_month; i++) {
+      var div = document.createElement("div");
+      div.setAttribute("class", "day");
+      div.innerHTML = i;
+      calendar.container.appendChild(div);
+    }
+  },
+  populateShifts: function() {
     for (i = 0; i < this.items.length; i++) {
       if (i == 9) {
         // createAccept(i, "2");

@@ -69,6 +69,9 @@ body {
 .day.show {
   transition: all 500ms ease 0s, opacity 500ms ease 400ms;
 }
+.day.current {
+  background-color: #ffa0003d;
+}
 .day:nth-of-type(7n + 7) {
   border-right: 0;
 }

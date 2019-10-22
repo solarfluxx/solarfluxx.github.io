@@ -11,7 +11,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     var first_name = "";
     var last_name = "";
 
-    firebase.database().ref('users/' + "l0yb3SGxsFajmC2LrHyJmxNClJu2").once('value').then(function(snapshot) {
+    firebase.database().ref('users/' + uid).once('value').then(function(snapshot) {
       first_name = snapshot.val().firstname;
       last_name = snapshot.val().lastname;
       document.getElementById("dynamic_name").innerHTML = first_name + " " + last_name;
