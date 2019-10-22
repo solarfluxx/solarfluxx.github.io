@@ -24,7 +24,7 @@ function changePage(page) {
   var offline = window.location.href;
   var final_page;
   if (offline.includes("file:///")) {
-    final_page = "/Users/robbi/OneDrive/Documents/GitHub/solarfluxx.github.io/" + page;
+    final_page = "/GitHub/solarfluxx.github.io/" + page;
     final_page = final_page + ".html";
   } else final_page = "/" + page;
   window.location = final_page;

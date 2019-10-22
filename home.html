@@ -83,10 +83,9 @@
 		<script src="js/calendar/main.js"></script>
 		<script src="js/calendar/compact.js"></script>
 		<script>
-			var icon_compact = document.getElementById("compact"),
-			container = document.getElementById('calendar'),
-			items = container.getElementsByClassName('day');
+			var icon_compact = document.getElementById("compact");
 
+			calendar.items = document.getElementById('calendar').getElementsByClassName('day');
 			calendar.populate();
 		</script>
 

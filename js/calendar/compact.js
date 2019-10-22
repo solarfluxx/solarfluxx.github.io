@@ -7,9 +7,9 @@ function toggle() {
 function compact() {
   icon_compact.setAttribute("class", "arrow_expand");
   compact_state = true;
-  for (i = 0; i < items.length; i++) {
-    if (!items[i].classList.contains("has-info") && !items[i].classList.contains("day--disabled")) {
-      items[i].setAttribute("class", "day hide");
+  for (i = 0; i < calendar.items.length; i++) {
+    if (!calendar.items[i].classList.contains("has-info") && !calendar.items[i].classList.contains("day--disabled")) {
+      calendar.items[i].setAttribute("class", "day hide");
     }
   }
 }
@@ -17,12 +17,12 @@ function compact() {
 function expand(animation) {
   icon_compact.setAttribute("class", "arrow_condense");
   compact_state = false;
-  for (i = 0; i < items.length; i++) {
-    if (!items[i].classList.contains("has-info") && !items[i].classList.contains("day--disabled")) {
+  for (i = 0; i < calendar.items.length; i++) {
+    if (!calendar.items[i].classList.contains("has-info") && !calendar.items[i].classList.contains("day--disabled")) {
       if (animation) {
-        items[i].setAttribute("class", "day show");
+        calendar.items[i].setAttribute("class", "day show");
       } else {
-        items[i].setAttribute("class", "day");
+        calendar.items[i].setAttribute("class", "day");
       }
     }
   }
