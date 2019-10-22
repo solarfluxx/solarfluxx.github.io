@@ -1,16 +1,20 @@
-for (i = 0; i < items.length; i++) {
-  if (i == 9) {
-    createAccept(i, "2");
-    createDecline(i, "4");
-    createUnconfirm(i, "2");
-    items[i].setAttribute("class", "day has-info");
-  }
+var calendar = {
+  populate: function() {
+    for (i = 0; i < items.length; i++) {
+      if (i == 9) {
+        createAccept(i, "2");
+        createDecline(i, "4");
+        createUnconfirm(i, "2");
+        items[i].setAttribute("class", "day has-info");
+      }
 
-  if (i == 24) {
-    createAccept(i, "5");
-    // createDecline(i, "2");
-    createUnconfirm(i, "7");
-    items[i].setAttribute("class", "day has-info");
+      if (i == 24) {
+        createAccept(i, "5");
+        // createDecline(i, "2");
+        createUnconfirm(i, "7");
+        items[i].setAttribute("class", "day has-info");
+      }
+    }
   }
 }
 
