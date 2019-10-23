@@ -1,9 +1,12 @@
 var calendar = {
   container: "text",
   items: [],
+  items2: "",
   date: {
     full: new Date(),
-    year: this.calendar
+    year: new Date().getFullYear(),
+    month: new Date().getMonth()+1,
+    day: new Date().getDate()
   },
   populate: function(date) {
     var days_in_month = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
@@ -13,6 +16,8 @@ var calendar = {
       div.innerHTML = i;
       calendar.container.appendChild(div);
     }
+    calendar.items = calendar.container.getElementsByClassName('day');
+    calendar.allitems = calendar.container.getElementsByTagName("div");
   },
   populateShifts: function() {
     for (i = 0; i < this.items.length; i++) {
