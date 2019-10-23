@@ -264,6 +264,7 @@ body {
   .calendar {
     display: block;
     text-align: center;
+    background: white;
   }
   .day-name {
     display: none;
