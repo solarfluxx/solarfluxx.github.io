@@ -128,7 +128,6 @@ body {
 }
 .day--disabled {
   border-bottom: 1px solid rgba(166,168,179,0.12);
-  border-right: 1px solid rgba(166,168,179,0.12);
   text-align: right;
   padding: 14px 20px;
   letter-spacing: 1px;

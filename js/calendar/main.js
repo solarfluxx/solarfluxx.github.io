@@ -35,9 +35,12 @@ var calendar = {
     for (var i = calendar.allitems.length - 1; i >= 0; --i) {
       calendar.allitems[i].remove();
     }
-    for (i = 0; i < date.first; i++) {
+    for (i = 1; i <= date.first; i++) {
       var div = document.createElement("div");
       div.setAttribute("class", "day--disabled");
+      if (i == date.first) {
+        div.style.setProperty("border-right", "1px solid rgba(166,168,179,0.12)");
+      }
       calendar.container.appendChild(div);
     }
     for (i = 1; i <= date.days; i++) {
