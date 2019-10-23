@@ -9,8 +9,11 @@ function compact() {
   compact_state = true;
   for (i = 0; i < calendar.items.length; i++) {
     if (!calendar.items[i].classList.contains("has-info") && !calendar.items[i].classList.contains("day--disabled")) {
-      calendar.items[i].setAttribute("class", "day hide");
-    }
+      if (calendar.items[i].getAttribute("class").includes("current")) {
+        calendar.items[i].setAttribute("class", "day current hide");
+      } else {
+        calendar.items[i].setAttribute("class", "day hide");}
+      }
   }
 }
 
@@ -20,9 +23,17 @@ function expand(animation) {
   for (i = 0; i < calendar.items.length; i++) {
     if (!calendar.items[i].classList.contains("has-info") && !calendar.items[i].classList.contains("day--disabled")) {
       if (animation) {
-        calendar.items[i].setAttribute("class", "day show");
+        if (calendar.items[i].getAttribute("class").includes("current")) {
+          calendar.items[i].setAttribute("class", "day current show");
+        } else {
+          calendar.items[i].setAttribute("class", "day show");
+        }
       } else {
-        calendar.items[i].setAttribute("class", "day");
+        if (calendar.items[i].getAttribute("class").includes("current")) {
+          calendar.items[i].setAttribute("class", "day current");
+        } else {
+          calendar.items[i].setAttribute("class", "day");
+        }
       }
     }
   }

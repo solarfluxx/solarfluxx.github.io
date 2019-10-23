@@ -26,16 +26,11 @@
 			  <div class="calendar-header">
 					<button class="compact" onclick="toggle();"><span id="compact" class="arrow_condense"></span></button>
 			    <h1>
-			      <button>October ▾</button>
+			      <button id="month_button">October ▾</button>
 			    </h1>
 			    <p id="year"></p>
 			  </div>
-			  <div class="calendar" id="calendar"><span class="day-name">Sun</span><span class="day-name">Mon</span><span class="day-name">Tue</span><span class="day-name">Wed</span><span class="day-name">Thu</span><span class="day-name">Fri</span><span class="day-name">Sat</span>
-			    <div class="day--disabled"></div>
-			    <div class="day--disabled"></div>
-			    <!-- <div class="day day--disabled"></div>
-			    <div class="day day--disabled"></div> -->
-			  </div>
+			  <div class="calendar" id="calendar"><span class="day-name">Sun</span><span class="day-name">Mon</span><span class="day-name">Tue</span><span class="day-name">Wed</span><span class="day-name">Thu</span><span class="day-name">Fri</span><span class="day-name">Sat</span></div>
 			</div>
 		</div>
 
@@ -55,8 +50,7 @@
 			var icon_compact = document.getElementById("compact");
 
 			calendar.container = document.getElementById('calendar');
-			calendar.populate(calendar.date.full);
-			calendar.populateShifts();
+			calendar.populate();
 		</script>
 
 	</body>

@@ -9,6 +9,7 @@ body {
   grid-template-columns: repeat(7, minmax(120px, 1fr));
   grid-template-rows: 50px;
   grid-auto-rows: 160px;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f9f9fa' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
 }
 .calendar-container {
   width: 90%;
@@ -55,10 +56,11 @@ body {
   letter-spacing: 1px;
   font-size: 12px;
   box-sizing: border-box;
-  color: #98a0a6;
+  color: #4b5055;
   position: relative;
   pointer-events: none;
   z-index: 1;
+  background-color: white;
 }
 .day.hide {
   transition: all 500ms ease 400ms, opacity 500ms ease 0s;
@@ -70,7 +72,7 @@ body {
   transition: all 500ms ease 0s, opacity 500ms ease 400ms;
 }
 .day.current {
-  background-color: #ffa0003d;
+  color: #ff9c00;
 }
 .day:nth-of-type(7n + 7) {
   border-right: 0;
@@ -114,11 +116,15 @@ body {
 .day-name {
   font-size: 12px;
   text-transform: uppercase;
-  color: #99a1a7;
+  color: #a7a099;
   text-align: center;
   border-bottom: 1px solid rgba(166,168,179,0.12);
   line-height: 50px;
   font-weight: 500;
+  background-color: white;
+}
+.day-name.current {
+  color: #ff9c00;
 }
 .day--disabled {
   border-bottom: 1px solid rgba(166,168,179,0.12);
@@ -133,8 +139,6 @@ body {
   pointer-events: none;
   z-index: 1;
   color: rgba(152,160,166,0.6);
-  background-color: #fff;
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f9f9fa' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
   cursor: not-allowed;
 }
 .task {
