@@ -74,6 +74,8 @@ body {
   padding: 0;
   opacity: 0;
   height: 0;
+  margin: 0;
+  border: none;
 }
 .day.show {
   transition: all 500ms ease 0s, opacity 500ms ease 400ms;
@@ -146,6 +148,29 @@ body {
   z-index: 1;
   color: rgba(152,160,166,0.6);
   cursor: not-allowed;
+}
+.day .day-text {
+  display: flex;
+}
+.day .short {
+  display: block;
+  margin: 0;
+  width: 100%;
+}
+.day .long {
+  display: none;
+  margin: 0;
+  width: 50%;
+  text-align: left;
+}
+.day.hide .long {
+  transition: all 500ms ease 400ms, opacity 500ms ease 0s;
+  padding: 0;
+  opacity: 0;
+  height: 0;
+}
+.day.show .long {
+  transition: all 500ms ease 0s, opacity 500ms ease 400ms;
 }
 .task {
   border-left-width: 3px;
@@ -280,6 +305,12 @@ body {
   }
   .day {
     height: 44px;
+  }
+  .day .short {
+    width: 50%;
+  }
+  .day .long {
+    display: block;
   }
   .task.large {
     display: block;

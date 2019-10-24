@@ -2,6 +2,9 @@ const getMonthName = [
   "January", "February", "March", "April", "May", "June", "July",
   "August", "September", "October", "November", "December"
 ];
+const getDayName = [
+  "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+];
 
 var date = {
   full: new Date(),
@@ -44,22 +47,23 @@ var calendar = {
       calendar.container.appendChild(div);
     }
     for (i = 1; i <= date.days; i++) {
+      var day = document.createElement("div");
       var div = document.createElement("div");
-      if (i == date.day) {
-        div.setAttribute("class", "day current");
-      } else {
-        div.setAttribute("class", "day");
-      }
-      div.innerHTML = i;
-      calendar.container.appendChild(div);
-    }
-    var leftover = 7 - calendar.allitems.length % 7;
-    if (leftover < 7) {
-      for (i = 0; i < leftover; i++) {
-        var div = document.createElement("div");
-        div.setAttribute("class", "day--disabled");
-        calendar.container.appendChild(div);
-      }
+      var day_number = document.createElement("p");
+      var day_name = document.createElement("p");
+
+      if (i == date.day) day.setAttribute("class", "day current"); else day.setAttribute("class", "day");
+      div.setAttribute("class", "day-text");
+      day_number.setAttribute("class", "short");
+      day_name.setAttribute("class", "long");
+
+      day_number.innerHTML = i;
+      day_name.innerHTML = getDayName[new Date(date.year, date.month, i).getDay()];
+
+      div.appendChild(day_name);
+      div.appendChild(day_number);
+      day.appendChild(div);
+      calendar.container.appendChild(day);
     }
     document.getElementById("month_button").innerHTML = getMonthName[date.month] + " ▾"
 
@@ -75,9 +79,9 @@ var calendar = {
   populateShifts: function() {
     for (i = 0; i < this.items.length; i++) {
       if (i == 9) {
-        calendar.createItem.accept(i, "2");
-        calendar.createItem.decline(i, "4");
-        calendar.createItem.unconfirm(i, "2");
+        calendar.createShift.accept(i, "2");
+        calendar.createShift.decline(i, "4");
+        calendar.createShift.unconfirm(i, "2");
         if (calendar.items[i].getAttribute("class").includes("current")) {
           this.items[i].setAttribute("class", "day current has-info");
         } else {
@@ -90,7 +94,44 @@ var calendar = {
     calendar.populateDates();
     calendar.populateShifts();
   },
-  createItem: {
+  deleteShift: {
+    all: function(day) {
+      if (day == null) return "Please enter a day";
+      var shifts = calendar.items[day].getElementsByClassName("task");
+      for (var i = shifts.length - 1; i >= 0; --i) {
+        shifts[i].remove();
+      }
+    }
+  },
+  editShift: {
+    all: function(day, accept_count, decline_count, unconfirm_count) {
+      if (day == null) return "Please enter a day";
+      if (accept_count == null) return "Please enter accept count, set to 0 for none";
+      if (decline_count == null) return "Please enter decline count, set to 0 for none";
+      if (unconfirm_count == null) return "Please enter unconfirm count, set to 0 for none";
+      if (accept_count == 0) calendar.items[day].getElementsByClassName("task accept")[0].remove();
+      if (decline_count == 0) calendar.items[day].getElementsByClassName("task decline")[0].remove();
+      if (unconfirm_count == 0) calendar.items[day].getElementsByClassName("task unconfirm")[0].remove();
+
+      if (accept_count != 0) calendar.items[day].getElementsByClassName("task accept large")[0].innerHTML = accept_count + " Accepted";
+      if (accept_count != 0) calendar.items[day].getElementsByClassName("task accept small")[0].innerHTML = accept_count;
+      if (decline_count != 0) calendar.items[day].getElementsByClassName("task decline large")[0].innerHTML = decline_count + " Declined";
+      if (decline_count != 0) calendar.items[day].getElementsByClassName("task decline small")[0].innerHTML = decline_count;
+      if (unconfirm_count != 0) calendar.items[day].getElementsByClassName("task unconfirm large")[0].innerHTML = unconfirm_count + " Unconfirmed";
+      if (unconfirm_count != 0) calendar.items[day].getElementsByClassName("task unconfirm small")[0].innerHTML = unconfirm_count;
+    }
+  },
+  createShift: {
+    all: function(day, accept_count, decline_count, unconfirm_count) {
+      if (day == null) return "Please enter a day";
+      if (accept_count == null) return "Please enter accept count, set to 0 for none";
+      if (decline_count == null) return "Please enter decline count, set to 0 for none";
+      if (unconfirm_count == null) return "Please enter unconfirm count, set to 0 for none";
+
+      if (accept_count != 0) calendar.createShift.accept(day, accept_count);
+      if (decline_count != 0) calendar.createShift.decline(day, decline_count);
+      if (unconfirm_count != 0) calendar.createShift.unconfirm(day, unconfirm_count);
+    },
     accept: function(item, count) {
       var secL = document.createElement("section");
       var secS = document.createElement("section");
