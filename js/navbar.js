@@ -26,6 +26,10 @@ navbar.toggle = function() {
   }
 }
 
+if ($(window).width() < 950) {
+  navbar.compact(true);
+}
+
 $(window).resize(function() {
   if ($(window).width() < 950) {
     navbar.compact(true);
