@@ -18,3 +18,16 @@ cc-navbar div.main {
   top: inherit;
   overflow-x: hidden;
 }
+
+@media only screen and (max-width:950px) {
+  cc-navbar {
+    transition: unset;
+  }
+  .navbar .title {
+    transition: unset;
+  }
+
+  .main_container {
+    transition: unset;
+  }
+}
