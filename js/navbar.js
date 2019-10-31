@@ -8,8 +8,8 @@ var navbar = {
   toggle: null
 }
 
-navbar.compact = function() {
-  root.style.setProperty('--navbar-width', "68px");
+navbar.compact = function(full) {
+  if (full) root.style.setProperty('--navbar-width', 0); else root.style.setProperty('--navbar-width', "68px");
 }
 
 navbar.expand = function() {
@@ -18,10 +18,16 @@ navbar.expand = function() {
 
 navbar.toggle = function() {
   if (togglenavbar) {
-    navbar.compact();
+    navbar.compact(false);
     togglenavbar = false;
   } else {
     navbar.expand();
     togglenavbar = true;
   }
 }
+
+$(window).resize(function() {
+  if ($(window).width() < 950) {
+    navbar.compact(true);
+  }
+});
