@@ -21,9 +21,12 @@ date.days = new Date(date.year, date.month+1, 0).getDate();
 date.first = new Date(date.year, date.month, 1).getDay();
 
 var calendar = {
-  container: "text",
+  container: null,
   items: [],
   allitems: [],
+  firebase: {
+    getShifts: null
+  },
   setDate: function(inputDate) {
     date.full = inputDate;
     date.year = date.full.getFullYear();
@@ -52,7 +55,8 @@ var calendar = {
       var day_number = document.createElement("p");
       var day_name = document.createElement("p");
 
-      if (i == date.day) day.setAttribute("class", "day current"); else day.setAttribute("class", "day");
+      day.setAttribute("class", "day");
+      if (i == date.day) $(day).addClass("current selected");
       div.setAttribute("class", "day-text");
       day_number.setAttribute("class", "short");
       day_name.setAttribute("class", "long");
@@ -82,11 +86,12 @@ var calendar = {
         calendar.createShift.accept(i, "2");
         calendar.createShift.decline(i, "4");
         calendar.createShift.unconfirm(i, "2");
-        if (calendar.items[i].getAttribute("class").includes("current")) {
-          this.items[i].setAttribute("class", "day current has-info");
-        } else {
-          this.items[i].setAttribute("class", "day has-info");
-        }
+        // if (calendar.items[i].getAttribute("class").includes("current")) {
+        //   this.items[i].setAttribute("class", "day current has-info");
+        // } else {
+        //   this.items[i].setAttribute("class", "day has-info");
+        // }
+        $(this.items[i]).addClass("has-info");
       }
     }
   },
@@ -164,3 +169,8 @@ var calendar = {
     }
   }
 }
+
+$('.day').click(function() {
+  $('.day').removeClass('selected');
+  $(this).addClass('selected');
+});

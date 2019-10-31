@@ -33,3 +33,13 @@ function changePage(page) {
 function logout() {
   firebase.auth().signOut();
 }
+
+$(window).scroll(function() {
+    var scroll = $(window).scrollTop();
+    if (scroll > 0) {
+        $(".navbar").addClass("shadow");
+    }
+    else {
+        $(".navbar").removeClass("shadow");
+    }
+});

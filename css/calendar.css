@@ -1,5 +1,4 @@
 body {
-  padding: 40px 0;
   box-sizing: border-box;
   font-family: Montserrat, "sans-serif";
   -webkit-touch-callout: none;
@@ -65,9 +64,20 @@ body {
   box-sizing: border-box;
   color: #4b5055;
   position: relative;
-  pointer-events: none;
   z-index: 1;
   background-color: white;
+  transition: all 150ms ease;
+  will-change: transition, margin, opacity, padding, border, height box-shadow, z-index;
+}
+.day:hover {
+  margin: -8px;
+  box-shadow: 0 0 8px #0000000a;
+  z-index: 2;
+}
+.day:active {
+  box-shadow: 0 0 8px #00000012;
+  margin: -4px;
+  z-index: 2;
 }
 .day.hide {
   transition: all 500ms ease 400ms, opacity 500ms ease 0s;
@@ -82,6 +92,9 @@ body {
 }
 .day.current {
   color: #ff9c00;
+}
+.day.selected {
+  background-color: #fff0e7;
 }
 .day:nth-of-type(7n + 7) {
   border-right: 0;
@@ -305,6 +318,11 @@ body {
   }
   .day {
     height: 44px;
+  }
+  .day:hover, .day:active {
+    margin: unset;
+    box-shadow: unset;
+    z-index: unset;
   }
   .day .short {
     width: 50%;

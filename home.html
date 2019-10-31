@@ -7,21 +7,35 @@
 		<link href="css/fonts/FontAwesome/css/all.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/home.css">
 		<link rel="stylesheet" type="text/css" href="css/icons.css">
+		<link rel="stylesheet" type="text/css" href="css/navbar.css">
 		<link rel="stylesheet" type="text/css" href="css/calendar.css">
 		<meta content="width=device-width, initial-scale=1" name="viewport" />
 	</head>
 
-	<body style="margin: 0;margin-top: 42px;">
-    <div class="navbar">
-      <h2 class="heading_text">Cart Chart</h2>
-      <div class="heading">
-        <h2 class="heading_text" id="dynamic_name"></h2>
-        <a class="heading_icon" href="javascript:changePage('profile')"><i class="fa fa-cog"></i></a>
-        <a class="heading_icon" href="javascript:logout();"><i class="fa fa-power-off"></i></a>
-      </div>
-    </div>
+	<body style="margin: 0;">
+		<header>
+			<div class="navbar">
+				<h2 class="title">My Schedule</h2>
+				<div class="heading">
+					<h2 class="heading_text" id="dynamic_name"></h2>
+					<a class="heading_icon" href="javascript:changePage('profile')"><i class="fa fa-cog"></i></a>
+					<a class="heading_icon" href="javascript:logout();"><i class="fa fa-power-off"></i></a>
+				</div>
+			</div>
+		</header>
 
-		<div>
+		<cc-navbar id="navbar">
+			<div class="main">
+				<div>
+					<h2 class="title">Cart Chart</h2>
+				</div>
+				<h2 class="heading_text">Item</h2>
+				<h2 class="heading_text">Item</h2>
+				<h2 class="heading_text">Item</h2>
+			</div>
+		</cc-navbar>
+
+		<div class="main_container">
 			<div class="calendar-container">
 			  <div class="calendar-header">
 					<button class="compact" onclick="toggle();"><span id="compact" class="arrow_condense"></span></button>
@@ -32,7 +46,8 @@
 			</div>
 		</div>
 
-		<footer></footer>
+		<footer>
+		</footer>
 
 		<!-- Scripts -->
 		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
@@ -42,13 +57,17 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="js/main.js"></script>
 		<script src="js/auth.js"></script>
+		<script src="js/navbar.js"></script>
 		<script src="js/calendar/main.js"></script>
 		<script src="js/calendar/compact.js"></script>
+		<script src="js/calendar/firebase.js"></script>
 		<script>
 			var icon_compact = document.getElementById("compact");
 
 			calendar.container = document.getElementById('calendar');
 			calendar.populate();
+
+			navbar.element = document.getElementById('navbar');
 		</script>
 
 	</body>

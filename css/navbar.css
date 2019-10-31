@@ -1,0 +1,20 @@
+cc-navbar {
+  color: white;
+  width: 0;
+  transition: width 0.5s ease;
+  width: var(--navbar-width);
+  height: 100%;
+  background-color: #c56900;
+  top: 0;
+  white-space: nowrap;
+}
+
+cc-navbar div.main {
+  position: fixed;
+  z-index: 11;
+  background-color: inherit;
+  width: inherit;
+  height: inherit;
+  top: inherit;
+  overflow-x: hidden;
+}

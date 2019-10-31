@@ -1,20 +1,30 @@
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    var displayName = user.displayName;
-    var email = user.email;
-    var emailVerified = user.emailVerified;
-    var photoURL = user.photoURL;
-    var isAnonymous = user.isAnonymous;
-    var uid = user.uid;
-    var providerData = user.providerData;
+var user = {
+  uid: "",
+  email: "",
+  first_name: null,
+  last_name: null,
+  location: null
+};
 
-    var first_name = "";
-    var last_name = "";
+firebase.auth().onAuthStateChanged(function(loggedUser) {
+  if (loggedUser) {
+    var displayName = loggedUser.displayName;
+    var email = loggedUser.email;
+    var emailVerified = loggedUser.emailVerified;
+    var photoURL = loggedUser.photoURL;
+    var isAnonymous = loggedUser.isAnonymous;
+    var uid = loggedUser.uid;
+    var providerData = loggedUser.providerData;
+
+    user.uid = uid;
+    user.email = email;
 
     firebase.database().ref('users/' + uid).once('value').then(function(snapshot) {
-      first_name = snapshot.val().firstname;
-      last_name = snapshot.val().lastname;
-      document.getElementById("dynamic_name").innerHTML = first_name + " " + last_name;
+
+      user.first_name = snapshot.val().firstname;
+      user.last_name = snapshot.val().lastname;
+      user.location = snapshot.val().location;
+      document.getElementById("dynamic_name").innerHTML = user.first_name + " " + user.last_name;
     });
 
   } else {
