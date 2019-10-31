@@ -169,8 +169,3 @@ var calendar = {
     }
   }
 }
-
-$('.day').click(function() {
-  $('.day').removeClass('selected');
-  $(this).addClass('selected');
-});

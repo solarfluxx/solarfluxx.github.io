@@ -68,6 +68,12 @@
 			calendar.populate();
 
 			navbar.element = document.getElementById('navbar');
+
+			$('.day').click(function() {
+			  $('.day').removeClass('selected');
+			  $(this).addClass('selected');
+			});
+
 		</script>
 
 	</body>
