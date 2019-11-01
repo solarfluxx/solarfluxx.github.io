@@ -134,4 +134,7 @@ div.heading:last-child {
   .heading_text {
     font-size: 0.8em;
   }
+  .navbar .title {
+    font-size: 0.8em;
+  }
 }

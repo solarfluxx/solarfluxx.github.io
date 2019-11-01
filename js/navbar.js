@@ -35,3 +35,9 @@ $(window).resize(function() {
     navbar.compact(true);
   }
 });
+
+$(window).resize(function() {
+  if ($(window).width() > 950) {
+    navbar.expand();
+  }
+});
