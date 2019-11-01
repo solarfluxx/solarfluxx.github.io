@@ -29,6 +29,6 @@ cc-navbar div.main {
 
   .main_container {
     transition: unset;
-    padding: 8px;
+    padding: 40px 6px;
   }
 }
