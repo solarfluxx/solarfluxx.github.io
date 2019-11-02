@@ -24,7 +24,10 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
       user.first_name = snapshot.val().firstname;
       user.last_name = snapshot.val().lastname;
       user.location = snapshot.val().location;
-      document.getElementById("dynamic_name").innerHTML = user.first_name + " " + user.last_name;
+
+      $("cc-name").html(user.first_name + " " + user.last_name);
+      $("cc-email").html(user.email);
+      calendar.firebase.getUserShifts();
     });
 
   } else {

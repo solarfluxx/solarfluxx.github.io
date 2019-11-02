@@ -17,9 +17,10 @@
 			<div class="navbar">
 				<h2 class="title">My Schedule</h2>
 				<div class="heading">
-					<h2 class="heading_text" id="dynamic_name"></h2>
+					<cc-name class="heading_text" id="dynamic_name"></cc-name>
 					<a class="heading_icon" href="javascript:changePage('profile')"><i class="fa fa-cog"></i></a>
 					<a class="heading_icon" href="javascript:logout();"><i class="fa fa-power-off"></i></a>
+					<a class="heading_icon" id="toggle_modal" href="javascript:toggleModal();"><i class="fas fa-user"></i></a>
 				</div>
 			</div>
 		</header>
@@ -27,13 +28,24 @@
 		<cc-navbar id="navbar">
 			<div class="main">
 				<div>
-					<h2 class="title">Cart Chart</h2>
+					<cc-app-title class="title">Cart Chart</cc-app-title>
 				</div>
 				<h2 class="heading_text">Item</h2>
 				<h2 class="heading_text">Item</h2>
 				<h2 class="heading_text">Item</h2>
 			</div>
 		</cc-navbar>
+
+		<cc-model class="profile">
+			<div class="profile_container hide">
+				<div>
+					<cc-name></cc-name>
+					<cc-email></cc-email>
+					<a href="javascript:changePage('profile')">Manage Your Account</a>
+					<a href="javascript:logout();">Sign Out</a>
+				</div>
+			</div>
+		</cc-model>
 
 		<div class="main_container">
 			<div class="calendar-container">
@@ -65,7 +77,7 @@
 			var icon_compact = document.getElementById("compact");
 
 			calendar.container = document.getElementById('calendar');
-			calendar.populate();
+			calendar.populateDates();
 
 			navbar.element = document.getElementById('navbar');
 
@@ -73,6 +85,26 @@
 			  $('.day').removeClass('selected');
 			  $(this).addClass('selected');
 			});
+
+
+			var profile = document.getElementsByClassName("profile_container")[0];
+			function toggleModal() {
+				$(profile).toggleClass("hide");
+			}
+			window.onclick = function(event) {
+				var hide = true,
+						button = document.getElementById("toggle_modal");
+				for (i=0; i<event.path.length; i++) {
+					if (event.path[i] == profile) {
+						hide = false;
+					} else if (event.path[i] == button) {
+						hide = false;
+					}
+				}
+				if (hide) {
+					$(profile).addClass("hide");
+				}
+			}
 
 		</script>
 

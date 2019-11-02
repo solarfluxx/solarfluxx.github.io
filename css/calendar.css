@@ -72,7 +72,7 @@ body {
 .day:hover {
   margin: -8px;
   box-shadow: 0 0 8px #0000000a;
-  z-index: 2;
+  z-index: 3;
 }
 .day:active {
   box-shadow: 0 0 8px #00000012;

@@ -146,6 +146,7 @@ var calendar = {
       secS.innerHTML = count;
       calendar.items[item].appendChild(secL);
       calendar.items[item].appendChild(secS);
+      $(calendar.items[item]).addClass("has-info");
     },
     decline: function(item, count) {
       var secL = document.createElement("section");
@@ -156,6 +157,7 @@ var calendar = {
       secS.innerHTML = count;
       calendar.items[item].appendChild(secL);
       calendar.items[item].appendChild(secS);
+      $(calendar.items[item]).addClass("has-info");
     },
     unconfirm: function(item, count) {
       var secL = document.createElement("section");
@@ -166,6 +168,7 @@ var calendar = {
       secS.innerHTML = count;
       calendar.items[item].appendChild(secL);
       calendar.items[item].appendChild(secS);
+      $(calendar.items[item]).addClass("has-info");
     }
   }
 }
