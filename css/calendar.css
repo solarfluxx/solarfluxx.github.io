@@ -286,13 +286,13 @@ body {
 }
 
 
-@media only screen and (max-width:1300px) {
+@media only screen and (max-width:1600px) {
   .task {
     font-size: 10px;
   }
 }
 
-@media only screen and (max-width:1180px) {
+@media only screen and (max-width:1300px) {
   .task.large {
     display: none;
   }
@@ -305,6 +305,9 @@ body {
 }
 
 @media only screen and (max-width:950px) {
+  .main_container {
+    padding: 40px 6px;
+  }
   .calendar {
     display: block;
     text-align: center;

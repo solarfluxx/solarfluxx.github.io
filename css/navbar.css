@@ -1,12 +1,26 @@
+:root {
+  /* --sidenav-padding-off: 10px;
+  --sidenav-padding-right-on: 28px;
+  --sidenav-padding-left-on: 23px; */
+
+  /* --sidenav-padding-left: var(--sidenav-padding-off);
+  --sidenav-padding-right: var(--sidenav-padding-off); */
+  --test123: 10px;
+  --sidenav-navtext-opacity: 1;
+}
+
 cc-navbar {
   color: white;
   width: 0;
   transition: var(--navbar-transition);
   width: var(--navbar-width);
+  grid-auto-columns: var(--navbar-width);
   height: 100%;
   background-color: #c56900;
   top: 0;
   white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 cc-navbar div.main {
@@ -17,10 +31,74 @@ cc-navbar div.main {
   height: inherit;
   top: inherit;
   overflow-x: hidden;
+  display: grid;
+  grid-auto-rows: minmax(50px, max-content);
+  transition: background-color 0.2s ease;
 }
 
-@media only screen and (max-width:950px) {
-  .main_container {
-    padding: 40px 6px;
-  }
+cc-navbar div.main div {
+  align-self: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  transition: inherit;
+}
+
+cc-navbar div.main div:last-child {
+  align-self: unset;
+}
+
+cc-navbar div.main div:hover {
+  background-color: #ffffff2b;
+}
+
+cc-navbar div.main div.nohover:hover {
+  background-color: transparent;
+}
+
+cc-navbar div.main a {
+  padding-top: 15px;
+  transition: var(--navbar-transition);
+  padding-left: var(--sidenav-button-padding-left);
+  padding-right: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+cc-navbar div.main a:hover {
+  background-color: #ffffff2b;
+}
+
+cc-navbar div.main a span {
+  transition: opacity 0.4s ease;
+  opacity: var(--sidenav-navtext-opacity);
+}
+
+cc-navbar h1 {
+  margin: 0;
+  width: -webkit-fill-available;
+  height: 100%;
+  font-weight: normal;
+  font-size: 25px;
+}
+
+cc-navbar button {
+  width: -webkit-fill-available;
+  background: transparent;
+  border: none;
+  height: 100%;
+  margin-left: -10px;
+  margin-right: -10px;
+  padding-left: 10px;
+  padding-right: var(--sidenav-button-padding-right);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  text-align: right;
+  transition: var(--navbar-transition);
+  width: var(--navbar-width);
+}
+
+cc-navbar i {
+  font-size: 20px;
+  color: white;
 }
