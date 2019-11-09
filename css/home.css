@@ -89,6 +89,7 @@ div.align_center {
   padding-bottom: 2px;
   font-weight: 600;
 }
+
 .navbar .title {
   font-size: 1em;
   margin-bottom: 0;
@@ -97,8 +98,33 @@ div.align_center {
   align-self: center;
   padding-bottom: 2px;
   font-weight: 600;
+  margin-left: 10px;
+}
+.navbar .title_container {
   margin-left: var(--navbar-width);
   transition: var(--navbar-transition);
+  display: flex;
+}
+.navbar .title_container button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  color: inherit;
+  font-size: 16px;
+  border-radius: 50%;
+  padding: 2px 13px;
+  margin-top: -8px;
+  margin-bottom: -8px;
+  transition: background-color 0.2s ease;
+  display: none;
+}
+.navbar .title_container button:hover {
+  color: black;
+}
+.navbar .title_container button:active {
+  background-color: #5945292b;
 }
 
 div.heading:last-child {
@@ -213,6 +239,9 @@ div.profile_container a:hover {
     display: none;
   }
   .heading_icon:last-child {
+    display: block;
+  }
+  .navbar .title_container button {
     display: block;
   }
 }

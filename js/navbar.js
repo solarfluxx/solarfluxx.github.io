@@ -27,30 +27,41 @@ navbar.size = function(stage) {
     case 0:
       root.style.setProperty('--navbar-width', "0px");
       root.style.setProperty('--navbar-true-width', "0px");
+      root.style.setProperty('--sidebar-blocker-opacity', "0");
+      root.style.setProperty('--sidebar-blocker-events', "none");
       navbar.stage = 0;
       break;
     case 1:
       root.style.setProperty('--navbar-width', "68px");
       root.style.setProperty('--navbar-true-width', "68px");
-      root.style.setProperty('--sidenav-padding-right', root.style.getPropertyValue('--sidenav-padding-right-on'));
-      root.style.setProperty('--sidenav-padding-left', root.style.getPropertyValue('--sidenav-padding-left-on'));
+      root.style.setProperty('--sidenav-button-padding-right', "30px");
+      root.style.setProperty('--sidenav-button-padding-left', "23px");
+      root.style.setProperty('--sidenav-icon-rotation', "rotate(180deg)");
       root.style.setProperty('--sidenav-navtext-opacity', "0");
+      root.style.setProperty('--sidebar-blocker-opacity', "0");
+      root.style.setProperty('--sidebar-blocker-events', "none");
       navbar.stage = 1;
       break;
     case 2:
       root.style.setProperty('--navbar-width', "256px");
       root.style.setProperty('--navbar-true-width', "256px");
-      root.style.setProperty('--sidenav-padding-right', root.style.getPropertyValue('--sidenav-padding-off'));
-      root.style.setProperty('--sidenav-padding-left', root.style.getPropertyValue('--sidenav-padding-off'));
+      root.style.setProperty('--sidenav-button-padding-right', root.style.getPropertyValue('--sidenav-padding'));
+      root.style.setProperty('--sidenav-button-padding-left', root.style.getPropertyValue('--sidenav-padding'));
+      root.style.setProperty('--sidenav-icon-rotation', "unset");
       root.style.setProperty('--sidenav-navtext-opacity', "1");
+      root.style.setProperty('--sidebar-blocker-opacity', "0");
+      root.style.setProperty('--sidebar-blocker-events', "none");
       navbar.stage = 2;
       break;
     case 3:
       root.style.setProperty('--navbar-true-width', "256px");
-      root.style.setProperty('--sidenav-padding-right', root.style.getPropertyValue('--sidenav-padding-off'));
-      root.style.setProperty('--sidenav-padding-left', root.style.getPropertyValue('--sidenav-padding-off'));
+      root.style.setProperty('--sidenav-button-padding-right', root.style.getPropertyValue('--sidenav-padding'));
+      root.style.setProperty('--sidenav-button-padding-left', root.style.getPropertyValue('--sidenav-padding'));
+      root.style.setProperty('--sidenav-icon-rotation', "unset");
       root.style.setProperty('--sidenav-navtext-opacity', "1");
-      navbar.stage = 2;
+      root.style.setProperty('--sidebar-blocker-opacity', "1");
+      root.style.setProperty('--sidebar-blocker-events', "all");
+      navbar.stage = 3;
       break;
   }
 };

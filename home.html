@@ -15,7 +15,7 @@
 	<body style="margin: 0;">
 		<header>
 			<div class="navbar">
-				<h2 class="title">My Schedule</h2>
+				<div class="title_container"><button class="title_bars" onclick="navbar.toggle();"><i class="fas fa-bars"></i></button><h2 class="title">My Schedule</h2></div>
 				<div class="heading">
 					<cc-name class="heading_text" id="dynamic_name"></cc-name>
 					<a class="heading_icon" href="javascript:changePage('profile')"><i class="fa fa-cog"></i></a>
@@ -26,13 +26,14 @@
 		</header>
 
 		<cc-navbar id="navbar">
+			<div class="blocker"></div>
 			<div class="main">
 				<div class="nohover">
 					<h1>Cart Chart</h1>
 				</div>
 
-				<a href="home.html"><i class="fas fa-home"></i> <span> Home</span></a>
-				<a href="schedule.html"><i class="far fa-calendar"></i> <span> Schedules</span></a>
+				<a href="home.html"><i class="fas fa-home"></i> <span>Home</span></a>
+				<a href="schedule.html"><i class="fas fa-calendar"></i> <span>Schedules</span></a>
 
 				<div>
 					<button onclick="navbar.toggle();">

@@ -1,20 +1,21 @@
 :root {
-  /* --sidenav-padding-off: 10px;
-  --sidenav-padding-right-on: 28px;
-  --sidenav-padding-left-on: 23px; */
-
-  /* --sidenav-padding-left: var(--sidenav-padding-off);
-  --sidenav-padding-right: var(--sidenav-padding-off); */
-  --test123: 10px;
+  --sidenav-padding-neg: -12px;
+  --sidenav-padding: 12px;
+  --sidenav-button-padding-left: var(--sidenav-padding);
+  --sidenav-button-padding-right: var(--sidenav-padding);
   --sidenav-navtext-opacity: 1;
+  --sidenav-icon-rotation: unset;
+
+  --sidebar-blocker-opacity: 0;
+  --sidebar-blocker-events: none;
 }
 
 cc-navbar {
   color: white;
   width: 0;
   transition: var(--navbar-transition);
-  width: var(--navbar-width);
-  grid-auto-columns: var(--navbar-width);
+  width: var(--navbar-true-width);
+  grid-auto-columns: var(--navbar-true-width);
   height: 100%;
   background-color: #c56900;
   top: 0;
@@ -23,9 +24,21 @@ cc-navbar {
   outline: none;
 }
 
+cc-navbar div.blocker {
+  background-color: #00000026;
+  z-index: 11;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: var(--sidebar-blocker-opacity);
+  pointer-events: var(--sidebar-blocker-events);
+  transition: opacity 0.2s ease;
+}
+
 cc-navbar div.main {
   position: fixed;
-  z-index: 11;
+  z-index: 12;
   background-color: inherit;
   width: inherit;
   height: inherit;
@@ -38,8 +51,8 @@ cc-navbar div.main {
 
 cc-navbar div.main div {
   align-self: center;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: var(--sidenav-padding);
+  padding-right: var(--sidenav-padding);
   transition: inherit;
 }
 
@@ -59,9 +72,12 @@ cc-navbar div.main a {
   padding-top: 15px;
   transition: var(--navbar-transition);
   padding-left: var(--sidenav-button-padding-left);
-  padding-right: 10px;
+  padding-right: var(--sidenav-padding);
   color: white;
   text-decoration: none;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 35px 1fr;
 }
 
 cc-navbar div.main a:hover {
@@ -70,6 +86,7 @@ cc-navbar div.main a:hover {
 
 cc-navbar div.main a span {
   transition: opacity 0.4s ease;
+  margin-left: 5px;
   opacity: var(--sidenav-navtext-opacity);
 }
 
@@ -86,19 +103,26 @@ cc-navbar button {
   background: transparent;
   border: none;
   height: 100%;
-  margin-left: -10px;
-  margin-right: -10px;
-  padding-left: 10px;
+  margin-left: var(--sidenav-padding-neg);
+  margin-right: var(--sidenav-padding-neg);
+  padding-left: var(--sidenav-padding);
   padding-right: var(--sidenav-button-padding-right);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   outline: none;
   text-align: right;
   transition: var(--navbar-transition);
-  width: var(--navbar-width);
+  width: var(--navbar-true-width);
 }
 
 cc-navbar i {
   font-size: 20px;
   color: white;
+}
+
+cc-navbar button i {
+  font-size: 20px;
+  color: white;
+  transition: transform 0.5s ease;
+  transform: var(--sidenav-icon-rotation);
 }
