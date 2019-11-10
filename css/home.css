@@ -91,6 +91,7 @@ div.align_center {
 
 .navbar.shadow {
   box-shadow: var(--shadow);
+  will-change: box-shadow;
 }
 
 .heading_text {
@@ -116,6 +117,7 @@ div.align_center {
 .navbar .title_container {
   margin-left: var(--navbar-width);
   transition: var(--navbar-transition);
+  will-change: margin-left;
   display: flex;
 }
 .navbar .title_container button {
@@ -171,6 +173,13 @@ div.heading:last-child {
   margin-left: var(--navbar-width);
   padding:30px;
   transition: var(--navbar-transition);
+  will-change: margin-left;
+}
+.main_center {
+  margin: auto;
+  width: 90%;
+  max-width: 1200px;
+  will-change: margin;
 }
 
 cc-model.profile {

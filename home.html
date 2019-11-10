@@ -56,13 +56,20 @@
 		</cc-model>
 
 		<div class="main_container">
-			<div class="calendar-container">
-			  <div class="calendar-header">
-					<button class="compact" onclick="toggle();"><span id="compact" class="arrow_condense"></span></button>
-			    <button style="margin-left: -64px" id="month_button"></button>
-			    <p id="year"></p>
-			  </div>
-			  <div class="calendar" id="calendar"><span class="day-name">Sun</span><span class="day-name">Mon</span><span class="day-name">Tue</span><span class="day-name">Wed</span><span class="day-name">Thu</span><span class="day-name">Fri</span><span class="day-name">Sat</span></div>
+			<div class="main_center">
+				<div class="calendar-container">
+				  <div class="calendar-header">
+						<button class="compact" onclick="toggle();"><span id="compact" class="arrow_condense"></span></button>
+				    <button style="margin-left: -64px" id="month_button"></button>
+				    <p id="year"></p>
+				  </div>
+				  <div class="calendar" id="calendar"><span class="day-name">Sun</span><span class="day-name">Mon</span><span class="day-name">Tue</span><span class="day-name">Wed</span><span class="day-name">Thu</span><span class="day-name">Fri</span><span class="day-name">Sat</span></div>
+				</div>
+
+				<div class="shifts-container">
+					<p class="title">Shifts</p>
+					<div id="shifts"></div>
+				</div>
 			</div>
 		</div>
 
@@ -93,7 +100,6 @@
 			  $('.day').removeClass('selected');
 			  $(this).addClass('selected');
 			});
-
 
 			var profile = document.getElementsByClassName("profile_container")[0];
 			function toggleModal() {

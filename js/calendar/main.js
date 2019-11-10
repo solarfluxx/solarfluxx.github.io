@@ -5,6 +5,9 @@ const getMonthName = [
 const getDayName = [
   "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
 ];
+const getFullDayName = [
+  "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+];
 
 var date = {
   full: new Date(),
@@ -171,4 +174,63 @@ var calendar = {
       $(calendar.items[item]).addClass("has-info");
     }
   }
-}
+};
+
+var shifts = {
+  create: function(day, location, shift_time, state) {
+    var div = document.createElement("div");
+    var p1 = document.createElement("p");
+    var p2 = document.createElement("p");
+    var p3 = document.createElement("p");
+    var sec = document.createElement("section");
+    var b1 = document.createElement("button");
+    var b2 = document.createElement("button");
+    var i1 = document.createElement("i");
+    var i2 = document.createElement("i");
+
+    switch (state) {
+      case 0:
+        sec.setAttribute("class", "task unconfirm");
+        sec.innerHTML = "Unconfirmed";
+        break;
+      case 1:
+        sec.setAttribute("class", "task accept");
+        sec.innerHTML = "Accepted";
+        break;
+      case 2:
+        sec.setAttribute("class", "task decline");
+        sec.innerHTML = "Declined";
+        break;
+    }
+
+    i1.setAttribute("class", "fas fa-check");
+    i2.setAttribute("class", "fas fa-times");
+    b1.setAttribute("class", "accept");
+    b2.setAttribute("class", "decline");
+
+    p1.innerHTML = getFullDayName[new Date(date.year, date.month, 14).getDay()] + ", " + getMonthName[date.month] + " " + day;
+    p2.innerHTML = location;
+    p3.innerHTML = shift_time;
+
+    b1.innerHTML = "Accept";
+    b2.innerHTML = "Decline";
+    b1.prepend(i1);
+    b2.prepend(i2);
+    if (state == 1) $(b1).addClass("hide-button");
+    if (state == 2) $(b2).addClass("hide-button");
+
+    div.appendChild(p1);
+    div.appendChild(p2);
+    div.appendChild(p3);
+    div.appendChild(sec);
+    if (state == 1 || state == 0) {
+      div.appendChild(b1);
+      div.appendChild(b2);
+    }
+    if (state == 2) {
+      div.appendChild(b2);
+      div.appendChild(b1);
+    }
+    document.getElementById("shifts").appendChild(div);
+  }
+};

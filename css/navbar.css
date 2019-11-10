@@ -30,6 +30,7 @@ cc-navbar {
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
   outline: none;
+  will-change: width, grid-auto-columns, transition;
 }
 
 cc-navbar div.blocker {
@@ -42,6 +43,7 @@ cc-navbar div.blocker {
   opacity: var(--sidebar-blocker-opacity);
   pointer-events: var(--sidebar-blocker-events);
   transition: opacity 0.2s ease;
+  will-change: opacity;
 }
 
 cc-navbar div.main {
@@ -58,6 +60,7 @@ cc-navbar div.main {
   transition: margin-top 0.5s ease, background-color 0.2s ease;
   grid-auto-rows: minmax(50px, max-content);
   margin-top: var(--sidenav-margin-top);
+  will-change: margin-top;
 }
 
 cc-navbar div.main div {
@@ -65,6 +68,7 @@ cc-navbar div.main div {
   padding-left: var(--sidenav-padding);
   padding-right: var(--sidenav-padding);
   transition: inherit;
+  will-change: padding-left, padding-right;
 }
 
 cc-navbar div.main div:last-child {
@@ -89,6 +93,7 @@ cc-navbar div.main a {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 35px 1fr;
+  will-change: padding-left, padding-right;
 }
 
 cc-navbar div.main a:hover {
@@ -99,6 +104,7 @@ cc-navbar div.main a span {
   transition: opacity 0.4s ease;
   margin-left: 5px;
   opacity: var(--sidenav-navtext-opacity);
+  will-change: opacity;
 }
 
 cc-navbar h1 {
@@ -124,6 +130,7 @@ cc-navbar button {
   text-align: right;
   transition: var(--navbar-transition);
   width: var(--navbar-true-width);
+  will-change: width, margin, padding;
 }
 
 cc-navbar i {
@@ -136,4 +143,5 @@ cc-navbar button i {
   color: white;
   transition: transform 0.5s ease;
   transform: var(--sidenav-icon-rotation);
+  will-change: transform;
 }

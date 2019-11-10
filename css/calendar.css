@@ -1,6 +1,5 @@
 body {
   box-sizing: border-box;
-  font-family: Montserrat, "sans-serif";
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -9,6 +8,76 @@ body {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
+
+.shifts-container {
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.shifts-container>.title {
+  margin: 0;
+  padding: 20px 0px;
+  text-align: center;
+  border-bottom: 1px solid rgba(166,168,179,0.12);
+}
+
+.shifts-container #shifts {
+  display: grid;
+  grid-auto-rows: minmax(50px, max-content);
+}
+.shifts-container #shifts div {
+  padding: 0 10px;
+  display: flex;
+  border-bottom: 1px solid rgba(166,168,179,0.12);
+}
+.shifts-container #shifts div p {
+  margin-right: 30px;
+}
+.shifts-container #shifts div p:last-child {
+  margin-right: 0;
+}
+.shifts-container #shifts div section {
+  margin: auto 0;
+  margin-left: auto;
+  padding: 8px 14px;
+  will-change: margin;
+}
+.shifts-container #shifts div button {
+  margin: auto 0;
+  border: none;
+  padding: 8px;
+  margin-left: 50px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  transition: background-color 0.2s;
+  box-shadow: 0px 1px 5px 0px #0000000d;
+}
+.shifts-container #shifts div button:last-child {
+  margin-left: 20px;
+}
+.shifts-container #shifts div button.accept {
+  background-color: #b5ffc2;
+}
+.shifts-container #shifts div button.accept:hover {
+  background-color: #9de0a9;
+}
+.shifts-container #shifts div button.decline {
+  background-color: #ffb5b5;
+}
+.shifts-container #shifts div button.decline:hover {
+  background-color: #de9b9b;
+}
+.shifts-container #shifts div button.hide-button {
+  opacity: 0;
+  pointer-events: none;
+}
+.shifts-container #shifts div button i {
+  margin-right: 8px;
+}
+
+
 .calendar {
   display: grid;
   width: 100%;
@@ -18,13 +87,10 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f9f9fa' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
 }
 .calendar-container {
-  width: 90%;
-  margin: auto;
   overflow: hidden;
   box-shadow: 0 2px 20px rgba(0,0,0,0.1);
   border-radius: 10px;
   background: #fff;
-  max-width: 1200px;
 }
 .calendar-header {
   text-align: center;
@@ -361,5 +427,40 @@ body {
   }
   .compact {
     display: unset;
+  }
+
+  .shifts-container #shifts {
+    overflow-x: scroll;
+  }
+  .shifts-container #shifts div {
+    flex-flow: wrap;
+    width: 100%;
+    font-size: 15px;
+    justify-content: center;
+  }
+  .shifts-container #shifts div {
+    padding-bottom: 10px;
+  }
+  .shifts-container #shifts div p {
+    margin-right: 7px;
+    margin-left: 7px;
+  }
+  .shifts-container #shifts div button {
+    margin-right: 20px;
+    margin-left: auto !important;
+  }
+  .shifts-container #shifts div button.hide-button {
+    display: none;
+  }
+  .shifts-container #shifts div section {
+    margin-left: 20px;
+  }
+}
+
+@media only screen and (max-width:415px) {
+  .shifts-container #shifts div {
+    font-size: 3vw;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
