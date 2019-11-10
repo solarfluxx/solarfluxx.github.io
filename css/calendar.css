@@ -283,6 +283,23 @@ body {
   margin-left: 20px;
   font-size: 20px;
   display: none;
+  border-radius: 50%;
+  padding: 11px 12px !important;
+  margin-top: -11px;
+  transition: background-color 0.2s ease !important;
+}
+.compact:active {
+  background-color: #5945292b;
+}
+.compact span {
+  transition: all 0.5s ease-in-out;
+  display: block;
+}
+.compact span.arrow_expand {
+  transform: rotate(360deg);
+}
+.compact span.arrow_condense {
+  transform: rotate(0deg);
 }
 
 

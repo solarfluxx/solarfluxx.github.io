@@ -69,7 +69,7 @@ var calendar = {
       day.appendChild(div);
       calendar.container.appendChild(day);
     }
-    document.getElementById("month_button").innerHTML = getMonthName[date.month] + " ▾"
+    document.getElementById("month_button").innerHTML = getMonthName[date.month]
 
     var week_days = calendar.container.getElementsByClassName("day-name");
     for (i = 0; i < week_days.length; i++) {
