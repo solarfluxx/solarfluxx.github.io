@@ -1,9 +1,22 @@
 :root {
   --navbar-width: 256px;
   --navbar-true-width: 256px;
-  --navbar-transition-on: width 0.5s ease, padding 0.5s ease, margin-left 0.5s ease;
+  --navbar-transition-on: width 0.5s ease, padding 0.5s ease, margin-left 0.5s ease, margin-top 0.5s ease, background-color 0.2s ease;
   --navbar-transition: var(--navbar-transition-on);
   --shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #a3a3a3;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
 }
 
 body {
@@ -243,6 +256,9 @@ div.profile_container a:hover {
   }
   .navbar .title_container button {
     display: block;
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
 }
 

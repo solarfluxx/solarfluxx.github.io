@@ -5,9 +5,16 @@
   --sidenav-button-padding-right: var(--sidenav-padding);
   --sidenav-navtext-opacity: 1;
   --sidenav-icon-rotation: unset;
+  --sidenav-margin-top: unset;
 
   --sidebar-blocker-opacity: 0;
   --sidebar-blocker-events: none;
+
+  --overflow-x: unset;
+}
+
+body {
+  overflow-y: var(--overflow-x);
 }
 
 cc-navbar {
@@ -16,9 +23,10 @@ cc-navbar {
   transition: var(--navbar-transition);
   width: var(--navbar-true-width);
   grid-auto-columns: var(--navbar-true-width);
-  height: 100%;
   background-color: #c56900;
   top: 0;
+  bottom: 0;
+  left: 0;
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
   outline: none;
@@ -40,13 +48,16 @@ cc-navbar div.main {
   position: fixed;
   z-index: 12;
   background-color: inherit;
+  box-shadow: 0px 0px 5px #0000006e;
   width: inherit;
-  height: inherit;
   top: inherit;
+  bottom: inherit;
+  left: inherit;
   overflow-x: hidden;
   display: grid;
+  transition: margin-top 0.5s ease, background-color 0.2s ease;
   grid-auto-rows: minmax(50px, max-content);
-  transition: background-color 0.2s ease;
+  margin-top: var(--sidenav-margin-top);
 }
 
 cc-navbar div.main div {
