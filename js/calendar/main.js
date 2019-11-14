@@ -198,7 +198,9 @@ var shifts = {
       div.appendChild(p1);
       document.getElementById("shifts").appendChild(div);
     } else {
-      var div = document.createElement("div"),
+      var main_div = document.createElement("div"),
+      hold_div_1 = document.createElement("div"),
+      hold_div_2 = document.createElement("div"),
       p1 = document.createElement("p"),
       p2 = document.createElement("p"),
       p3 = document.createElement("p"),
@@ -253,19 +255,22 @@ var shifts = {
       if (state == 1) $(b1).addClass("hide-button");
       if (state == 2) $(b2).addClass("hide-button");
 
-      div.appendChild(p1);
-      div.appendChild(p2);
-      div.appendChild(p3);
-      div.appendChild(sec);
+      hold_div_1.appendChild(p1);
+      hold_div_1.appendChild(p2);
+      hold_div_1.appendChild(p3);
+
+      hold_div_2.appendChild(sec);
       if (state == 1 || state == 0) {
-        div.appendChild(b1);
-        div.appendChild(b2);
+        hold_div_2.appendChild(b1);
+        hold_div_2.appendChild(b2);
       }
       if (state == 2) {
-        div.appendChild(b2);
-        div.appendChild(b1);
+        hold_div_2.appendChild(b2);
+        hold_div_2.appendChild(b1);
       }
-      document.getElementById("shifts").appendChild(div);
+      main_div.appendChild(hold_div_1);
+      main_div.appendChild(hold_div_2);
+      document.getElementById("shifts").appendChild(main_div);
     }
   },
   clear: function() {
