@@ -59,7 +59,7 @@ var calendar = {
       var day_name = document.createElement("p");
 
       day.setAttribute("class", "day");
-      if (i == date.day) $(day).addClass("current selected");
+      if (date.month == new Date().getMonth() && i == date.day) $(day).addClass("current");
       div.setAttribute("class", "day-text");
       day_number.setAttribute("class", "short");
       day_name.setAttribute("class", "long");
@@ -72,16 +72,22 @@ var calendar = {
       day.appendChild(div);
       calendar.container.appendChild(day);
     }
-    document.getElementById("month_button").innerHTML = getMonthName[date.month]
+    $("cc-month-year").html(getMonthName[date.month]);
+    if (date.year != new Date().getFullYear()) $("cc-month-year").html($("cc-month-year").html() + " " + date.year);
+    $(".month_year").removeClass("month_year");
 
     var week_days = calendar.container.getElementsByClassName("day-name");
     for (i = 0; i < week_days.length; i++) {
-      if (i == date.full.getDay()) {
+      if (date.month == new Date().getMonth() && i == date.full.getDay()) {
         week_days[i].setAttribute("class", "day-name current");
       } else {
         week_days[i].setAttribute("class", "day-name");
       }
     }
+    $('.day').click(function() {
+      $('.day').removeClass('selected');
+      $(this).addClass('selected');
+    });
   },
   populateShifts: function() {
     for (i = 0; i < this.items.length; i++) {
@@ -100,7 +106,10 @@ var calendar = {
   },
   populate: function() {
     calendar.populateDates();
-    calendar.populateShifts();
+    return new Promise(function(fulfill, reject) {
+        fulfill(result);
+        reject(error);
+    });
   },
   deleteShift: {
     all: function(day) {
@@ -176,61 +185,98 @@ var calendar = {
   }
 };
 
+var test123;
+
 var shifts = {
-  create: function(day, location, shift_time, state) {
-    var div = document.createElement("div");
-    var p1 = document.createElement("p");
-    var p2 = document.createElement("p");
-    var p3 = document.createElement("p");
-    var sec = document.createElement("section");
-    var b1 = document.createElement("button");
-    var b2 = document.createElement("button");
-    var i1 = document.createElement("i");
-    var i2 = document.createElement("i");
+  create: function(noshifts, day, location, shift_time, state, person) {
+    if (noshifts) {
+      var div = document.createElement("div"),
+      p1 = document.createElement("p");
+      p1.innerHTML = "There are no shifts for " + getMonthName[date.month];
+      if (date.year != new Date().getFullYear()) p1.innerHTML = p1.innerHTML + " " + date.year;
+      p1.innerHTML = p1.innerHTML + ".";
+      div.appendChild(p1);
+      document.getElementById("shifts").appendChild(div);
+    } else {
+      var div = document.createElement("div"),
+      p1 = document.createElement("p"),
+      p2 = document.createElement("p"),
+      p3 = document.createElement("p"),
+      sec = document.createElement("section"),
+      b1 = document.createElement("button"),
+      b2 = document.createElement("button"),
+      i1 = document.createElement("i"),
+      i2 = document.createElement("i");
 
-    switch (state) {
-      case 0:
-        sec.setAttribute("class", "task unconfirm");
-        sec.innerHTML = "Unconfirmed";
-        break;
-      case 1:
-        sec.setAttribute("class", "task accept");
-        sec.innerHTML = "Accepted";
-        break;
-      case 2:
-        sec.setAttribute("class", "task decline");
-        sec.innerHTML = "Declined";
-        break;
+      switch (state) {
+        case 0:
+          sec.setAttribute("class", "task unconfirm");
+          sec.innerHTML = "Unconfirmed";
+          break;
+        case 1:
+          sec.setAttribute("class", "task accept");
+          sec.innerHTML = "Accepted";
+          break;
+        case 2:
+          sec.setAttribute("class", "task decline");
+          sec.innerHTML = "Declined";
+          break;
+      }
+
+      i1.setAttribute("class", "fas fa-check");
+      i2.setAttribute("class", "fas fa-times");
+      b1.setAttribute("class", "state accept");
+      b2.setAttribute("class", "state decline");
+
+      $(b1).attr("year", date.year);
+      $(b1).attr("month", date.month);
+      $(b1).attr("day", day);
+      $(b1).attr("location", location.toLowerCase());
+      $(b1).attr("shift", shift_time);
+      $(b1).attr("person", person);
+
+      $(b2).attr("year", date.year);
+      $(b2).attr("month", date.month);
+      $(b2).attr("day", day);
+      $(b2).attr("location", location.toLowerCase());
+      $(b2).attr("shift", shift_time);
+      $(b2).attr("person", person);
+
+      p1.innerHTML = getFullDayName[new Date(date.year, date.month, 14).getDay()] + ", " + getMonthName[date.month] + " " + day;
+      p2.innerHTML = location;
+      p3.innerHTML = shift_time;
+
+      b1.innerHTML = "Accept";
+      b2.innerHTML = "Decline";
+      b1.prepend(i1);
+      b2.prepend(i2);
+      if (state == 1) $(b1).addClass("hide-button");
+      if (state == 2) $(b2).addClass("hide-button");
+
+      div.appendChild(p1);
+      div.appendChild(p2);
+      div.appendChild(p3);
+      div.appendChild(sec);
+      if (state == 1 || state == 0) {
+        div.appendChild(b1);
+        div.appendChild(b2);
+      }
+      if (state == 2) {
+        div.appendChild(b2);
+        div.appendChild(b1);
+      }
+      document.getElementById("shifts").appendChild(div);
     }
+  },
+  clear: function() {
+    $("#shifts").children().remove();
+  }
+};
 
-    i1.setAttribute("class", "fas fa-check");
-    i2.setAttribute("class", "fas fa-times");
-    b1.setAttribute("class", "accept");
-    b2.setAttribute("class", "decline");
-
-    p1.innerHTML = getFullDayName[new Date(date.year, date.month, 14).getDay()] + ", " + getMonthName[date.month] + " " + day;
-    p2.innerHTML = location;
-    p3.innerHTML = shift_time;
-
-    b1.innerHTML = "Accept";
-    b2.innerHTML = "Decline";
-    b1.prepend(i1);
-    b2.prepend(i2);
-    if (state == 1) $(b1).addClass("hide-button");
-    if (state == 2) $(b2).addClass("hide-button");
-
-    div.appendChild(p1);
-    div.appendChild(p2);
-    div.appendChild(p3);
-    div.appendChild(sec);
-    if (state == 1 || state == 0) {
-      div.appendChild(b1);
-      div.appendChild(b2);
-    }
-    if (state == 2) {
-      div.appendChild(b2);
-      div.appendChild(b1);
-    }
-    document.getElementById("shifts").appendChild(div);
+var all = {
+  changeDate: function(year, month, day) {
+    calendar.setDate(new Date(year, month, day));
+    calendar.populateDates();
+    calendar.firebase.getUserShifts();
   }
 };

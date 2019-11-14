@@ -59,15 +59,18 @@
 			<div class="main_center">
 				<div class="calendar-container">
 				  <div class="calendar-header">
-						<button class="compact" onclick="toggle();"><span id="compact" class="arrow_condense"></span></button>
-				    <button style="margin-left: -64px" id="month_button"></button>
+						<button onclick="backward();"><i class="fas fa-chevron-left"></i></button>
+						<button onclick="forward();"><i class="fas fa-chevron-right"></i></button>
+
+						<button style="display: none" class="compact" onclick="toggle();"><span id="compact" class="arrow_condense"></span></button>
+				    <p class="month_year"><cc-month-year></cc-month-year>'s Schedule</p>
 				    <p id="year"></p>
 				  </div>
 				  <div class="calendar" id="calendar"><span class="day-name">Sun</span><span class="day-name">Mon</span><span class="day-name">Tue</span><span class="day-name">Wed</span><span class="day-name">Thu</span><span class="day-name">Fri</span><span class="day-name">Sat</span></div>
 				</div>
 
 				<div class="shifts-container">
-					<p class="title">Shifts</p>
+					<p class="month_year title"><cc-month-year></cc-month-year>'s Shifts</p>
 					<div id="shifts"></div>
 				</div>
 			</div>
@@ -96,11 +99,6 @@
 
 			navbar.element = document.getElementById('navbar');
 
-			$('.day').click(function() {
-			  $('.day').removeClass('selected');
-			  $(this).addClass('selected');
-			});
-
 			var profile = document.getElementsByClassName("profile_container")[0];
 			function toggleModal() {
 				$(profile).toggleClass("hide");
@@ -119,7 +117,12 @@
 					$(profile).addClass("hide");
 				}
 			}
-
+			function forward() {
+				all.changeDate(date.year, (date.month+1), date.day);
+			}
+			function backward() {
+				all.changeDate(date.year, (date.month-1), date.day);
+			}
 		</script>
 
 	</body>

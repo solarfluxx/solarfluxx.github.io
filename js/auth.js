@@ -20,7 +20,6 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
     user.email = email;
 
     firebase.database().ref('users/' + uid).once('value').then(function(snapshot) {
-
       user.first_name = snapshot.val().firstname;
       user.last_name = snapshot.val().lastname;
       user.location = snapshot.val().location;

@@ -5,6 +5,8 @@ calendar.firebase = {
   getUserShifts: function(year, month) {
     var state = user.location.substring(0,2);
     var city = user.location.substring(3);
+    var shift_count = 0;
+    shifts.clear();
     shiftsRef = firebase.database().ref("shifts/"+state+"/"+city+"/"+date.year+"/"+(date.month+1)+"/");
 
     shiftsRef.once('value', function(snapshot) {
@@ -18,6 +20,7 @@ calendar.firebase = {
           childSnapshot2.forEach(function(childSnapshot3) {
             var loop_shift_time = childSnapshot3.key;
             childSnapshot3.forEach(function(childSnapshot4) {
+              var loop_person = childSnapshot4.key;
               userId = childSnapshot4.val().id;
               if (userId == user.uid) {
                 switch (childSnapshot4.val().state) {
@@ -31,14 +34,15 @@ calendar.firebase = {
                     state_de++;
                     break;
                 }
-                console.log("User: " + userId + "Date: " + (loop_date+1) + ", Location: " + toTitleCase(loop_location) + ", Shift Time: " + loop_shift_time);
-                shifts.create((loop_date+1), toTitleCase(loop_location), loop_shift_time, childSnapshot4.val().state);
+                shifts.create(false, (loop_date+1), toTitleCase(loop_location), loop_shift_time, childSnapshot4.val().state, loop_person);
+                shift_count++;
               }
             });
           });
         });
         calendar.createShift.all(loop_date, state_ac, state_de, state_un);
       });
+      if (shift_count == 0) shifts.create(true);
     });
   }
 }

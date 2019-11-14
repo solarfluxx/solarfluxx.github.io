@@ -74,6 +74,10 @@ div.align_center {
   text-align: center;
 }
 
+.month_year {
+  opacity: 0;
+}
+
 .navbar {
   background-color: #f1efec;
   position: fixed;
