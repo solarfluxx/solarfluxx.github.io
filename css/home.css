@@ -78,6 +78,10 @@ div.align_center {
   opacity: 0;
 }
 
+.contract_navbar {
+  font-size: 30px;
+}
+
 cc-tooltip {
   position: absolute;
   margin-top: 30px;

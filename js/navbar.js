@@ -36,13 +36,13 @@ navbar.size = function(stage) {
     case 1:
       root.style.setProperty('--navbar-width', "68px");
       root.style.setProperty('--navbar-true-width', "68px");
-      root.style.setProperty('--sidenav-button-padding-right', "30px");
-      root.style.setProperty('--sidenav-button-padding-left', "23px");
+      root.style.setProperty('--sidenav-button-padding-right', "20px");
+      root.style.setProperty('--sidenav-button-padding-left', "22px");
       root.style.setProperty('--sidenav-icon-rotation', "rotate(180deg)");
       root.style.setProperty('--sidenav-navtext-opacity', "0");
       root.style.setProperty('--sidebar-blocker-opacity', "0");
       root.style.setProperty('--sidebar-blocker-events', "none");
-      root.style.setProperty('--sidenav-margin-top', "-50px");
+      root.style.setProperty('--sidenav-margin-top', "-56px");
       root.style.setProperty('--overflow-x', "unset");
       navbar.stage = 1;
       break;

@@ -100,7 +100,6 @@ body {
 .calendar-header {
   text-align: center;
   padding: 20px 0;
-  background: linear-gradient(to bottom, #fafbfd 0%, rgba(255,255,255,0) 100%);
   border-bottom: 1px solid rgba(166,168,179,0.12);
 }
 .calendar-header h1 {
@@ -147,7 +146,7 @@ body {
   z-index: 1;
   background-color: white;
   transition: all 150ms ease;
-  will-change: transition, margin, opacity, padding, border, height box-shadow, z-index;
+  will-change: transition, margin, opacity, padding, border, height, box-shadow, z-index;
 }
 .day:hover {
   margin: -8px;
@@ -442,7 +441,7 @@ body {
   .compact {
     display: unset;
   }
-  
+
   .shifts-container #shifts div {
     flex-flow: wrap;
     width: 100%;

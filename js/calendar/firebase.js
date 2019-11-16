@@ -7,6 +7,7 @@ calendar.firebase = {
     var city = user.location.substring(3);
     var shift_count = 0;
     shifts.clear();
+    shifts.create(true);
     shiftsRef = firebase.database().ref("shifts/"+state+"/"+city+"/"+date.year+"/"+(date.month+1)+"/");
 
     shiftsRef.once('value', function(snapshot) {
@@ -34,6 +35,7 @@ calendar.firebase = {
                     state_de++;
                     break;
                 }
+                if (shift_count == 0) shifts.clear();
                 shifts.create(false, (loop_date+1), toTitleCase(loop_location), loop_shift_time, childSnapshot4.val().state, loop_person);
                 shift_count++;
               }
@@ -42,7 +44,6 @@ calendar.firebase = {
         });
         calendar.createShift.all(loop_date, state_ac, state_de, state_un);
       });
-      if (shift_count == 0) shifts.create(true);
     });
   }
 }
