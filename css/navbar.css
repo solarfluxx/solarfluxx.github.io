@@ -11,6 +11,9 @@
   --sidebar-blocker-events: none;
 
   --overflow-x: unset;
+
+  --sidenav-group-button-opacity: 1;
+  --sidenav-group-button-margin-top: 0;
 }
 
 body {
@@ -30,7 +33,7 @@ cc-navbar {
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
   outline: none;
-  will-change: width, grid-auto-columns, transition;
+  will-change: width, grid-auto-columns;
 }
 
 cc-navbar div.blocker {
@@ -63,21 +66,31 @@ cc-navbar div.main {
   will-change: margin-top;
 }
 
+cc-navbar div.main>* {
+  border-bottom: 1px solid #ffffff47;
+}
+cc-navbar div.main>*:last-child {
+  border-bottom: 0;
+}
+
 cc-navbar div.main div {
   transition: inherit;
+}
+cc-navbar div.main div.group {
+  overflow-y: hidden;
 }
 cc-navbar div.main div.item {
   padding-left: var(--sidenav-padding);
   padding-right: var(--sidenav-padding);
+  transition: padding 0.5s, background-color 0.2s;
   will-change: padding-left, padding-right;
+}
+cc-navbar div.main div.item:hover {
+  background-color: #ffffff2b;
 }
 
 cc-navbar div.main div:last-child {
   align-self: unset;
-}
-
-cc-navbar div.main div:hover {
-  background-color: #ffffff2b;
 }
 
 cc-navbar div.main div.nohover:hover {
@@ -85,7 +98,7 @@ cc-navbar div.main div.nohover:hover {
 }
 
 cc-navbar div.main a {
-  transition: var(--navbar-transition);
+  transition: padding 0.5s, background-color 0.2s;
   padding-left: var(--sidenav-button-padding-left);
   padding-right: var(--sidenav-padding);
   color: white;
@@ -95,15 +108,62 @@ cc-navbar div.main a {
   grid-auto-columns: 30px 1fr;
   will-change: padding-left, padding-right;
 }
-cc-navbar div.main>a:hover {
+cc-navbar div.main a:hover {
   background-color: #ffffff2b;
 }
+
+cc-navbar div.main>div.group>button {
+  transition: padding 0.5s, margin-top 0.5s, background-color 0.2s, opacity 0.2s;
+  padding-left: var(--sidenav-button-padding-left);
+  padding-right: var(--sidenav-padding);
+  color: white;
+  text-align: left;
+  height: 56px;
+  font-size: 15px;
+  background: transparent;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  margin-top: var(--sidenav-group-button-margin-top);
+  opacity: var(--sidenav-group-button-opacity);
+  display: block;
+  will-change: padding-left, padding-right, margin-top, opacity;
+}
+cc-navbar div.main>div.group>button:hover {
+  background-color: #ffffff2b;
+}
+cc-navbar div.main>div.group>button>div {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr 30px;
+}
+cc-navbar div.main>div.group>button>div>span {
+    align-self: center;
+}
+cc-navbar div.main>div.group>button i {
+  transform: rotate(90deg);
+}
+cc-navbar div.main>div.group>a {
+  font-size: 14px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
 cc-navbar div.main a span {
   transition: opacity 0.4s ease;
   margin-left: 5px;
   align-self: center;
   opacity: var(--sidenav-navtext-opacity);
   will-change: opacity;
+}
+cc-navbar div.main a span.nohide {
+  opacity: 1;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0;
+  text-align: center;
 }
 cc-navbar div.main a i {
   align-self: center;
@@ -120,7 +180,7 @@ cc-navbar h1 {
   font-size: 25px;
 }
 
-cc-navbar button {
+cc-navbar div.main>div.item>button {
   width: -webkit-fill-available;
   background: transparent;
   border: none;
@@ -135,12 +195,13 @@ cc-navbar button {
   text-align: right;
   transition: var(--navbar-transition);
   width: var(--navbar-true-width);
-  will-change: width, margin, padding;
+  will-change: width, margin-left, margin-right, padding-left, padding-right;
 }
 
 cc-navbar i {
   font-size: 20px;
   color: white;
+  text-align: center;
 }
 
 cc-navbar button i {

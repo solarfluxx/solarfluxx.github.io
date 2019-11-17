@@ -282,6 +282,6 @@ var all = {
   changeDate: function(year, month, day) {
     calendar.setDate(new Date(year, month, day));
     calendar.populateDates();
-    calendar.firebase.getUserShifts();
+    calendar.firebase.getUserShifts(true);
   }
 };

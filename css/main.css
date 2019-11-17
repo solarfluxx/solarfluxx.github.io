@@ -1,7 +1,7 @@
 body {
   padding: 40px 10px 0;
   background: #f1efec;
-  font-family: "Open Sans";
+  font-family: "Montserrat";
 }
 
 button {
@@ -55,7 +55,7 @@ button.submit:hover {
 }
 
 .title {
-  font: 400 16px / 22px "Open Sans",Arial,sans-serif;
+  font: 400 16px / 22px "Montserrat", Arial, sans-serif;
   color: #333;
   text-transform: uppercase;
   border-bottom: 1px solid rgba(0,0,0,0.05);

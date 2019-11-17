@@ -1,7 +1,7 @@
 :root {
   --navbar-width: 256px;
   --navbar-true-width: 256px;
-  --navbar-transition-on: width 0.5s ease, padding 0.5s ease, margin-left 0.5s ease, margin-top 0.5s ease, background-color 0.2s ease;
+  --navbar-transition-on: width 0.5s, padding 0.5s, margin-left 0.5s, margin-top 0.5s, background-color 0.2s;
   --navbar-transition: var(--navbar-transition-on);
   --shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
 }
@@ -21,7 +21,7 @@
 
 body {
   background: #f1efec;
-  font-family: "Open Sans";
+  font-family: "Montserrat";
 }
 
 button.btn {
@@ -125,7 +125,7 @@ cc-tooltip {
   color: inherit;
   align-self: center;
   padding-bottom: 2px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .navbar .title {
@@ -135,7 +135,7 @@ cc-tooltip {
   color: inherit;
   align-self: center;
   padding-bottom: 2px;
-  font-weight: 600;
+  font-weight: 400;
   margin-left: 10px;
 }
 .navbar .title_container {
@@ -249,7 +249,7 @@ div.profile_container>div {
 
 div.profile_container cc-name {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 div.profile_container cc-email {
@@ -265,7 +265,7 @@ div.profile_container a {
   padding: 8px 14px;
   text-decoration: none;
   color: #464646;
-  font-weight: bold;
+  font-weight: normal;
   justify-self: center;
   margin: 0;
   margin-top: 20px;

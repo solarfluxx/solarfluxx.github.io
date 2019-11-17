@@ -26,7 +26,10 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
 
       $("cc-name").html(user.first_name + " " + user.last_name);
       $("cc-email").html(user.email);
-      calendar.firebase.getUserShifts();
+      calendar.firebase.getUserShifts(true);
+      getLocations();
+      $("cc-loader").toggleClass("hide");
+      var timer = setTimeout(function() {$("cc-loader").remove()}, 500);
     });
 
   } else {

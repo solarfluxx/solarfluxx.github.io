@@ -2,7 +2,7 @@ var shiftsRef,
 userId;
 
 calendar.firebase = {
-  getUserShifts: function(year, month) {
+  getUserShifts: function(onlyThisUser) {
     var state = user.location.substring(0,2);
     var city = user.location.substring(3);
     var shift_count = 0;
@@ -23,7 +23,11 @@ calendar.firebase = {
             childSnapshot3.forEach(function(childSnapshot4) {
               var loop_person = childSnapshot4.key;
               userId = childSnapshot4.val().id;
-              if (userId == user.uid) {
+
+              if (onlyThisUser && userId == user.uid) doLoopStuff();
+              if (!onlyThisUser) doLoopStuff();
+
+              function doLoopStuff() {
                 switch (childSnapshot4.val().state) {
                   case 0:
                     state_un++;
@@ -49,7 +53,7 @@ calendar.firebase = {
 }
 
 function toTitleCase(str) {
-    return str.replace(/\w\S*/g, function(txt){
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
+  return str.replace(/\w\S*/g, function(txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
 }

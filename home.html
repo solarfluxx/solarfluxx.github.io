@@ -2,18 +2,21 @@
 <html>
 	<head>
 		<title>Home | Cart Chart</title>
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,900&display=swap" rel="stylesheet">
 		<link href="css/fonts/FontAwesome/css/all.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/home.css">
 		<link rel="stylesheet" type="text/css" href="css/icons.css">
 		<link rel="stylesheet" type="text/css" href="css/navbar.css">
 		<link rel="stylesheet" type="text/css" href="css/calendar.css">
+		<link rel="stylesheet" type="text/css" href="css/loader.css">
 		<meta content="width=device-width, initial-scale=1" name="viewport" />
 	</head>
 
 	<body style="margin: 0;">
+		<cc-loader><cc-circle></cc-circle></cc-loader>
+
 		<header>
 			<div class="navbar">
 				<div class="title_container"><button class="title_bars" onclick="navbar.toggle();"><i class="fas fa-bars"></i></button><h2 class="title">My Schedule</h2></div>
@@ -37,11 +40,13 @@
 					<i class="material-icons">home</i>
 					<span>Home</span>
 				</a>
-				<div>
-					<a href="schedule.html">
-						<i class="material-icons">calendar_today</i>
-						<span>Schedules</span>
-					</a>
+				<div class="group" id="group_location">
+					<button>
+						<div>
+							<span>Schedules</span>
+							<i class="material-icons">chevron_left</i>
+						</div>
+					</button>
 				</div>
 
 				<div class="item">
