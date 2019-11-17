@@ -84,6 +84,8 @@ cc-navbar div.main div.item {
   padding-right: var(--sidenav-padding);
   transition: padding 0.5s, background-color 0.2s;
   will-change: padding-left, padding-right;
+  display: flex;
+  align-items: center;
 }
 cc-navbar div.main div.item:hover {
   background-color: #ffffff2b;
@@ -174,7 +176,6 @@ cc-navbar div.main div>a:first-child {
 
 cc-navbar h1 {
   margin: 0;
-  margin-top: 4%;
   width: -webkit-fill-available;
   font-weight: normal;
   font-size: 25px;
