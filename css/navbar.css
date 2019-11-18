@@ -11,9 +11,6 @@
   --sidebar-blocker-events: none;
 
   --overflow-x: unset;
-
-  --sidenav-group-button-opacity: 1;
-  --sidenav-group-button-margin-top: 0;
 }
 
 body {
@@ -128,10 +125,8 @@ cc-navbar div.main>div.group>button {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   outline: none;
-  margin-top: var(--sidenav-group-button-margin-top);
-  opacity: var(--sidenav-group-button-opacity);
   display: block;
-  will-change: padding-left, padding-right, margin-top, opacity;
+  will-change: padding-left, padding-right;
 }
 cc-navbar div.main>div.group>button:hover {
   background-color: #ffffff2b;
@@ -139,21 +134,22 @@ cc-navbar div.main>div.group>button:hover {
 cc-navbar div.main>div.group>button>div {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 1fr 30px;
+  grid-auto-columns: 30px 1fr 30px;
 }
-cc-navbar div.main>div.group>button>div>span {
-    align-self: center;
-}
-cc-navbar div.main>div.group>button i {
+cc-navbar div.main>div.group>button i:last-child {
   transform: rotate(90deg);
 }
 cc-navbar div.main>div.group>a {
   font-size: 14px;
   padding-top: 4px;
   padding-bottom: 4px;
+  transition: margin 0.2s, background-color 0.2s;
+}
+cc-navbar div.main>div.group>a.hide {
+  margin-bottom: -30px;
 }
 
-cc-navbar div.main a span {
+cc-navbar div.main span {
   transition: opacity 0.4s ease;
   margin-left: 5px;
   align-self: center;
@@ -209,6 +205,10 @@ cc-navbar button i {
   font-size: 20px;
   color: white;
   transition: transform 0.5s ease;
-  transform: var(--sidenav-icon-rotation);
   will-change: transform;
+}
+
+.contract_navbar {
+  font-size: 30px;
+  transform: var(--sidenav-icon-rotation);
 }

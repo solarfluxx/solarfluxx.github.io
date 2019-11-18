@@ -30,8 +30,6 @@ navbar.size = function(stage) {
       root.style.setProperty('--sidebar-blocker-opacity', "0");
       root.style.setProperty('--sidebar-blocker-events', "none");
       root.style.setProperty('--sidenav-margin-top', "unset");
-      root.style.setProperty('--sidenav-group-button-opacity', "1");
-      root.style.setProperty('--sidenav-group-button-margin-top', "0");
       root.style.setProperty('--overflow-x', "unset");
       navbar.stage = 0;
       break;
@@ -45,8 +43,6 @@ navbar.size = function(stage) {
       root.style.setProperty('--sidebar-blocker-opacity', "0");
       root.style.setProperty('--sidebar-blocker-events', "none");
       root.style.setProperty('--sidenav-margin-top', "-56px");
-      root.style.setProperty('--sidenav-group-button-opacity', "0");
-      root.style.setProperty('--sidenav-group-button-margin-top', "-56px");
       root.style.setProperty('--overflow-x', "unset");
       navbar.stage = 1;
       break;
@@ -61,8 +57,6 @@ navbar.size = function(stage) {
       root.style.setProperty('--sidebar-blocker-events', "none");
       root.style.setProperty('--sidenav-margin-top', "unset");
       root.style.setProperty('--overflow-x', "unset");
-      root.style.setProperty('--sidenav-group-button-opacity', "1");
-      root.style.setProperty('--sidenav-group-button-margin-top', "0");
       navbar.stage = 2;
       break;
     case 3:
@@ -75,8 +69,6 @@ navbar.size = function(stage) {
       root.style.setProperty('--sidebar-blocker-events', "all");
       root.style.setProperty('--sidenav-margin-top', "unset");
       root.style.setProperty('--overflow-x', "hidden");
-      root.style.setProperty('--sidenav-group-button-opacity', "1");
-      root.style.setProperty('--sidenav-group-button-margin-top', "0");
       navbar.stage = 3;
       break;
   }
@@ -134,4 +126,13 @@ function getLocations() {
       document.getElementById("group_location").appendChild(a);
     });
   });
+
+
+  $(".group button").click(function() {
+    test123 = this;
+    this.parentElement.querySelectorAll("a").forEach(function(snap) {
+      $(snap).toggleClass("hide");
+    });
+
+  })
 }

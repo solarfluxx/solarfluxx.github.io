@@ -271,10 +271,27 @@ var shifts = {
       main_div.appendChild(hold_div_1);
       main_div.appendChild(hold_div_2);
       document.getElementById("shifts").appendChild(main_div);
+      $(b1).click(function() {
+        shifts.updateState(1, this.getAttribute("year"), this.getAttribute("month"), this.getAttribute("day"), this.getAttribute("location"), this.getAttribute("shift"), this.getAttribute("person"));
+      });
+      $(b2).click(function() {
+        shifts.updateState(2, this.getAttribute("year"), this.getAttribute("month"), this.getAttribute("day"), this.getAttribute("location"), this.getAttribute("shift"), this.getAttribute("person"));
+      });
     }
   },
   clear: function() {
     $("#shifts").children().remove();
+    $(".task").remove();
+  },
+  updateState: function(newState, refYear, refMonth, refDay, refLoc, refShift, refPerson) {
+    var state = user.location.substring(0,2),
+        city = user.location.substring(3),
+        stateRef = firebase.database().ref("shifts/"+state+"/"+city+"/"+refYear+"/"+(parseInt(refMonth, 10) + 1)+"/"+refDay+"/"+refLoc+"/"+refShift+"/"+refPerson+"/state");
+    stateRef.once('value', function(snapshot) {
+      console.log(snapshot.val());
+      stateRef.set(newState);
+      calendar.firebase.getUserShifts(true);
+    });
   }
 };
 

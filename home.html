@@ -23,14 +23,14 @@
 				<div class="heading">
 					<cc-name class="heading_text" id="dynamic_name"></cc-name>
 					<a class="heading_icon" href="javascript:changePage('profile')"><cc-tooltip style="margin-left: -55px;">Profile Settings</cc-tooltip><i class="fa fa-cog"></i></a>
-					<a class="heading_icon" href="javascript:logout();"><cc-tooltip style="margin-left: -27px;">Logout</cc-tooltip><i class="fa fa-power-off"></i></a>
+					<a class="heading_icon" href="javascript:logout();"><cc-tooltip style="margin-left: -35px;">Sign Out</cc-tooltip><i class="fa fa-power-off"></i></a>
 					<a class="heading_icon" id="toggle_modal" href="javascript:toggleModal();"><i class="fas fa-user"></i></a>
 				</div>
 			</div>
 		</header>
 
 		<cc-navbar id="navbar">
-			<div class="blocker"></div>
+			<div class="blocker" id="blocker"></div>
 			<div class="main">
 				<div class="nohover item">
 					<h1>Cart Chart</h1>
@@ -43,6 +43,7 @@
 				<div class="group" id="group_location">
 					<button>
 						<div>
+							<i class="material-icons">calendar_today</i>
 							<span>Schedules</span>
 							<i class="material-icons">chevron_left</i>
 						</div>
@@ -131,6 +132,9 @@
 				if (hide) {
 					$(profile).addClass("hide");
 				}
+			}
+			document.getElementById("blocker").onclick = function(event) {
+				navbar.size(0);
 			}
 			function forward() {
 				all.changeDate(date.year, (date.month+1), date.day);
