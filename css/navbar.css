@@ -10,7 +10,7 @@
   --sidebar-blocker-opacity: 0;
   --sidebar-blocker-events: none;
 
-  --overflow-x: unset;
+  --overflow-x: overlay;
 }
 
 body {

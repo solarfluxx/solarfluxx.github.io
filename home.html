@@ -15,7 +15,7 @@
 		<meta content="width=device-width, initial-scale=1" name="viewport" />
 	</head>
 
-	<body style="margin: 0;">
+	<body>
 		<cc-loader><cc-circle></cc-circle></cc-loader>
 
 		<header>
@@ -110,7 +110,8 @@
 		<script src="js/calendar/firebase.js"></script>
 		<script src="js/controller.js"></script>
 		<script>
-			var icon_compact = document.getElementById("compact");
+			var icon_compact = document.getElementById("compact"),
+					schedule = false;
 
 			calendar.container = document.getElementById('calendar');
 			calendar.populateDates();

@@ -22,6 +22,8 @@
 body {
   background: #f1efec;
   font-family: "Montserrat";
+  margin: 0;
+  width: 100vw;
 }
 
 button.btn {

@@ -60,6 +60,7 @@ var calendar = {
 
       day.setAttribute("class", "day");
       if (date.month == new Date().getMonth() && i == date.day) $(day).addClass("current");
+      if (date.month == new Date().getMonth() && i == date.day && schedule) $(day).addClass("selected");
       div.setAttribute("class", "day-text");
       day_number.setAttribute("class", "short");
       day_name.setAttribute("class", "long");
@@ -79,7 +80,7 @@ var calendar = {
     var week_days = calendar.container.getElementsByClassName("day-name");
     for (i = 0; i < week_days.length; i++) {
       if (date.month == new Date().getMonth() && i == date.full.getDay()) {
-        week_days[i].setAttribute("class", "day-name current");
+        week_days[i].setAttribute("class", "day-name current selected");
       } else {
         week_days[i].setAttribute("class", "day-name");
       }

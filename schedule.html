@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Home | Cart Chart</title>
+		<title>Cart Chart</title>
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,900&display=swap" rel="stylesheet">
 		<link href="css/fonts/FontAwesome/css/all.css" rel="stylesheet">
@@ -15,7 +15,7 @@
 		<meta content="width=device-width, initial-scale=1" name="viewport" />
 	</head>
 
-	<body style="margin: 0;">
+	<body>
 		<cc-loader><cc-circle></cc-circle></cc-loader>
 
 		<header>
@@ -111,7 +111,8 @@
 		<script src="js/controller.js"></script>
 		<script src="js/url_query.js"></script>
 		<script>
-			var icon_compact = document.getElementById("compact");
+			var icon_compact = document.getElementById("compact"),
+					schedule = true;
 
 			calendar.container = document.getElementById('calendar');
 			calendar.populateDates();
@@ -146,7 +147,9 @@
 				all.changeDate(date.year, (date.month-1), date.day);
 			}
 
-			$("#schedule_title").html(toTitleCase(getQueryVariable("location").replace(/_/g, " ")) + " Schedule");
+			var schedule_location = toTitleCase(getQueryVariable("location").replace(/_/g, " "));
+			$("#schedule_title").html(schedule_location + " Schedule");
+			document.title = schedule_location + " | Cart Chart";
 		</script>
 
 	</body>

@@ -30,7 +30,7 @@ navbar.size = function(stage) {
       root.style.setProperty('--sidebar-blocker-opacity', "0");
       root.style.setProperty('--sidebar-blocker-events', "none");
       root.style.setProperty('--sidenav-margin-top', "unset");
-      root.style.setProperty('--overflow-x', "unset");
+      root.style.setProperty('--overflow-x', "overlay");
       navbar.stage = 0;
       break;
     case 1:
@@ -43,7 +43,7 @@ navbar.size = function(stage) {
       root.style.setProperty('--sidebar-blocker-opacity', "0");
       root.style.setProperty('--sidebar-blocker-events', "none");
       root.style.setProperty('--sidenav-margin-top', "-56px");
-      root.style.setProperty('--overflow-x', "unset");
+      root.style.setProperty('--overflow-x', "overlay");
       navbar.stage = 1;
       break;
     case 2:
@@ -56,7 +56,7 @@ navbar.size = function(stage) {
       root.style.setProperty('--sidebar-blocker-opacity', "0");
       root.style.setProperty('--sidebar-blocker-events', "none");
       root.style.setProperty('--sidenav-margin-top', "unset");
-      root.style.setProperty('--overflow-x', "unset");
+      root.style.setProperty('--overflow-x', "overlay");
       navbar.stage = 2;
       break;
     case 3:
