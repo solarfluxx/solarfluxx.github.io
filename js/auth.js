@@ -34,9 +34,9 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
 
   } else {
     if (window.location.host == "") {
-      changePage("index");
+      controller.page.goto("index");
     } else {
-      changePage("");
+      controller.page.goto("");
     }
   }
 });

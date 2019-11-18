@@ -1,0 +1,11 @@
+body {
+  opacity: 0;
+}
+body.show {
+  transition: opacity 0.2s;
+  opacity: 1;
+}
+body.hide {
+  transition: opacity 0.2s;
+  opacity: 0;
+}

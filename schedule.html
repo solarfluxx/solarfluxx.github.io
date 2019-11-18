@@ -20,7 +20,7 @@
 
 		<header>
 			<div class="navbar">
-				<div class="title_container"><button class="title_bars" onclick="navbar.toggle();"><i class="fas fa-bars"></i></button><h2 class="title">My Schedule</h2></div>
+				<div class="title_container"><button class="title_bars" onclick="navbar.toggle();"><i class="fas fa-bars"></i></button><h2 class="title" id="schedule_title"></h2></div>
 				<div class="heading">
 					<cc-name class="heading_text" id="dynamic_name"></cc-name>
 					<a class="heading_icon" href="javascript:controller.page.goto('profile')"><cc-tooltip style="margin-left: -55px;">Profile Settings</cc-tooltip><i class="fa fa-cog"></i></a>
@@ -109,6 +109,7 @@
 		<script src="js/calendar/compact.js"></script>
 		<script src="js/calendar/firebase.js"></script>
 		<script src="js/controller.js"></script>
+		<script src="js/url_query.js"></script>
 		<script>
 			var icon_compact = document.getElementById("compact");
 
@@ -144,6 +145,8 @@
 			function backward() {
 				all.changeDate(date.year, (date.month-1), date.day);
 			}
+
+			$("#schedule_title").html(toTitleCase(getQueryVariable("location").replace(/_/g, " ")) + " Schedule");
 		</script>
 
 	</body>

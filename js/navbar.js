@@ -114,9 +114,11 @@ function getLocations() {
       var a = document.createElement("a"),
           icon = document.createElement("span"),
           text = document.createElement("span"),
-          href = "schedule.html?location=" + childSnapshot.val().replace(/ /g, "_");;
+          href = "schedule.html?location=" + childSnapshot.val().replace(/ /g, "_");
+          click = "controller.page.goto('schedule.html?location=" + childSnapshot.val().replace(/ /g, "_") + "')";
 
-      a.setAttribute("href", href);
+      // a.setAttribute("href", "javascript:void(0)");
+      a.setAttribute("onclick", click);
       icon.setAttribute("class", "nohide");
 
       icon.innerText = toTitleCase(childSnapshot.val()).substring(0,1);
@@ -131,9 +133,6 @@ function getLocations() {
   $(".group button").click(function() {
     test123 = this;
     $($(this).children().children()[2]).toggleClass("rotate");
-    this.parentElement.querySelectorAll("a").forEach(function(snap) {
-      $(snap).toggleClass("hide");
-    });
-
+    $(this.parentElement).toggleClass("hide");
   })
 }

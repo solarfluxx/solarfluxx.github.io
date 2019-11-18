@@ -74,7 +74,12 @@ cc-navbar div.main div {
   transition: inherit;
 }
 cc-navbar div.main div.group {
-  overflow-y: hidden;
+  overflow: hidden;
+  background-color: #ffffff1c;
+}
+cc-navbar div.main>div.group.hide {
+  overflow: hidden;
+  background-color: unset;
 }
 cc-navbar div.main div.item {
   padding-left: var(--sidenav-padding);
@@ -101,6 +106,7 @@ cc-navbar div.main a {
   padding-left: var(--sidenav-button-padding-left);
   padding-right: var(--sidenav-padding);
   color: white;
+  cursor: pointer;
   text-decoration: none;
   display: grid;
   grid-auto-flow: column;
@@ -149,7 +155,7 @@ cc-navbar div.main>div.group>a {
   padding-bottom: 4px;
   transition: opacity 0.2s ease 0.2s, margin 0.2s, padding 0.5s,  background-color 0.2s;
 }
-cc-navbar div.main>div.group>a.hide {
+cc-navbar div.main>div.group.hide>a {
   margin-bottom: -30px;
   opacity: 0;
   transition: opacity 0.2s, margin 0.2s ease 0.2s, padding 0.5s, background-color 0.2s;

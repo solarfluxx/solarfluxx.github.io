@@ -5,6 +5,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<link rel="stylesheet" type="text/css" href="css/icons.css">
+		<link rel="stylesheet" type="text/css" href="css/controller.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 
@@ -14,7 +15,7 @@
 			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_profile"></span></span><input class="form_item" type="email" name="email" id="email" placeholder="Email"></div></div>
 			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_key"></span></span><input class="form_item" type="password" name="password" id="password" placeholder="Password"><span class="form_item_extra"><input class="form_item_extra" type="checkbox" name="show_password" id="show_password"></span></div></div>
 			<div class="form_item"><div class="form_item_group submit_group"><button class="submit" onclick="login();">Login</button></div></div>
-			<div class="form_item"><div class="form_item_group submit_group"><button onclick="changePage('register');">Register</button></div></div>
+			<div class="form_item"><div class="form_item_group submit_group"><button onclick="controller.page.goto('register');">Register</button></div></div>
 			<div class="align_center"><span class="error_message" id="error_text"></span></div>
 		</div>
 
@@ -22,7 +23,9 @@
 		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="js/main.js"></script>
+		<script src="js/controller.js"></script>
 
 		<!-- General Scripts -->
 		<script>
@@ -67,7 +70,7 @@
 
 			function UserIsLoggedIn(user_data) {
 				setError("");
-				changePage("home");
+				controller.page.goto("home");
 			}
 
 			function UserIsLoggedOut() {}
