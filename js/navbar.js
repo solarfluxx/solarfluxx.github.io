@@ -130,6 +130,7 @@ function getLocations() {
 
   $(".group button").click(function() {
     test123 = this;
+    $($(this).children().children()[2]).toggleClass("rotate");
     this.parentElement.querySelectorAll("a").forEach(function(snap) {
       $(snap).toggleClass("hide");
     });

@@ -138,6 +138,10 @@ cc-navbar div.main>div.group>button>div {
 }
 cc-navbar div.main>div.group>button i:last-child {
   transform: rotate(90deg);
+  transition: transform 0.4s;
+}
+cc-navbar div.main>div.group>button i.rotate:last-child {
+  transform: rotate(-90deg);
 }
 cc-navbar div.main>div.group>a {
   font-size: 14px;
