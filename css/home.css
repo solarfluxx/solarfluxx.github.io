@@ -13,10 +13,10 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #a3a3a3;
+  background: #a3a3a385;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #888;
+  background: #7c7c7c85;
 }
 
 body {

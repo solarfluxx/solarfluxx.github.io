@@ -1,11 +1,11 @@
 body {
   opacity: 0;
 }
-body.show {
+body.con_show {
   transition: opacity 0.2s;
   opacity: 1;
 }
-body.hide {
+body.con_hide {
   transition: opacity 0.2s;
   opacity: 0;
 }

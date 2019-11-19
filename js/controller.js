@@ -1,9 +1,9 @@
-$("body").addClass("show");
+$("body").addClass("con_show");
 
 var controller = {
   page: {
     goto: function(page) {
-      $("body").addClass("hide");
+      $("body").addClass("con_hide");
       setTimeout(function() {
         var current_page = window.location.href;
         var final_page;

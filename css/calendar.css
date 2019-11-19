@@ -14,13 +14,15 @@ body {
   border-radius: 10px;
   margin-top: 20px;
   box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-  overflow-y: hidden;
+  overflow: hidden;
+}
+.shifts-container>*:last-child {
+  border-top: 1px solid rgba(166,168,179,0.12);
 }
 .shifts-container>.title {
   margin: 0;
   padding: 20px 0px;
   text-align: center;
-  border-bottom: 1px solid rgba(166,168,179,0.12);
 }
 .shifts-container #shifts {
   display: grid;
@@ -80,6 +82,34 @@ body {
 }
 .shifts-container #shifts div button i {
   margin-right: 8px;
+}
+
+.shifts-container #shifts div.shift_time-container {
+  display: block !important;
+  padding: 0;
+}
+.shifts-container #shifts div.shift_time-container>p {
+  text-align: center;
+  margin: 0;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(166,168,179,0.12);
+}
+.shifts-container #shifts div.shift_time-container>div {
+  width: unset;
+  padding: 0 15px;
+  border-bottom: 1px solid rgba(166,168,179,0.12);
+}
+.shifts-container #shifts div.shift_time-container>div:last-child {
+  border-bottom: none;
+}
+.shifts-container section.task.accept::after {
+  content: "Accepted";
+}
+.shifts-container section.task.decline::after {
+  content: "Declined";
+}
+.shifts-container section.task.unconfirm::after {
+  content: "Unconfirmed";
 }
 
 
