@@ -23,7 +23,6 @@ body {
   background: #f1efec;
   font-family: "Montserrat";
   margin: 0;
-  width: 100vw;
 }
 
 button.btn {
@@ -285,6 +284,11 @@ div.profile_container a:hover {
   }
   .heading_icon:last-child {
     display: block;
+  }
+  .navbar {
+    width: unset;
+    left: 0;
+    right: 0;
   }
   .navbar .title_container button {
     display: block;

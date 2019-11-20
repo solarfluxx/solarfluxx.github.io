@@ -496,8 +496,11 @@ body {
   .shifts-container #shifts div button.hide-button {
     display: none;
   }
-  .shifts-container #shifts div section {
+  .shifts-container #shifts>div>div>section {
     margin-left: 20px;
+  }
+  .shifts-container #shifts>div.shift_time-container>div>section {
+    margin-left: auto !important;
   }
 }
 
