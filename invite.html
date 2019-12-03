@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Invite User | Cart Chart</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,900&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="css/fonts/FontAwesome/css/all.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/icons.css">
+		<link rel="stylesheet" type="text/css" href="css/navbar.css">
+		<link rel="stylesheet" type="text/css" href="css/loader.css">
+		<link rel="stylesheet" type="text/css" href="css/controller.css">
+		<link rel="stylesheet" type="text/css" href="css/invite.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+		<cc-loader><cc-circle></cc-circle></cc-loader>
+
+		<header>
+			<div class="navbar">
+				<div class="title_container"><button class="title_bars" onclick="navbar.toggle();"><i class="fas fa-bars"></i></button><h2 class="title">My Schedule</h2></div>
+				<div class="heading">
+					<cc-name class="heading_text" id="dynamic_name"></cc-name>
+					<a class="heading_icon" href="javascript:controller.page.goto('profile')"><cc-tooltip style="margin-left: -55px;">Profile Settings</cc-tooltip><i class="fa fa-cog"></i></a>
+					<a class="heading_icon" href="javascript:logout();"><cc-tooltip style="margin-left: -35px;">Sign Out</cc-tooltip><i class="fa fa-power-off"></i></a>
+					<a class="heading_icon" id="toggle_modal" href="javascript:toggleModal();"><i class="fas fa-user"></i></a>
+				</div>
+			</div>
+		</header>
+
+		<cc-navbar id="navbar">
+			<div class="blocker" id="blocker"></div>
+			<div class="main">
+				<div class="nohover item">
+					<h1>Cart Chart</h1>
+				</div>
+
+				<a onclick="controller.page.goto('home')">
+					<i class="material-icons">home</i>
+					<span>Home</span>
+				</a>
+				<div class="group" id="group_location">
+					<button>
+						<div>
+							<i class="material-icons">calendar_today</i>
+							<span>Schedules</span>
+							<i class="material-icons">chevron_left</i>
+						</div>
+					</button>
+				</div>
+
+				<div class="item">
+					<button onclick="navbar.toggle();">
+						<!-- <i class="fas fa-chevron-left"></i> -->
+						<i class="material-icons contract_navbar">chevron_left</i>
+					</button>
+				</div>
+
+			</div>
+		</cc-navbar>
+
+		<div class="main_container">
+			<div class="form">
+				<h2 class="title">Invite A New User</h2>
+				<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_profile"></span></span><input class="form_item" type="text" name="first_name" id="first_name" placeholder="First Name"></div></div>
+				<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="arrow_carrot-right"></span></span><input class="form_item" type="text" name="last_name" id="last_name" placeholder="Last Name"></div></div>
+				<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_mail"></span></span><input class="form_item" type="email" name="email" id="email" placeholder="Email"></div></div>
+				<div class="form_item"><div class="form_item_group submit_group"><button class="submit" onclick="create_user();">Invite</button></div></div>
+				<div class="align_center"><span class="error_message" id="error_text"></span></div>
+			</div>
+		</div>
+
+		<!-- Firebase Scripts -->
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-database.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/admin/auth.js"></script>
+		<script src="js/navbar.js"></script>
+		<script src="js/controller.js"></script>
+		<script src="js/inputs.js"></script>
+
+		<!-- General Scripts -->
+		<script>
+      function create_user() {
+        var email_input = document.getElementById("email");
+        var email = email_input.value;
+        var password = "{emptypassword}";
+				var first_name_value = document.getElementById("first_name").value;
+				var last_name_value = document.getElementById("last_name").value;
+        secondaryApp.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
+					var user = secondaryApp.auth().currentUser;
+					var uid = user.uid;
+					firebase.database().ref('users/' + uid).set({
+				    firstname: first_name_value,
+				    lastname: last_name_value,
+				    location: cUser.location
+				  });
+          secondaryApp.auth().signOut();
+					setSuccess("Successfully invited " + first_name_value + " " + last_name_value);
+
+        }).catch(function(error) {
+          if (error.code == "auth/invalid-email") {
+            setError("Please enter a valid email address");
+          } else if (error.code == "auth/email-already-in-use") {
+            setError("That user has already been invited");
+          }
+        });
+      }
+		</script>
+	</body>
+</html>

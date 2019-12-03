@@ -54,7 +54,7 @@ button.submit:hover {
   border-color: #e0a35d;
 }
 
-.title {
+.form .title {
   font: 400 16px / 22px "Montserrat", Arial, sans-serif;
   color: #333;
   text-transform: uppercase;

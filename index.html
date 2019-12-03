@@ -34,6 +34,7 @@
 			var show_password_checkbox = document.getElementById("show_password");
 			var password_input = document.getElementById("password");
 
+			handleToggleClick();
 			show_password_checkbox.addEventListener("click", handleToggleClick, false);
 			function handleToggleClick(event) {
 			  if (this.checked) {

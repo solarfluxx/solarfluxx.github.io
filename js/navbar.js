@@ -105,8 +105,8 @@ function navbarResize(animation) {
 }
 
 function getLocations() {
-  var state = user.location.substring(0,2),
-      city = user.location.substring(3),
+  var state = cUser.location.substring(0,2),
+      city = cUser.location.substring(3),
       locationsRef = firebase.database().ref("shifts/"+state+"/"+city+"/locations");
 
   locationsRef.once('value', function(snapshot) {

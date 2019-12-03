@@ -284,8 +284,8 @@ var shifts = {
     $(".task").remove();
   },
   updateState: function(newState, refYear, refMonth, refDay, refLoc, refShift, refPerson) {
-    var state = user.location.substring(0,2),
-        city = user.location.substring(3),
+    var state = cUser.location.substring(0,2),
+        city = cUser.location.substring(3),
         stateRef = firebase.database().ref("shifts/"+state+"/"+city+"/"+refYear+"/"+(parseInt(refMonth, 10) + 1)+"/"+refDay+"/"+refLoc+"/"+refShift+"/"+refPerson+"/state");
     stateRef.once('value', function(snapshot) {
       console.log(snapshot.val());

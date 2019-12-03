@@ -5,8 +5,8 @@ var shiftsRef,
 
 calendar.firebase = {
   getShiftNames: function() {
-    var state = user.location.substring(0,2),
-        city = user.location.substring(3),
+    var state = cUser.location.substring(0,2),
+        city = cUser.location.substring(3),
         shiftNamesRef = firebase.database().ref("shifts/"+state+"/"+city+"/shifts");
 
     shiftNamesRef.once('value', function(snapshot) {
@@ -16,8 +16,8 @@ calendar.firebase = {
     });
   },
   getUserShifts: function(onlyThisUser) {
-    var state = user.location.substring(0,2);
-    var city = user.location.substring(3);
+    var state = cUser.location.substring(0,2);
+    var city = cUser.location.substring(3);
     var shift_count = 0;
     shifts.clear();
     shifts.create(true);
@@ -37,7 +37,7 @@ calendar.firebase = {
               var loop_person = childSnapshot4.key;
               user_id = childSnapshot4.val().id;
 
-              if (onlyThisUser && user_id == user.uid) doLoopStuff();
+              if (onlyThisUser && user_id == cUser.id) doLoopStuff();
               if (!onlyThisUser) doLoopStuff();
 
               function doLoopStuff() {
@@ -64,8 +64,8 @@ calendar.firebase = {
     });
   },
   getAllUsersShifts: function() {
-    var state = user.location.substring(0,2),
-    city = user.location.substring(3),
+    var state = cUser.location.substring(0,2),
+    city = cUser.location.substring(3),
     shift_count = 0;
     abc_array = [];
     $(".task").remove();
@@ -108,10 +108,4 @@ calendar.firebase = {
       });
     });
   }
-}
-
-function toTitleCase(str) {
-  return str.replace(/\w\S*/g, function(txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
 }

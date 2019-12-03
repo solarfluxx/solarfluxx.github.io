@@ -1,0 +1,24 @@
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #a3a3a385;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7c7c7c85;
+}
+
+body {
+  padding: 0;
+}
+
+.main_container {
+  margin-top: 43px;
+  margin-left: var(--navbar-width);
+  padding: 30px;
+  transition: var(--navbar-transition);
+  will-change: margin-left;
+}

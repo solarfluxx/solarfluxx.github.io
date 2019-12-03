@@ -21,12 +21,10 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
 
     firebase.database().ref('users/' + uid).once('value').then(function(snapshot) {
       cUser = new User(loggedUser.uid, snapshot.val().firstname, snapshot.val().lastname, loggedUser.email, snapshot.val().location, snapshot.val().perm);
-      
+
       $("cc-name").html(cUser.firstName + " " + cUser.lastName);
       $("cc-email").html(cUser.email);
-      calendar.firebase.getShiftNames();
       getLocations();
-      if (schedule) calendar.firebase.getAllUsersShifts(); else calendar.firebase.getUserShifts(true);
       $("cc-loader").toggleClass("hide");
       var timer = setTimeout(function() {$("cc-loader").remove()}, 500);
     });
