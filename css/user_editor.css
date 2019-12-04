@@ -1,0 +1,67 @@
+cc-users {
+  width: 100%;
+  display: grid;
+  margin-top: 0;
+  height: min-content;
+}
+
+cc-item {
+  height: 40px;
+  transition: background-color 0.3s;
+  padding: 0 30px;
+  transition: background-color 0.3s, opacity 0.3s 0.1s, height 0.3s, padding 0.3s;
+}
+cc-item:hover {
+  background-color: var(--light-accent-color);
+  color: white;
+}
+cc-item.hide_item {
+  height: 0;
+  opacity: 0;
+  transition: opacity 0.3s, height 0.3s, padding 0.3s;
+}
+
+cc-user-editor {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  transition: height 0.3s;
+}
+cc-user-editor.edit_page {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+cc-users-edit {
+  width: 0;
+  overflow-x: hidden;
+  position: absolute;
+  right: 0;
+  display: block;
+  pointer-events: all;
+  background-color: white;
+  transition: width 0.3s;
+}
+cc-users-edit.edit_page {
+  width: 100%;
+}
+
+cc-user-text::before {
+  content: "Find a user";
+  position: absolute;
+  transition: opacity 0.3s 0.3s;
+}
+cc-user-text::after {
+  content: attr(edit-name);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+cc-user-text.edit_page::before {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+cc-user-text.edit_page::after {
+  opacity: 1;
+  transition: opacity 0.3s 0.3s;
+}

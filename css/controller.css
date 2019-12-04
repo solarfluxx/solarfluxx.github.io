@@ -1,3 +1,8 @@
+:root {
+  --accent-color: #c56900;
+  --light-accent-color: #e0a35d;
+}
+
 body {
   opacity: 0;
 }

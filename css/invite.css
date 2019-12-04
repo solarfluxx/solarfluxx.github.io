@@ -13,12 +13,59 @@
 
 body {
   padding: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .main_container {
   margin-top: 43px;
   margin-left: var(--navbar-width);
-  padding: 30px;
+  padding: 0 30px;
   transition: var(--navbar-transition);
   will-change: margin-left;
+  display: flex;
+  align-items: flex-start;
+}
+
+.form {
+  border-radius: 10px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  border: none;
+  margin: 30px auto;
+  user-select: none;
+  padding: 0;
+}
+.form.double {
+  width: 1000px;
+  overflow: hidden;
+}
+
+.form .title {
+  margin-top: 0;
+  padding-bottom: 15px;
+  padding-left: 5px;
+  margin: 20px;
+}
+.form.double .title {
+  margin-bottom: 0;
+}
+
+.form p {
+  overflow: hidden;
+  height: 20px;
+  margin: 0;
+  padding: 10px 0;
+  transition: color 0.1s;
+  pointer-events: none;
+}
+
+.form #search {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ddd;
+  padding: 10px;
+  float: right;
+  margin-top: -10px;
 }

@@ -30,7 +30,7 @@ cc-navbar {
   transition: var(--navbar-transition);
   width: var(--navbar-true-width);
   grid-auto-columns: var(--navbar-true-width);
-  background-color: #c56900;
+  background-color: var(--accent-color);
   top: 0;
   bottom: 0;
   left: 0;
