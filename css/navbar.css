@@ -337,6 +337,11 @@ div.heading:last-child {
   background-color: #00000033;
 }
 
+@media only screen and (max-width:1099px) {
+  .navbar .title_container button {
+    display: block;
+  }
+}
 @media only screen and (max-width:950px) {
   .heading_text {
     display: none;
@@ -351,9 +356,6 @@ div.heading:last-child {
     width: unset;
     left: 0;
     right: 0;
-  }
-  .navbar .title_container button {
-    display: block;
   }
 }
 

@@ -26,6 +26,7 @@ body {
   transition: var(--navbar-transition);
   will-change: margin-left;
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
 }
 
@@ -68,4 +69,17 @@ body {
   padding: 10px;
   float: right;
   margin-top: -10px;
+}
+.form #search:focus {
+  outline-color: var(--light-accent-color);
+}
+
+@media only screen and (max-width:767px) {
+  div.form_item_group {
+    width: 90%;
+  }
+  
+  .form {
+    width: -webkit-fill-available;
+  }
 }

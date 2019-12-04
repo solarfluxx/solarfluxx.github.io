@@ -14,21 +14,25 @@ function Item(id, firstname, lastname, index) {
   text_element.innerHTML = this.name_full;
 }
 
-var test1;
-
+var edit_page_open = false;
 var user_editor_tools = {
   openEditPage: function(data) {
-    data.target.parentElement.parentElement.style.setProperty("height", data.target.parentElement.parentElement.scrollHeight+"px");
+    data.target.parentElement.parentElement.style.setProperty("height", data.target.parentElement.scrollHeight+"px");
     data.target.parentElement.parentElement.style.setProperty("height", data.target.parentElement.parentElement.getElementsByTagName("cc-users-edit")[0].scrollHeight+"px")
     $(data.target.parentElement.parentElement.getElementsByTagName("cc-users-edit")).addClass("edit_page");
     $("cc-user-text").addClass("edit_page");
+    edit_page_open = true;
   },
   closeEditPage: function() {
-    $("cc-user-editor")[0].style.setProperty("height", $("cc-users")[0].scrollHeight+"px")
     $("cc-users-edit").removeClass("edit_page");
     $("cc-user-text").removeClass("edit_page");
+    $("cc-user-editor")[0].style.setProperty("height", $("cc-users")[0].scrollHeight+"px");
+    setTimeout(function() {
+      $("cc-user-editor")[0].style.setProperty("height", "auto")
+    }, 300);
+    edit_page_open = false;
   }
-}
+};
 
 var users_list = [],
 users = {
@@ -50,12 +54,26 @@ users = {
     });
   },
   search: function(search_text) {
-    $("cc-users").children().each(function(index) {
-      if ($("cc-users").children()[index].innerHTML.toUpperCase().indexOf(search_text.toUpperCase()) > -1) {
-        $($("cc-users").children()[index]).removeClass("hide_item");
-      } else {
-        $($("cc-users").children()[index]).addClass("hide_item");
-      }
-    });
+    if (edit_page_open) {
+      console.log("Is open");
+      user_editor_tools.closeEditPage();
+      setTimeout(function() {
+        filter();
+      }, 300);
+    } else {
+      console.log("Not open");
+      filter();
+    }
+
+    function filter() {
+      console.log("Running Search");
+      $("cc-users").children().each(function(index) {
+        if ($("cc-users").children()[index].innerHTML.toUpperCase().indexOf(search_text.toUpperCase()) > -1) {
+          $($("cc-users").children()[index]).removeClass("hide_item");
+        } else {
+          $($("cc-users").children()[index]).addClass("hide_item");
+        }
+      });
+    }
   }
 };

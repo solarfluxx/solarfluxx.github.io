@@ -3,11 +3,15 @@ cc-users {
   display: grid;
   margin-top: 0;
   height: min-content;
+  max-height: 1000px;
+  transition: background-color 0.3s, opacity 0.3s, height 0.3s, padding 0.3s;
+}
+cc-users.anim_disable {
+  transition: none;
 }
 
 cc-item {
   height: 40px;
-  transition: background-color 0.3s;
   padding: 0 30px;
   transition: background-color 0.3s, opacity 0.3s 0.1s, height 0.3s, padding 0.3s;
 }
@@ -18,7 +22,7 @@ cc-item:hover {
 cc-item.hide_item {
   height: 0;
   opacity: 0;
-  transition: opacity 0.3s, height 0.3s, padding 0.3s;
+  transition: inherit;
 }
 
 cc-user-editor {
@@ -46,22 +50,25 @@ cc-users-edit {
 cc-users-edit.edit_page {
   width: 100%;
 }
-
 cc-user-text::before {
   content: "Find a user";
   position: absolute;
-  transition: opacity 0.3s 0.3s;
+  transition: opacity 0.2s 0.2s;
 }
 cc-user-text::after {
   content: attr(edit-name);
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.2s;
 }
 cc-user-text.edit_page::before {
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.2s;
 }
 cc-user-text.edit_page::after {
   opacity: 1;
-  transition: opacity 0.3s 0.3s;
+  transition: opacity 0.2s 0.2s;
+}
+
+cc-users-edit p {
+  padding: 10px 30px !important;
 }

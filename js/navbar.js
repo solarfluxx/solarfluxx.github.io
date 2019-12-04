@@ -97,10 +97,13 @@ function navbarResize(animation) {
   }
   if ($(window).width() < window_stage[0]) {
     navbar.size(0);
+    $(".title_bars").css("display", "block");
   } else if ($(window).width() < window_stage[1]) {
     navbar.size(1);
+    $(".title_bars").css("display", "none");
   } else {
     navbar.size(2);
+    $(".title_bars").css("display", "none");
   }
 }
 
