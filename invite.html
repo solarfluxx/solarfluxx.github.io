@@ -31,6 +31,17 @@
 			</div>
 		</header>
 
+		<cc-model class="profile">
+			<div class="profile_container hide">
+				<div>
+					<cc-name></cc-name>
+					<cc-email></cc-email>
+					<a href="javascript:changePage('profile')">Manage Your Account</a>
+					<a href="javascript:logout();">Sign Out</a>
+				</div>
+			</div>
+		</cc-model>
+
 		<cc-navbar id="navbar">
 			<div class="blocker" id="blocker"></div>
 			<div class="main">
@@ -110,6 +121,27 @@
 		<!-- General Scripts -->
 		<script>
 			users.getAll();
+
+			navbar.element = document.getElementById('navbar');
+
+			var profile = document.getElementsByClassName("profile_container")[0];
+			function toggleModal() {
+				$(profile).toggleClass("hide");
+			}
+			window.onclick = function(event) {
+				var hide = true,
+						button = document.getElementById("toggle_modal");
+				for (i=0; i<event.path.length; i++) {
+					if (event.path[i] == profile) {
+						hide = false;
+					} else if (event.path[i] == button) {
+						hide = false;
+					}
+				}
+				if (hide) {
+					$(profile).addClass("hide");
+				}
+			}
 
       function create_user() {
         var email_input = document.getElementById("email");

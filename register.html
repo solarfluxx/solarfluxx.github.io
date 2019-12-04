@@ -92,6 +92,8 @@
 						setError("There is already an account registered to this email address");
 					} else if (errorCode == "auth/user-not-found") {
 						setError("There is no account for that email address");
+					} else if (errorCode == "auth/weak-password") {
+						setError("Please choose a stronger password");
 					}
 
 				});

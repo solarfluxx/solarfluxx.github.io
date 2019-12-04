@@ -26,7 +26,7 @@ var user_editor_tools = {
   closeEditPage: function() {
     $("cc-users-edit").removeClass("edit_page");
     $("cc-user-text").removeClass("edit_page");
-    $("cc-user-editor")[0].style.setProperty("height", $("cc-users")[0].scrollHeight+"px");
+    $("cc-user-editor")[0].style.setProperty("height", $("cc-users")[0].clientHeight+"px");
     setTimeout(function() {
       $("cc-user-editor")[0].style.setProperty("height", "auto")
     }, 300);
@@ -37,6 +37,7 @@ var user_editor_tools = {
 var users_list = [],
 users = {
   getAll: function() {
+    $("cc-users").html("");
     firebase.database().ref().child('users').orderByChild('firstname').on("value", function(snapshot) {
       snapshot.forEach(function(data) {
         var item = new Item(data.key, data.val().firstname, data.val().lastname, users_list.length);

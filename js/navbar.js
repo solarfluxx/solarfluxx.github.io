@@ -139,3 +139,7 @@ function getLocations() {
     $(this.parentElement).toggleClass("hide");
   })
 }
+
+document.getElementById("blocker").onclick = function(event) {
+  navbar.size(0);
+}
