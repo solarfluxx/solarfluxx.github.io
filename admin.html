@@ -21,7 +21,7 @@
 
 		<header>
 			<div class="navbar">
-				<div class="title_container"><button class="title_bars" onclick="navbar.toggle();"><i class="fas fa-bars"></i></button><h2 class="title">My Schedule</h2></div>
+				<div class="title_container"><button class="title_bars" onclick="navbar.toggle();"><i class="fas fa-bars"></i></button><h2 class="title">Admin Tools</h2></div>
 				<div class="heading">
 					<cc-name class="heading_text" id="dynamic_name"></cc-name>
 					<a class="heading_icon" href="javascript:controller.page.goto('profile')"><cc-tooltip style="margin-left: -55px;">Profile Settings</cc-tooltip><i class="fa fa-cog"></i></a>
@@ -85,7 +85,9 @@
 
 			<div class="form double">
 				<h2 class="title">
-					<cc-user-text edit-name="text"></cc-user-text>
+					<cc-user-text default="Find a user" edit-name="A">
+						<i class="material-icons">chevron_left</i>
+					</cc-user-text>
 					<input type="text" id="search" placeholder="Search" onchange="users.search(this.value)">
 				</h2>
 				<cc-user-editor>

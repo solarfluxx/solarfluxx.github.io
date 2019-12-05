@@ -22,6 +22,7 @@
 body {
   overflow-y: var(--overflow-x);
   overflow-x: hidden;
+  user-select: none;
 }
 
 cc-navbar {

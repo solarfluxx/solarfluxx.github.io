@@ -37,8 +37,8 @@ var user_editor_tools = {
 var users_list = [],
 users = {
   getAll: function() {
-    $("cc-users").html("");
     firebase.database().ref().child('users').orderByChild('firstname').on("value", function(snapshot) {
+      $("cc-users").html("");
       snapshot.forEach(function(data) {
         var item = new Item(data.key, data.val().firstname, data.val().lastname, users_list.length);
         users_list.push(item);
@@ -56,18 +56,13 @@ users = {
   },
   search: function(search_text) {
     if (edit_page_open) {
-      console.log("Is open");
       user_editor_tools.closeEditPage();
       setTimeout(function() {
         filter();
       }, 300);
-    } else {
-      console.log("Not open");
-      filter();
-    }
+    } else filter();
 
     function filter() {
-      console.log("Running Search");
       $("cc-users").children().each(function(index) {
         if ($("cc-users").children()[index].innerHTML.toUpperCase().indexOf(search_text.toUpperCase()) > -1) {
           $($("cc-users").children()[index]).removeClass("hide_item");
@@ -78,3 +73,7 @@ users = {
     }
   }
 };
+
+$("cc-user-text i").click(function() {
+  user_editor_tools.closeEditPage();
+});
