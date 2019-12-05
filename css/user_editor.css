@@ -136,4 +136,5 @@ cc-popup[use="users"]>div>h2>#search {
   padding: 10px;
   float: right;
   margin-top: -10px;
+  width: 30%;
 }
