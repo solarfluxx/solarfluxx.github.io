@@ -69,6 +69,7 @@ body {
   padding: 10px;
   float: right;
   margin-top: -10px;
+  width: 30%;
 }
 .form #search:focus {
   outline-color: var(--light-accent-color);
@@ -78,7 +79,7 @@ body {
   div.form_item_group {
     width: 90%;
   }
-  
+
   .form {
     width: -webkit-fill-available;
   }
