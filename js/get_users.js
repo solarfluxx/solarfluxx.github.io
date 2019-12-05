@@ -1,6 +1,6 @@
-function Item(id, firstname, lastname, index) {
-  var container_element = document.createElement("cc-item");
-  var text_element = document.createElement("p");
+function UserPacket(id, firstname, lastname, index) {
+  var container_element = document.createElement("cc-item"),
+  text_element = document.createElement("p");
   container_element.appendChild(text_element);
   container_element.setAttribute("index", index);
 
@@ -12,6 +12,18 @@ function Item(id, firstname, lastname, index) {
   this.text_element = text_element;
 
   text_element.innerHTML = this.name_full;
+}
+function ShiftPacket(shiftTime, index) {
+  var container_element = document.createElement("cc-item"),
+  text_element = document.createElement("p");
+  container_element.appendChild(text_element);
+  container_element.setAttribute("index", index);
+
+  this.shift_time = shiftTime;
+  this.element = container_element;
+  this.text_element = text_element;
+
+  text_element.innerHTML = this.shift_time;
 }
 
 var edit_page_open = false;
@@ -40,16 +52,18 @@ users = {
     firebase.database().ref().child('users').orderByChild('firstname').on("value", function(snapshot) {
       $("cc-users").html("");
       snapshot.forEach(function(data) {
-        var item = new Item(data.key, data.val().firstname, data.val().lastname, users_list.length);
+        var item = new UserPacket(data.key, data.val().firstname, data.val().lastname, users_list.length);
         users_list.push(item);
         $("cc-users").append(item.element);
       });
       $("cc-item").click(function(data) {
-        console.log(users_list[data.target.getAttribute("index")]);
-        console.log($(data.target.parentElement.parentElement));
-
-        user_editor_tools.openEditPage(data);
-        $("cc-user-text").attr("edit-name", users_list[data.target.getAttribute("index")].name_full);
+        if ($("cc-user-editor").length == 0) {
+          promiseKept(users_list[data.target.getAttribute("index")]);
+          user_popup.close();
+        } else {
+          user_editor_tools.openEditPage(data);
+          $("cc-user-text").attr("edit-name", users_list[data.target.getAttribute("index")].name_full);
+        }
       });
       return users_list;
     });
@@ -76,4 +90,61 @@ users = {
 
 $("cc-user-text i").click(function() {
   user_editor_tools.closeEditPage();
+});
+
+var shifts_list = [],
+choose_user_shift = {
+  populate: function() {
+    var state = cUser.location.substring(0,2),
+        city = cUser.location.substring(3),
+        allShiftsRef = firebase.database().ref("shifts/"+state+"/"+city+"/shifts");
+
+    allShiftsRef.once('value', function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        var item = new ShiftPacket(childSnapshot.val(), shifts_list.length);
+        shifts_list.push(item);
+        $("cc-user-shift").append(item.element);
+      });
+    });
+  }
+};
+
+var promiseKept;
+var promiseBroken;
+var user_popup = {
+  open: function(type) {
+    if (type == "users") $("cc-popup[use='users']").addClass("show");
+    if (type == "shifts") $("cc-popup[use='shifts']").addClass("show");
+    $("body").css("overflow", "hidden");
+  },
+  close: function() {
+    $("cc-popup[use='users']").removeClass("show");
+    $("cc-popup[use='shifts']").removeClass("show");
+    $("body").removeAttr("style");
+    promiseBroken(true);
+  },
+  getUser: function(type) {
+    this.open(type);
+    return new Promise(function(kept, broken) {
+      promiseKept = kept;
+      promiseBroken = broken;
+    });
+  }
+};
+
+$("button#addUser").click(function() {
+  user_popup.getUser("users").then(function(value) {
+    console.log(value);
+
+    user_popup.getUser("shifts").then(function(value) {
+      console.log(value);
+
+    }).catch(function(e) {
+      console.log("No shift chosen");
+
+    });
+  }).catch(function(e) {
+    console.log("No user chosen");
+
+  });
 });

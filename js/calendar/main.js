@@ -314,7 +314,7 @@ var shifts = {
     }
   },
   createAdvanced: function(day) {
-    if (abc_array == []) noShifts(day);
+    if (abc_array.length == 0) shifts.noShifts(day);
     abc_array.forEach(function(shift_object) {
       if (shift_object.date == day) {
         // shifts.create_element.button("accept", shift_object.date, shift_object.location, shift_object.shift_time, shift_object.person);
@@ -374,7 +374,6 @@ var shifts = {
       text.setAttribute("id", "noshifts");
       div.appendChild(text);
       document.getElementById("shifts").appendChild(div);
-      console.log("No Shift Called");
     }
   }
 };

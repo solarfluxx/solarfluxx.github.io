@@ -15,7 +15,7 @@ calendar.firebase = {
       });
     });
   },
-  getUserShifts: function(onlyThisUser) {
+  getUserShifts: function() {
     var state = cUser.location.substring(0,2);
     var city = cUser.location.substring(3);
     var shift_count = 0;
@@ -37,8 +37,7 @@ calendar.firebase = {
               var loop_person = childSnapshot4.key;
               user_id = childSnapshot4.val().id;
 
-              if (onlyThisUser && user_id == cUser.id) doLoopStuff();
-              if (!onlyThisUser) doLoopStuff();
+              doLoopStuff();
 
               function doLoopStuff() {
                 switch (childSnapshot4.val().state) {

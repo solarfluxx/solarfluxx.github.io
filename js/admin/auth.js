@@ -25,8 +25,12 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
       $("cc-name").html(cUser.firstName + " " + cUser.lastName);
       $("cc-email").html(cUser.email);
       getLocations();
-      $("cc-loader").toggleClass("hide");
-      var timer = setTimeout(function() {$("cc-loader").remove()}, 500);
+      if (!cUser.admin) {
+        controller.page.goto("home");
+      } else {
+        $("cc-loader").toggleClass("hide");
+        var timer = setTimeout(function() {$("cc-loader").remove()}, 500);
+      }
     });
 
   } else {

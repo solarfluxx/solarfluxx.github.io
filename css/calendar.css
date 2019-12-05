@@ -19,10 +19,32 @@ body {
 .shifts-container>*:last-child {
   border-top: 1px solid rgba(166,168,179,0.12);
 }
-.shifts-container>.title {
-  margin: 0;
+.shifts-container>div:first-child {
   padding: 20px 0px;
+}
+.shifts-container>div>.title {
+  margin: 0;
   text-align: center;
+}
+.shifts-container>div>button {
+  background: 0;
+  border: 0;
+  padding: 0;
+  color: rgba(81,86,93,0.7);
+  cursor: pointer;
+  outline: 0;
+  transition: color 0.1s, background-color 0.2s;
+  float: right;
+  width: 40px;
+  height: 40px;
+  margin: -10px 15px;
+  border-radius: 50%;
+}
+.shifts-container>div>button:hover {
+  background-color: #00000020;
+}
+.shifts-container>div>button:active {
+  color: black;
 }
 .shifts-container #shifts {
   display: grid;
@@ -147,7 +169,7 @@ body {
   color: rgba(81,86,93,0.7);
   cursor: pointer;
   outline: 0;
-  transition: color 0.1s, background-color 0.1s;
+  transition: color 0.1s, background-color 0.2s;
   float: right;
   width: 40px;
   height: 40px;
@@ -158,10 +180,10 @@ body {
   float: left;
 }
 .calendar-header button:hover {
-  color: black;
+  background-color: #00000020;
 }
 .calendar-header button:active {
-  background-color: #00000024;
+  color: black;
 }
 .day {
   border-bottom: 1px solid rgba(166,168,179,0.12);
@@ -177,6 +199,7 @@ body {
   background-color: white;
   transition: all 150ms ease;
   will-change: transition, margin, opacity, padding, border, height, box-shadow, z-index;
+  cursor: pointer;
 }
 .day:hover {
   margin: -8px;

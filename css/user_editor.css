@@ -1,4 +1,4 @@
-cc-users {
+cc-users, cc-user-shift {
   width: 100%;
   display: grid;
   margin-top: 0;
@@ -74,22 +74,66 @@ cc-user-text.edit_page::after {
 cc-users-edit p {
   padding: 10px 30px !important;
 }
+cc-users p, cc-user-shift p {
+  overflow: hidden;
+  height: 20px;
+  margin: 0;
+  padding: 10px 0;
+  transition: color 0.1s;
+  pointer-events: none;
+}
 
 cc-user-text i {
-  margin-top: -5px;
-  margin-left: -10px;
-  font-size: 30px !important;
+  margin-top: -10px;
+  margin-left: -15px;
+  font-size: 25px !important;
   position: absolute;
   opacity: 0;
-  transition: opacity 0.2s, background-color 0.2s;
+  transition: opacity 0.2s, color 0.1s, background-color 0.2s;
   border-radius: 50%;
   color: #5d5d5d;
-  cursor: pointer;
+  padding: 7.5px;
+  pointer-events: none;
 }
 cc-user-text.edit_page i {
   opacity: 1;
-  transition: opacity 0.2s 0.2s, background-color 0.2s;
+  transition: opacity 0.2s 0.2s, color 0.1s, background-color 0.2s;
+  cursor: pointer;
+  pointer-events: all;
 }
 cc-user-text i:hover {
   background-color: #00000020;
+}
+cc-user-text i:active {
+  color: black;
+}
+cc-popup>div {
+  overflow: hidden;
+  background: white;
+  width: 1000px;
+  border-radius: 10px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  border: none;
+  margin: 30px auto;
+  user-select: none;
+  padding: 0;
+}
+cc-popup>div>h2 {
+  font: 400 16px / 22px "Montserrat", Arial, sans-serif;
+  color: #333;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  margin-top: 0;
+  padding-bottom: 15px;
+  padding-left: 5px;
+  margin: 20px;
+  margin-bottom: 0;
+}
+cc-popup[use="users"]>div>h2>#search {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ddd;
+  padding: 10px;
+  float: right;
+  margin-top: -10px;
 }

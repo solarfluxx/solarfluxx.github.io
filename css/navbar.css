@@ -249,11 +249,13 @@ cc-tooltip {
   background-color: #f1efec;
   position: fixed;
   top: 0;
-  width: 100%;
-  padding: 10px;
+  right: 0;
+  left: 0;
+  margin-right: -10px;
+  justify-content: space-between;
+  padding: 0 10px;
+  height: 48px;
   display: flex;
-  padding-right: 10px;
-  padding-left: 10px;
   z-index: 10;
   color: #444444;
   will-change: box-shadow;
@@ -316,8 +318,6 @@ cc-tooltip {
   font-weight: 400;
 }
 div.heading:last-child {
-  margin-left: auto;
-  padding-right: 10px;
   display: flex;
 }
 .heading_icon {

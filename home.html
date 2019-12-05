@@ -41,6 +41,10 @@
 					<i class="material-icons">home</i>
 					<span>Home</span>
 				</a>
+				<a onclick="controller.page.goto('admin')" id="adminlink">
+					<i class="material-icons">description</i>
+					<span>Admin</span>
+				</a>
 				<div class="group" id="group_location">
 					<button>
 						<div>
@@ -136,7 +140,7 @@
 					$(profile).addClass("hide");
 				}
 			}
-			
+
 			function forward() {
 				all.changeDate(date.year, (date.month+1), date.day);
 			}

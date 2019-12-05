@@ -12,6 +12,8 @@
 		<link rel="stylesheet" type="text/css" href="css/calendar.css">
 		<link rel="stylesheet" type="text/css" href="css/loader.css">
 		<link rel="stylesheet" type="text/css" href="css/controller.css">
+		<link rel="stylesheet" type="text/css" href="css/user_editor.css">
+		<link rel="stylesheet" type="text/css" href="css/custom_elements.css">
 		<meta content="width=device-width, initial-scale=1" name="viewport" />
 	</head>
 
@@ -40,6 +42,10 @@
 				<a onclick="controller.page.goto('home')">
 					<i class="material-icons">home</i>
 					<span>Home</span>
+				</a>
+				<a onclick="controller.page.goto('admin')" id="adminlink">
+					<i class="material-icons">description</i>
+					<span>Admin</span>
 				</a>
 				<div class="group" id="group_location">
 					<button>
@@ -71,6 +77,25 @@
 				</div>
 			</div>
 		</cc-model>
+		<cc-popup use="users">
+			<cc-blocker></cc-blocker>
+			<div>
+				<h2 class="title">
+					<cc-user-text default="Add a user" edit-name="Unknown">
+						<i class="material-icons">chevron_left</i>
+					</cc-user-text>
+					<input type="text" id="search" placeholder="Search" onchange="users.search(this.value)">
+				</h2>
+				<cc-users></cc-users>
+			</div>
+		</cc-popup>
+		<cc-popup use="shifts">
+			<cc-blocker></cc-blocker>
+			<div>
+				<h2 class="title">Select a shift</h2>
+				<cc-user-shift></cc-user-shift>
+			</div>
+		</cc-popup>
 
 		<div class="main_container">
 			<div class="main_center">
@@ -87,16 +112,11 @@
 				</div>
 
 				<div class="shifts-container">
-					<p class="month_year title"><cc-selected-day></cc-selected-day>'s Shifts</p>
-					<div id="shifts">
-						<!-- <div class="shift_time-container" shift="8AM - 10AM">
-							<p>8AM - 10AM</p>
-							<div>
-								<p>Robert Impellitteri</p>
-								<section class="task accept"></section>
-							</div>
-						</div> -->
+					<div>
+						<button id="addUser"><i class="fas fa-plus"></i></button>
+						<p class="month_year title"><cc-selected-day></cc-selected-day>'s Shifts</p>
 					</div>
+					<div id="shifts"></div>
 				</div>
 			</div>
 		</div>
@@ -118,9 +138,13 @@
 		<script src="js/calendar/main.js"></script>
 		<script src="js/calendar/compact.js"></script>
 		<script src="js/calendar/firebase.js"></script>
+		<script src="js/get_users.js"></script>
+		<script src="js/custom_elements.js"></script>
 		<script>
 			var icon_compact = document.getElementById("compact"),
-					schedule = true;
+			schedule = true;
+
+			users.getAll();
 
 			calendar.container = document.getElementById('calendar');
 			calendar.populateDates();

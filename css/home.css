@@ -85,6 +85,10 @@ div.align_center {
   will-change: margin;
 }
 
+input[type="text"] {
+    outline-color: var(--light-accent-color);
+}
+
 cc-model.profile {
   position: fixed;
   top: 0;
