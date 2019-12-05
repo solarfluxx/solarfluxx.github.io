@@ -27,8 +27,10 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
       $("cc-email").html(cUser.email);
       calendar.firebase.getShiftNames();
       getLocations();
-			choose_user_shift.populate();
-      if (schedule) calendar.firebase.getAllUsersShifts(); else calendar.firebase.getUserShifts();
+      if (schedule) {
+        calendar.firebase.getAllUsersShifts();
+  			choose_user_shift.populate();
+      } else calendar.firebase.getUserShifts();
       $("cc-loader").toggleClass("hide");
       var timer = setTimeout(function() {$("cc-loader").remove()}, 500);
     });
