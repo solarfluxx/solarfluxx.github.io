@@ -28,7 +28,7 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
       calendar.firebase.getShiftNames();
       getLocations();
       if (schedule) {
-        calendar.firebase.getAllUsersShifts();
+        calendar.firebase.getAllShifts();
   			choose_user_shift.populate();
       } else calendar.firebase.getUserShifts();
       $("cc-loader").toggleClass("hide");

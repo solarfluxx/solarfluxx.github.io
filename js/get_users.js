@@ -13,12 +13,13 @@ function UserPacket(id, firstname, lastname, index) {
 
   text_element.innerHTML = this.name_full;
 }
-function ShiftPacket(shiftTime, index) {
+function ShiftPacket(shiftIndex, shiftTime, index) {
   var container_element = document.createElement("cc-item"),
   text_element = document.createElement("p");
   container_element.appendChild(text_element);
   container_element.setAttribute("index", index);
 
+  this.shift_index = shiftIndex;
   this.shift_time = shiftTime;
   this.element = container_element;
   this.text_element = text_element;
@@ -101,11 +102,16 @@ choose_user_shift = {
 
     allShiftsRef.once('value', function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
-        var item = new ShiftPacket(childSnapshot.val(), shifts_list.length);
+        var item = new ShiftPacket(childSnapshot.key, childSnapshot.val(), shifts_list.length);
         shifts_list.push(item);
         $("cc-user-shift").append(item.element);
       });
+      $("cc-item").click(function(data) {
+        promiseKept(shifts_list[data.target.getAttribute("index")]);
+        user_popup.close();
+      });
     });
+    return users_list;
   }
 };
 
@@ -134,10 +140,19 @@ var user_popup = {
 
 $("button#addUser").click(function() {
   user_popup.getUser("users").then(function(value) {
-    console.log(value);
+    var selectedUser = value;
 
     user_popup.getUser("shifts").then(function(value) {
       console.log(value);
+      var state = cUser.location.substring(0,2),
+      city = cUser.location.substring(3),
+      addUserRef = firebase.database().ref("shifts/"+state+"/"+city+"/"+date.year+"/"+(date.month+1)+"/"+(date.selected+1)+"/"+getQueryVariable("location").replace(/_/g, " ")+"/"+value.shift_index+"/");
+      addUserRef.push({
+        id: selectedUser.id,
+        state: 0
+      }).then(function() {
+        betterShifts.loadShifts();
+      });
 
     }).catch(function(e) {
       console.log("No shift chosen");

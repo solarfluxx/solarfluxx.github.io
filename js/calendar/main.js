@@ -16,6 +16,7 @@ var date = {
   day: null,
   days: null,
   first: null,
+  selected: null
 };
 date.year = date.full.getFullYear();
 date.month = date.full.getMonth();
@@ -88,9 +89,11 @@ var calendar = {
     $('.day').click(function() {
       $('.day').removeClass('selected');
       $(this).addClass('selected');
-      shifts.selectedChanged();
+      // if (schedule) shifts.selectedChanged();
+      if (schedule) betterShifts.selectionChanged();
     });
-    shifts.selectedChanged();
+    betterShifts.selectionChanged();
+    // shifts.selectedChanged();
   },
   populateShifts: function() {
     for (i = 0; i < this.items.length; i++) {
@@ -187,8 +190,6 @@ var calendar = {
     }
   }
 };
-
-var test123;
 
 var shifts = {
   create: function(noshifts, day, location, shift_time, state, person) {
@@ -363,6 +364,7 @@ var shifts = {
         if (date.year != new Date().getFullYear()) $("cc-month-year").html($("cc-month-year").html() + " " + date.year);
         if (schedule) $("#shifts").children().remove();
         shifts.createAdvanced(i);
+        date.selected = i;
       }
     }
   },
@@ -389,3 +391,84 @@ var all = {
 $.fn.exists = function () {
     return this.length !== 0;
 }
+
+var user_shifts = [];
+function Shift(user) {
+  var item_container = document.createElement("div"),
+  name = document.createElement("p"),
+  state = document.createElement("section");
+
+  firebase.database().ref('users/' + user.id).once('value').then(function(snapshot) {
+    if (snapshot.val() != null) {
+      name.innerText = snapshot.val().firstname + " " + snapshot.val().lastname;
+    }
+  });
+
+  switch (user.state) {
+    case 0:
+      state.setAttribute("class", "task unconfirm");
+      break;
+    case 1:
+      state.setAttribute("class", "task accept");
+      break;
+    case 2:
+      state.setAttribute("class", "task decline");
+      break;
+  }
+
+  item_container.appendChild(name);
+  item_container.appendChild(state);
+
+  this.main_element = item_container;
+  this.day = user.day-1;
+  this.shift_time = user.shift_time;
+}
+
+var betterShifts = {
+  create: function(users, unconfirmed, accepted, declined) {
+    user_shifts = [];
+    users.forEach(function(user) {
+      var shift = new Shift(user);
+      user_shifts.push(shift);
+    });
+  },
+  selectionChanged: function() {
+    for (i = 0; i <= calendar.items.length; i++) {
+      if ($(calendar.items[i]).hasClass("selected")) {
+        $("cc-selected-day").html(getMonthName[date.month] + " " + (i+1));
+        if (date.year != new Date().getFullYear()) $("cc-month-year").html($("cc-month-year").html() + " " + date.year);
+        date.selected = i;
+      }
+    }
+    betterShifts.loadShifts();
+  },
+  loadShifts: function() {
+    if (schedule) $("#shifts").children().remove();
+    if (user_shifts.length == 0) noShifts();
+    user_shifts.forEach(function(shift) {
+      console.log(shift);
+      if (shift.day == date.selected) {
+        if (!$("[shift='" + shift.shift_time + "']").exists()) {
+          var shift_container = document.createElement("div")
+          shift_title = document.createElement("p");
+          shift_container.setAttribute("class", "shift_time-container");
+          shift_container.setAttribute("shift", shift.shift_time);
+          shift_title.innerHTML = shift_names[shift.shift_time];
+          shift_container.appendChild(shift_title);
+          document.getElementById("shifts").appendChild(shift_container);
+        }
+        $("[shift='" + shift.shift_time + "']")[0].append(shift.main_element);
+      } else noShifts();
+    });
+    function noShifts() {
+      if (!$("#noshifts").exists()) {
+        var div = document.createElement("div"),
+        text = document.createElement("p");
+        text.innerHTML = "There are no shifts on " + getMonthName[date.month] + " " + (date.selected+1) + ".";
+        text.setAttribute("id", "noshifts");
+        div.appendChild(text);
+        document.getElementById("shifts").appendChild(div);
+      }
+    }
+  }
+};

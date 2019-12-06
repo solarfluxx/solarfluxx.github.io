@@ -1,17 +1,7 @@
 var shiftsRef,
 abc_array = [],
-firebase_users = [],
 shift_names = [],
 user_id;
-
-function LoopUser(day, shiftTime, person, location) {
-  this.day = day;
-  this.shift_time = shiftTime;
-  this.person = person.key;
-  this.id = person.val().id;
-  this.state = person.val().state;
-  this.location = location;
-}
 
 calendar.firebase = {
   getShiftNames: function() {
@@ -115,43 +105,6 @@ calendar.firebase = {
           });
         });
         calendar.createShift.all(loop_date, state_ac, state_de, state_un);
-      });
-    });
-  },
-
-  getAllShifts: function() {
-    var state = cUser.location.substring(0,2),
-    city = cUser.location.substring(3),
-    shiftsRef = firebase.database().ref("shifts/"+state+"/"+city+"/"+date.year+"/"+(date.month+1)+"/");
-
-    shiftsRef.on('value', function(snapshot) {
-      firebase_users = [];
-      // Loops through all of the days in the database
-      snapshot.forEach(function(childSnapshot) {
-        var unconfirmed = 0, accepted = 0, declined = 0;
-
-        // Goes into the location of the schedule then loops through all of the shift times
-        childSnapshot.child("/" + getQueryVariable("location").replace(/_/g, " ")).forEach(function(childSnapshot2) {
-
-          // Loops through all of the people
-          childSnapshot2.forEach(function(childSnapshot3) {
-            var loop_user = new LoopUser(parseInt(childSnapshot.key), parseInt(childSnapshot2.key), childSnapshot3, getQueryVariable("location").replace(/_/g, " "));
-            switch (loop_user.state) {
-              case 0:
-                unconfirmed++;
-                break;
-              case 1:
-                accepted++;
-                break;
-              case 2:
-                declined++;
-                break;
-            }
-            firebase_users.push(loop_user);
-          });
-        });
-
-        betterShifts.create(firebase_users, unconfirmed, accepted, declined);
       });
     });
   }
