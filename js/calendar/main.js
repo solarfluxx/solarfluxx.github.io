@@ -361,7 +361,7 @@ var shifts = {
     for (i = 0; i <= calendar.items.length; i++) {
       if ($(calendar.items[i]).hasClass("selected")) {
         $("cc-selected-day").html(getMonthName[date.month] + " " + (i+1));
-        if (date.year != new Date().getFullYear()) $("cc-month-year").html($("cc-month-year").html() + " " + date.year);
+        // if (date.year != new Date().getFullYear()) $("cc-month-year").html($("cc-month-year").html() + " " + date.year);
         if (schedule) $("#shifts").children().remove();
         shifts.createAdvanced(i);
         date.selected = i;
@@ -436,7 +436,6 @@ var betterShifts = {
     for (i = 0; i <= calendar.items.length; i++) {
       if ($(calendar.items[i]).hasClass("selected")) {
         $("cc-selected-day").html(getMonthName[date.month] + " " + (i+1));
-        if (date.year != new Date().getFullYear()) $("cc-month-year").html($("cc-month-year").html() + " " + date.year);
         date.selected = i;
       }
     }
@@ -445,9 +444,11 @@ var betterShifts = {
   loadShifts: function() {
     if (schedule) $("#shifts").children().remove();
     if (user_shifts.length == 0) noShifts();
+    var test = true;
     user_shifts.forEach(function(shift) {
-      console.log(shift);
       if (shift.day == date.selected) {
+        test = false;
+        if ($("#noshifts").exists()) $("#noshifts").parent().remove();
         if (!$("[shift='" + shift.shift_time + "']").exists()) {
           var shift_container = document.createElement("div")
           shift_title = document.createElement("p");
@@ -458,7 +459,7 @@ var betterShifts = {
           document.getElementById("shifts").appendChild(shift_container);
         }
         $("[shift='" + shift.shift_time + "']")[0].append(shift.main_element);
-      } else noShifts();
+      } else if (test) noShifts();
     });
     function noShifts() {
       if (!$("#noshifts").exists()) {

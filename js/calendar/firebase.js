@@ -111,7 +111,7 @@ calendar.firebase = {
               id: user_id
             }
             abc_array.push(abc_object);
-            shifts.create(false, (loop_date+1), toTitleCase(abc_object.location), abc_object.shift_time, abc_object.state, shift_time.person);
+            shifts.create(false, (loop_date+1), toTitleCase(abc_object.location), abc_object.shift_time, abc_object.state, abc_object.person);
           });
         });
         calendar.createShift.all(loop_date, state_ac, state_de, state_un);
@@ -153,6 +153,7 @@ calendar.firebase = {
 
         betterShifts.create(firebase_users, unconfirmed, accepted, declined);
       });
+      betterShifts.loadShifts();
     });
   }
-}
+};

@@ -150,8 +150,6 @@ $("button#addUser").click(function() {
       addUserRef.push({
         id: selectedUser.id,
         state: 0
-      }).then(function() {
-        betterShifts.loadShifts();
       });
 
     }).catch(function(e) {
