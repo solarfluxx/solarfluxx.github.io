@@ -384,7 +384,7 @@ var all = {
   changeDate: function(year, month, day) {
     calendar.setDate(new Date(year, month, day));
     calendar.populateDates();
-    if (schedule) calendar.firebase.getAllUsersShifts(); else calendar.firebase.getUserShifts(true);
+    if (schedule) calendar.firebase.getAllShifts(); else calendar.firebase.getUserShifts(true);
   }
 };
 

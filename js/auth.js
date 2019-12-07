@@ -22,6 +22,7 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
     firebase.database().ref('users/' + uid).once('value').then(function(snapshot) {
       cUser = new User(loggedUser.uid, snapshot.val().firstname, snapshot.val().lastname, loggedUser.email, snapshot.val().location, snapshot.val().perm);
       if (!cUser.admin) $("#adminlink").remove();
+      if (!cUser.admin) $("#addUser").remove();
 
       $("cc-name").html(cUser.firstName + " " + cUser.lastName);
       $("cc-email").html(cUser.email);

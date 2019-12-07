@@ -73,7 +73,7 @@ cc-navbar div.main {
 }
 
 cc-navbar div.main>* {
-  border-bottom: 1px solid #ffffff47;
+  border-bottom: 1px solid #ffffff30;
 }
 cc-navbar div.main>*:last-child {
   border-bottom: 0;
@@ -254,7 +254,7 @@ cc-tooltip {
   margin-right: -10px;
   justify-content: space-between;
   padding: 0 10px;
-  height: 48px;
+  height: 56px;
   display: flex;
   z-index: 10;
   color: #444444;
