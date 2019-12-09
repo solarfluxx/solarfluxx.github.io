@@ -97,6 +97,19 @@
 			</div>
 		</cc-popup>
 
+		<cc-popup use="prompt">
+			<cc-blocker></cc-blocker>
+			<cc-prompt>
+				<title>Delete user's shift</title>
+				<message error>
+					<i class="material-icons">warning</i>
+					<text>This action cannot be undone</text>
+				</message>
+				<cc-button type="positive" color="red">Delete</cc-button>
+				<cc-button type="negative">Cancel</cc-button>
+			</cc-prompt>
+		</cc-popup>
+
 		<div class="main_container">
 			<div class="main_center">
 				<div class="calendar-container">

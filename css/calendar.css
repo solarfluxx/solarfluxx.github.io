@@ -83,6 +83,25 @@ body {
   transition: background-color 0.2s;
   box-shadow: 0px 1px 5px 0px #0000000d;
 }
+.shifts-container #shifts div button#removeUser {
+  background: 0;
+  border: 0;
+  padding: 0;
+  color: rgba(81,86,93,0.7);
+  cursor: pointer;
+  outline: 0;
+  transition: color 0.1s, background-color 0.2s;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: none;
+}
+.shifts-container #shifts div button#removeUser:hover {
+  background-color: #00000020;
+}
+.shifts-container #shifts div button#removeUser:active {
+  color: black;
+}
 .shifts-container #shifts div button:last-child {
   margin-left: 20px;
 }
@@ -104,6 +123,9 @@ body {
 }
 .shifts-container #shifts div button i {
   margin-right: 8px;
+}
+.shifts-container #shifts div button#removeUser i {
+  margin-right: 0;
 }
 
 .shifts-container #shifts div.shift_time-container {

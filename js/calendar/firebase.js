@@ -11,6 +11,7 @@ function LoopUser(day, shiftTime, person, location) {
   this.id = person.val().id;
   this.state = person.val().state;
   this.location = location;
+  this.ref = person.ref.toString().substring(firebase.database().ref().toString().length-1);
 }
 
 calendar.firebase = {
@@ -125,6 +126,10 @@ calendar.firebase = {
     shiftsRef = firebase.database().ref("shifts/"+state+"/"+city+"/"+date.year+"/"+(date.month+1)+"/");
 
     shiftsRef.on('value', function(snapshot) {
+      $("section").each(function(index) {
+        if ($($("section").parent()[index]).hasClass("has-info")) $("section").remove();
+      });
+
       firebase_users = [];
       // Loops through all of the days in the database
       snapshot.forEach(function(childSnapshot) {
@@ -151,6 +156,7 @@ calendar.firebase = {
           });
         });
 
+        calendar.createShift.all(parseInt(childSnapshot.key-1), accepted, declined, unconfirmed);
         betterShifts.create(firebase_users, unconfirmed, accepted, declined);
       });
       betterShifts.loadShifts();

@@ -24,3 +24,87 @@ cc-popup.show {
   opacity: 1;
   pointer-events: all;
 }
+
+cc-popup>:last-child {
+  transform: scale(0.8);
+  transition: transform 0.2s;
+}
+cc-popup.show>:last-child {
+  transform: none;
+}
+
+cc-prompt {
+  display: block;
+  overflow: hidden;
+  background: white;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  border: none;
+  margin: auto;
+  margin-top: 30vh;
+  user-select: none;
+  padding: 0;
+}
+
+cc-prompt>title {
+  display: block;
+  font: 500 16px / 22px "Montserrat", Arial, sans-serif;
+  color: #333;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  margin-top: 0;
+  padding-bottom: 15px;
+  padding-left: 5px;
+  margin: 20px;
+  margin-bottom: 0;
+}
+
+cc-prompt>message {
+  display: flex;
+  padding: 10px 20px;
+}
+cc-prompt>message[error] {
+  background-color: #ff00000d;
+  color: #d32f2f;
+  font-weight: 500;
+}
+
+cc-prompt>message>i {
+  color: inherit;
+  font-size: 26px !important;
+  margin-top: -4px;
+  margin-right: 10px;
+}
+
+cc-button {
+  width: fit-content;
+  cursor: pointer;
+  display: block;
+  float: right;
+  margin: 10px;
+  padding: 9px 12px;
+  color: #505050;
+  margin-left: 0;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+cc-button:hover {
+  background-color: #0000001c;
+}
+
+cc-button[type="positive"] {
+  background-color: #32d033;
+  color: white;
+}
+cc-button[type="positive"]:hover {
+  background-color: #239424;
+}
+
+cc-button[color="red"] {
+  background-color: #d32f2f;
+}
+cc-button[color="red"]:hover {
+  background-color: #a52626;
+}

@@ -146,7 +146,7 @@ $("button#addUser").click(function() {
       console.log(value);
       var state = cUser.location.substring(0,2),
       city = cUser.location.substring(3),
-      addUserRef = firebase.database().ref("shifts/"+state+"/"+city+"/"+date.year+"/"+(date.month+1)+"/"+(date.selected+1)+"/"+getQueryVariable("location").replace(/_/g, " ")+"/"+value.shift_index+"/");
+      addUserRef = firebase.database().ref("shifts/"+state+"/"+city+"/"+date.year+"/"+(date.month+1)+"/"+(date.selected+1)+"/"+getQueryVariable("location")+"/"+value.shift_index+"/");
       addUserRef.push({
         id: selectedUser.id,
         state: 0

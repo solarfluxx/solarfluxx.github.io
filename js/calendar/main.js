@@ -392,11 +392,30 @@ $.fn.exists = function () {
     return this.length !== 0;
 }
 
+var test156;
+
 var user_shifts = [];
 function Shift(user) {
   var item_container = document.createElement("div"),
   name = document.createElement("p"),
-  state = document.createElement("section");
+  state = document.createElement("section"),
+  remove_user_button = document.createElement("button");
+  minus_icon = document.createElement("i");
+
+  minus_icon.setAttribute("class", "fas fa-minus");
+  remove_user_button.setAttribute("id", "removeUser");
+  remove_user_button.setAttribute("ref", user.ref);
+  remove_user_button.appendChild(minus_icon);
+  $(remove_user_button).click(function() {
+    var removeUserRef = firebase.database().ref(this.getAttribute("ref"));
+    test156 = removeUserRef;
+    console.log(removeUserRef);
+    removeUserRef.remove().then(function() {
+      console.log("Remove succeeded.")
+    }).catch(function(error) {
+      console.log("Remove failed: " + error.message)
+    });
+  });
 
   firebase.database().ref('users/' + user.id).once('value').then(function(snapshot) {
     if (snapshot.val() != null) {
@@ -418,6 +437,7 @@ function Shift(user) {
 
   item_container.appendChild(name);
   item_container.appendChild(state);
+  item_container.appendChild(remove_user_button);
 
   this.main_element = item_container;
   this.day = user.day-1;
