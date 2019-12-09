@@ -14,7 +14,6 @@ function User(id, first, last, email, location, permissions) {
 }
 
 firebase.auth().onAuthStateChanged(function(loggedUser) {
-  console.log(loggedUser);
   if (loggedUser) {
     var displayName = loggedUser.displayName;
     var email = loggedUser.email;
@@ -25,7 +24,6 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
     var providerData = loggedUser.providerData;
 
     firebase.database().ref('users/' + uid).once('value').then(function(snapshot) {
-      console.log(snapshot.val());
       cUser = new User(loggedUser.uid, snapshot.val().firstname, snapshot.val().lastname, loggedUser.email, snapshot.val().location, snapshot.val().perm);
       if (!cUser.admin) $("#adminlink").remove();
       if (!cUser.admin) $("#addUser").remove();

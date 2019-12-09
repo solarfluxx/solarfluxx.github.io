@@ -100,7 +100,7 @@ input.form_item {
   padding: 10px;
   width: 100%;
 }
-input[type="text"] {
+input {
   outline-color: var(--light-accent-color);
 }
 
@@ -139,6 +139,19 @@ span.form_item_extra:first-child {
 span.form_item_extra:last-child {
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--light-accent-color);
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 @media only screen and (max-width:767px) {

@@ -136,7 +136,7 @@ calendar.firebase = {
         var unconfirmed = 0, accepted = 0, declined = 0;
 
         // Goes into the location of the schedule then loops through all of the shift times
-        childSnapshot.child("/" + getQueryVariable("location").replace(/_/g, " ")).forEach(function(childSnapshot2) {
+        childSnapshot.child("/" + getQueryVariable("location")).forEach(function(childSnapshot2) {
 
           // Loops through all of the people
           childSnapshot2.forEach(function(childSnapshot3) {

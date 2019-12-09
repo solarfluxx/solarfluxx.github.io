@@ -405,16 +405,17 @@ function Shift(user) {
   minus_icon.setAttribute("class", "fas fa-minus");
   remove_user_button.setAttribute("id", "removeUser");
   remove_user_button.setAttribute("ref", user.ref);
+  remove_user_button.setAttribute("user_shift_index", user_shifts.length);
   remove_user_button.appendChild(minus_icon);
   $(remove_user_button).click(function() {
     var removeUserRef = firebase.database().ref(this.getAttribute("ref"));
-    test156 = removeUserRef;
-    console.log(removeUserRef);
-    removeUserRef.remove().then(function() {
-      console.log("Remove succeeded.")
-    }).catch(function(error) {
-      console.log("Remove failed: " + error.message)
-    });
+    var index = parseInt(this.getAttribute("user_shift_index"));
+
+    remove_user_button.parentElement.remove();
+    user_shifts.splice(index, index+1);
+    betterShifts.loadShifts();
+
+    removeUserRef.remove();
   });
 
   firebase.database().ref('users/' + user.id).once('value').then(function(snapshot) {
