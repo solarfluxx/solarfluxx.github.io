@@ -1,16 +1,44 @@
 :root {
-  --accent-color: #c56900;
-  --light-accent-color: #e0a35d;
+  --primary: #ee9102;
+  --primary-light: #ffc246;
+  --primary-dark: #b66300;
+
+  --secondary: #0260ee;
+  --secondary-light: #678dff;
+  --secondary-dark: #0038ba;
+
+  --background-light: #f1efec;
+  --background-dark: #171717;
+  --background: var(--background-light);
+
+  --full-light: #FFF;
+  --full-dark: #000;
+  --full: var(--full-light);
+
+  --text: var(--full-dark);
+
+  --selected-text-light: #fff2d8;
+  --selected-text-dark: #312d23;
+  --selected-text: var(--selected-text-light);
+
+  --shadow-light: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+  --shadow-dark: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+  --shadow: var(--shadow-light);
+
+  --white-10: #ffffff1A;
+
+  --hover-20-light: #00000020;
+  --hover-20-dark: #FFFFFF20;
+  --hover-20: var(--hover-20-light);
 }
 
 body {
+  transition: opacity 0.2s, background 0.2s;
   opacity: 0;
 }
 body.con_show {
-  transition: opacity 0.2s;
   opacity: 1;
 }
 body.con_hide {
-  transition: opacity 0.2s;
   opacity: 0;
 }

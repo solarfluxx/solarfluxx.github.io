@@ -4,7 +4,7 @@ cc-loader {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #f1efec;
+  background-color: var(--background);
   z-index: 20;
   transition: opacity 0.5s ease;
 }
@@ -17,12 +17,12 @@ cc-loader cc-circle {
   position: relative;
   left: 50%;
   top: 50%;
-  width: 15vw;
-  height: 15vw;
-  margin: -7.5vw 0 0 -7.5vw;
+  width: 200px;
+  height: 200px;
+  margin: -100px 0 0 -100px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #db9a70;
+  border-top-color: var(--primary);
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }
@@ -35,7 +35,7 @@ cc-loader cc-circle:before {
   bottom: 5px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #d38655;
+  border-top-color: var(--primary-dark);
   -webkit-animation: spin 3s linear infinite;
   animation: spin 3s linear infinite;
 }
@@ -48,7 +48,7 @@ cc-loader cc-circle:after {
   bottom: 15px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #ff9e00;
+  border-top-color: var(--primary-light);
   -webkit-animation: spin 1.5s linear infinite;
   animation: spin 1.5s linear infinite;
 }

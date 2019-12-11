@@ -27,7 +27,7 @@ cc-popup.show {
 
 cc-popup>:last-child {
   transform: scale(0.8);
-  transition: transform 0.2s;
+  transition: transform 0.2s, background 0.2s, color 0.2s;
 }
 cc-popup.show>:last-child {
   transform: none;

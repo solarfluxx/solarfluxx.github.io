@@ -12,9 +12,13 @@
 }
 
 body {
-  background: #f1efec;
+  background: var(--background);
   font-family: "Montserrat";
   margin: 0;
+}
+
+p, h1, h2, h3, span {
+  color: var(--text);
 }
 
 button.btn {

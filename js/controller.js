@@ -51,3 +51,26 @@ function Password(password) {
 
   return this.auth;
 }
+
+var darkMode = false;
+function toggleDarkMode() {
+  if (darkMode == false) {
+    document.documentElement.style.setProperty('--selected-text', getComputedStyle(document.documentElement).getPropertyValue('--selected-text-dark'));
+    document.documentElement.style.setProperty('--background', getComputedStyle(document.documentElement).getPropertyValue('--background-dark'));
+    document.documentElement.style.setProperty('--hover-20', getComputedStyle(document.documentElement).getPropertyValue('--hover-20-dark'));
+    document.documentElement.style.setProperty('--shadow', getComputedStyle(document.documentElement).getPropertyValue('--shadow-dark'));
+    document.documentElement.style.setProperty('--full', getComputedStyle(document.documentElement).getPropertyValue('--full-dark'));
+    document.documentElement.style.setProperty('--text', getComputedStyle(document.documentElement).getPropertyValue('--full-light'));
+    $(".calendar").addClass("dark");
+    darkMode = true;
+  } else {
+    document.documentElement.style.setProperty('--selected-text', getComputedStyle(document.documentElement).getPropertyValue('--selected-text-light'));
+    document.documentElement.style.setProperty('--background', getComputedStyle(document.documentElement).getPropertyValue('--background-light'));
+    document.documentElement.style.setProperty('--hover-20', getComputedStyle(document.documentElement).getPropertyValue('--hover-20-light'));
+    document.documentElement.style.setProperty('--shadow', getComputedStyle(document.documentElement).getPropertyValue('--shadow-light'));
+    document.documentElement.style.setProperty('--full', getComputedStyle(document.documentElement).getPropertyValue('--full-light'));
+    document.documentElement.style.setProperty('--text', getComputedStyle(document.documentElement).getPropertyValue('--full-dark'));
+    $(".calendar").removeClass("dark");
+    darkMode = false;
+  }
+}

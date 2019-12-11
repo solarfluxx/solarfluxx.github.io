@@ -385,6 +385,7 @@ var all = {
     calendar.setDate(new Date(year, month, day));
     calendar.populateDates();
     if (schedule) calendar.firebase.getAllShifts(); else calendar.firebase.getUserShifts(true);
+    doStagerAnim();
   }
 };
 
@@ -403,11 +404,11 @@ function Shift(user) {
   minus_icon = document.createElement("i");
 
   minus_icon.setAttribute("class", "fas fa-minus");
-  remove_user_button.setAttribute("id", "removeUser");
+  remove_user_button.setAttribute("class", "removeUser");
   remove_user_button.setAttribute("ref", user.ref);
   remove_user_button.setAttribute("user_shift_index", user_shifts.length);
   remove_user_button.appendChild(minus_icon);
-  $(remove_user_button).click(function() {
+  remove_user_button.onclick = function() {
     var removeUserRef = firebase.database().ref(this.getAttribute("ref"));
     var index = parseInt(this.getAttribute("user_shift_index"));
 
@@ -416,7 +417,7 @@ function Shift(user) {
     betterShifts.loadShifts();
 
     removeUserRef.remove();
-  });
+  }
 
   firebase.database().ref('users/' + user.id).once('value').then(function(snapshot) {
     if (snapshot.val() != null) {

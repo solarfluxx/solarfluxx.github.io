@@ -17,7 +17,7 @@ cc-item {
   cursor: pointer;
 }
 cc-item:hover {
-  background-color: var(--light-accent-color);
+  background-color: var(--primary-light);
   color: white;
 }
 cc-item.hide_item {
@@ -109,7 +109,8 @@ cc-user-text i:active {
 }
 cc-popup>div {
   overflow: hidden;
-  background: white;
+  transition: color 0.2s;
+  background: var(--full);
   max-width: 1000px;
   border-radius: 10px;
   box-shadow: 0 2px 20px rgba(0,0,0,0.1);
@@ -137,4 +138,7 @@ cc-popup[use="users"]>div>h2>#search {
   float: right;
   margin-top: -10px;
   width: 30%;
+  transition: color 0.2s, background 0.2s;
+  color: var(--text);
+  background: var(--full);
 }
