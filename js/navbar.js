@@ -117,15 +117,13 @@ function getLocations() {
       var a = document.createElement("a"),
           icon = document.createElement("span"),
           text = document.createElement("span"),
-          href = "schedule.html?location=" + childSnapshot.val().replace(/ /g, "_");
-          click = "controller.page.goto('schedule.html?location=" + childSnapshot.val().replace(/ /g, "_") + "')";
+          click = "controller.page.goto('schedule.html?location=" + childSnapshot.val() + "')";
 
-      // a.setAttribute("href", "javascript:void(0)");
       a.setAttribute("onclick", click);
       icon.setAttribute("class", "nohide");
 
       icon.innerText = toTitleCase(childSnapshot.val()).substring(0,1);
-      text.innerText = toTitleCase(childSnapshot.val());
+      text.innerText = toTitleCase(childSnapshot.val().replace(/_/g, " "));
       a.appendChild(icon);
       a.appendChild(text);
       document.getElementById("group_location").appendChild(a);

@@ -63,7 +63,7 @@ calendar.firebase = {
                     break;
                 }
                 if (shift_count == 0) shifts.clear();
-                shifts.create(false, (loop_date+1), toTitleCase(loop_location), loop_shift_time, childSnapshot4.val().state, loop_person);
+                shifts.create(false, (loop_date+1), loop_location, loop_shift_time, childSnapshot4.val().state, loop_person);
                 shift_count++;
               }
             });

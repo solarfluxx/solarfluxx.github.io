@@ -25,9 +25,11 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
 
     firebase.database().ref('users/' + uid).once('value').then(function(snapshot) {
       cUser = new User(loggedUser.uid, snapshot.val().firstname, snapshot.val().lastname, loggedUser.email, snapshot.val().location, snapshot.val().perm);
-      if (!cUser.admin) $("#adminlink").remove();
-      if (!cUser.admin) $("#addUser").remove();
-      if (!cUser.admin) $("#removeUser").remove();
+      if (!cUser.admin) {
+        $("#adminlink").remove();
+        $("#addUser").remove();
+        $("#removeUser").remove();
+      }
 
       $("cc-name").html(cUser.firstName + " " + cUser.lastName);
       $("cc-email").html(cUser.email);
@@ -37,6 +39,7 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
         calendar.firebase.getAllShifts();
   			choose_user_shift.populate();
       } else calendar.firebase.getUserShifts();
+
       $("cc-loader").toggleClass("hide");
       var timer = setTimeout(function() {$("cc-loader").remove()}, 500);
     });

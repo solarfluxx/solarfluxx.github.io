@@ -5,8 +5,12 @@ function User(id, first, last, email, location, permissions) {
   this.lastName = last;
   this.email = email;
   this.location = location;
-  this.admin = permissions.includes("admin");
-  this.perms = permissions;
+  if (permissions != undefined) {
+    this.admin = permissions.includes("admin");
+    this.perms = permissions;
+  }
+  this.state = this.location.substring(0,2);
+  this.city = this.location.substring(3);
 }
 
 firebase.auth().onAuthStateChanged(function(loggedUser) {

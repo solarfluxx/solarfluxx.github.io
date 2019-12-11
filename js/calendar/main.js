@@ -234,19 +234,19 @@ var shifts = {
       $(b1).attr("year", date.year);
       $(b1).attr("month", date.month);
       $(b1).attr("day", day);
-      $(b1).attr("location", location.toLowerCase());
+      $(b1).attr("location", location);
       $(b1).attr("shift", shift_time);
       $(b1).attr("person", person);
 
       $(b2).attr("year", date.year);
       $(b2).attr("month", date.month);
       $(b2).attr("day", day);
-      $(b2).attr("location", location.toLowerCase());
+      $(b2).attr("location", location);
       $(b2).attr("shift", shift_time);
       $(b2).attr("person", person);
 
       p1.innerHTML = getFullDayName[new Date(date.year, date.month, 14).getDay()] + ", " + getMonthName[date.month] + " " + day;
-      p2.innerHTML = location;
+      p2.innerHTML = toTitleCase(location.replace(/_/g, " "));
       p3.innerHTML = shift_names[shift_time];
 
       b1.innerHTML = "Accept";

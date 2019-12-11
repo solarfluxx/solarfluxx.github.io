@@ -17,9 +17,9 @@ cc-loader cc-circle {
   position: relative;
   left: 50%;
   top: 50%;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
+  width: 15vw;
+  height: 15vw;
+  margin: -7.5vw 0 0 -7.5vw;
   border-radius: 50%;
   border: 3px solid transparent;
   border-top-color: #db9a70;
