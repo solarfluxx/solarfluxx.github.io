@@ -219,9 +219,15 @@ body {
   position: relative;
   z-index: 1;
   background-color: white;
-  transition: all 150ms ease;
+  transition: all 150ms ease, opacity 0.2s, margin-top 0.2s;
   will-change: transition, margin, opacity, padding, border, height, box-shadow, z-index;
   cursor: pointer;
+  opacity: 0;
+  margin-top: 10px;
+}
+.day.stagger {
+  opacity: 1;
+  margin-top: unset;
 }
 .day:hover {
   margin: -8px;

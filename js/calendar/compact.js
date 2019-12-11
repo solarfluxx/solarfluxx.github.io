@@ -36,3 +36,17 @@ $(window).resize(function() {
     expand(false);
   }
 });
+
+function doStagerAnim() {
+  for (var i=0; i < calendar.items.length; i++) {
+    var toggleItemMove = getToggleItemMove(i);
+    setTimeout(toggleItemMove, i * 15);
+  }
+}
+
+function getToggleItemMove(i) {
+  var item = calendar.items[i];
+  return function() {
+    item.classList.toggle('stagger');
+  }
+}

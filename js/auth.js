@@ -40,6 +40,7 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
   			choose_user_shift.populate();
       } else calendar.firebase.getUserShifts();
 
+      doStagerAnim();
       $("cc-loader").toggleClass("hide");
       var timer = setTimeout(function() {$("cc-loader").remove()}, 500);
     });
