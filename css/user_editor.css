@@ -108,7 +108,6 @@ cc-user-text i:active {
 }
 cc-popup>div {
   overflow: hidden;
-  max-height: -webkit-fill-available;
   background: var(--full);
   max-width: 1000px;
   border-radius: 10px;
@@ -117,13 +116,13 @@ cc-popup>div {
   user-select: none;
   padding: 0;
   display: flex;
-  position: fixed;
+  position: absolute;
   flex-direction: column;
   top: 30px;
-  bottom: 30px;
   left: 50%;
   width: 90vw;
-  max-height: 700px;
+  min-height: 103px;
+  max-height: calc(100% - 60px);
 }
 cc-popup>div>h2 {
   font: 400 16px / 22px "Montserrat", Arial, sans-serif;
