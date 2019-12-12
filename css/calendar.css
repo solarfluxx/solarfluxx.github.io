@@ -521,6 +521,9 @@ transition: all 150ms ease, opacity 0.2s, margin-top 0.2s, background 0.2s, bord
     margin: unset;
     box-shadow: unset;
     z-index: unset;
+    border: 1px solid rgba(166,168,179,0.12);
+    border-left: unset;
+    border-top: unset;
   }
   .day .short {
     width: 50%;

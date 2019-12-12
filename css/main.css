@@ -40,18 +40,18 @@ div.align_center {
 }
 
 button:hover {
-  border-color: #e6e6e6;
+  border-color: var(--primary-light);
 }
 
 button.submit {
   color: white;
-  background-color: #da893b;
-  border-color: #da893b;
+  background-color: var(--primary);
+  border-color: var(--primary);
 }
 
 button.submit:hover {
-  background-color: #e0a35d;
-  border-color: #e0a35d;
+  background-color: var(--primary-light);
+  border-color: var(--primary-light);
 }
 
 .form .title {

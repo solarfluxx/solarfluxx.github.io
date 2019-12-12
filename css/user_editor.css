@@ -1,9 +1,8 @@
 cc-users, cc-user-shift {
   width: 100%;
+  overflow-y: scroll;
   display: grid;
   margin-top: 0;
-  height: min-content;
-  max-height: 1000px;
   transition: background-color 0.3s, opacity 0.3s, height 0.3s, padding 0.3s;
 }
 cc-users.anim_disable {
@@ -109,15 +108,22 @@ cc-user-text i:active {
 }
 cc-popup>div {
   overflow: hidden;
-  transition: color 0.2s;
+  max-height: -webkit-fill-available;
   background: var(--full);
   max-width: 1000px;
   border-radius: 10px;
   box-shadow: 0 2px 20px rgba(0,0,0,0.1);
   border: none;
-  margin: 30px auto;
   user-select: none;
   padding: 0;
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  top: 30px;
+  bottom: 30px;
+  left: 50%;
+  width: 90vw;
+  max-height: 700px;
 }
 cc-popup>div>h2 {
   font: 400 16px / 22px "Montserrat", Arial, sans-serif;
