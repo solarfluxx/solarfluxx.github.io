@@ -28,6 +28,7 @@ cc-popup.show {
 cc-popup>:last-child {
   transform: scale(0.8) translate(-60%, 0);
   transition: transform 0.2s, background 0.2s, color 0.2s;
+  will-change: transform;
 }
 cc-popup.show>:last-child {
   transform: translate(-50%, 0);

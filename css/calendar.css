@@ -226,7 +226,7 @@ body {
   z-index: 1;
   background-color: var(--full);
   transition: all 150ms ease, opacity 0.2s, margin-top 0.2s, background 0.2s, border 0s 0.2s;
-  will-change: transition, margin, opacity, padding, border, height, box-shadow, z-index;
+  will-change: margin, opacity, padding, border, height, box-shadow;
   cursor: pointer;
   pointer-events: none;
   padding-top: 30px;
