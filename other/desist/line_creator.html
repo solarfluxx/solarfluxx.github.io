@@ -3,6 +3,7 @@
 	<head>
     <title>Line Generator | Project Desistance</title>
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,900&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="line_creator.css">
 		<meta content="width=device-width, initial-scale=1" name="viewport"/>
   </head>
@@ -13,6 +14,7 @@
       <h3>Edit Lines</h3>
       <dl-editor>
         <dl-editor-item>
+					<dl-handle><i class="material-icons">unfold_more</i></dl-handle>
           <dl-input field="name" hint="Name">
             <dl-select></dl-select>
             <dl-select-overlay></dl-select-overlay>
@@ -25,7 +27,7 @@
           </dl-input>
 
           <dl-input field="sentence" hint="Sentence" type="text"></dl-input>
-					<dl-button onclick="line_generator.item.remove(this);">Remove</dl-button>
+					<dl-remove onclick="line_generator.item.remove(this);"><i class="material-icons">remove</i></dl-remove>
         </dl-editor-item>
       </dl-editor>
 
@@ -39,6 +41,8 @@
     </dl-code-container>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://unpkg.com/draggabilly@2.2.0/dist/draggabilly.pkgd.js"></script>
+		<script src="https://unpkg.com/packery@2/dist/packery.pkgd.js"></script>
     <script src="line_creator.js"></script>
   </body>
 </html>

@@ -54,9 +54,15 @@ dl-editor-container>dl-button {
   margin-left: 10px;
 }
 
+dl-editor {
+  display: block;
+  transition: height 0.4s ease 0s;
+}
+
 
 dl-editor-item {
   display: flex;
+  width: 100%;
 }
 
 dl-editor-item>dl-input {
@@ -77,6 +83,24 @@ dl-editor-item dl-button {
   width: 135px;
   height: fit-content;
 }
+
+dl-editor-item>dl-handle {cursor: n-resize;}
+dl-editor-item>dl-remove {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+dl-editor-item>dl-handle i, dl-editor-item>dl-remove i {
+  user-select: none;
+  margin-top: 50%;
+  border-radius: 50%;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+dl-editor-item>dl-handle:active i, dl-editor-item>dl-remove:active i {
+  background-color: #00000029;
+  box-shadow: 0 0 0 9px #00000029;
+}
+
 
 dl-code-item {
   display: block;

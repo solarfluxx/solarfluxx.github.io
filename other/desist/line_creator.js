@@ -131,7 +131,7 @@ let selector = "@a";
 let line_generator = {
   generate: function() {
     document.querySelector("dl-code").innerHTML = "";
-    document.querySelector("dl-editor-container").querySelectorAll("dl-editor-item").forEach(function(item) {
+    packery.getItemElements().forEach(function(item) {
       let name = item.querySelector('[field="name"]').querySelector("dl-select").getAttribute("selection");
       let sentence = item.querySelector('[field="sentence"]').querySelector("input").value;
 
@@ -146,10 +146,22 @@ let line_generator = {
       let item_container = document.createElement("dl-editor-item");
       let select_name = document.createElement("dl-input");
       let input_sentence = document.createElement("dl-input");
-      let button_remove = document.createElement("dl-button");
+      let button_remove = document.createElement("dl-remove");
+      let item_handle = document.createElement("dl-handle");
 
-      button_remove.innerHTML = "Remove";
+      let handle_icon = document.createElement("i");
+      let remove_icon = document.createElement("i");
+      handle_icon.classList.add("material-icons");
+      remove_icon.classList.add("material-icons");
+      handle_icon.innerHTML = 'unfold_more';
+      remove_icon.innerHTML = 'remove';
+
+      item_handle.appendChild(handle_icon);
+      button_remove.appendChild(remove_icon);
       button_remove.setAttribute("onclick", "line_generator.item.remove(this);");
+
+      // button_remove.innerHTML = "Remove";
+      // button_remove.setAttribute("onclick", "line_generator.item.remove(this);");
 
       select_name.setAttribute("field", "name");
       select_name.setAttribute("hint", "Name");
@@ -178,18 +190,48 @@ let line_generator = {
       input_sentence.setAttribute("hint", "Sentence");
       input_sentence.setAttribute("type", "text");
 
+      item_container.appendChild(item_handle);
       item_container.appendChild(select_name);
       item_container.appendChild(input_sentence);
       item_container.appendChild(button_remove);
       return item_container;
     },
     add: function() {
-      document.querySelector("dl-editor").append(this.create());
+      let element = this.create();
+      document.querySelector("dl-editor").append(element);
       selects.load();
       loadInputs();
+      var draggie = new Draggabilly(element, {
+        axis: 'y',
+        handle: 'dl-handle',
+        containment: 'dl-editor'
+      });
+
+      packery.bindDraggabillyEvents(draggie);
+      packery.appended(element);
     },
     remove: function(element) {
-      element.parentElement.remove();
+      packery.remove(element.parentElement);
+      // element.parentElement.remove();
+      packery.shiftLayout();
     }
   }
 };
+
+var drag_container = document.querySelector('dl-editor');
+var drag_item_size = getSize(document.querySelector('dl-editor-item'));
+var packery = new Packery(drag_container, {
+  rowHeight: drag_item_size.outerHeight
+});
+
+var drag_items = packery.getItemElements();
+for (var i=0, len = drag_items.length; i < len; i++) {
+  var drag_item = drag_items[i];
+  var draggie = new Draggabilly(drag_item, {
+    axis: 'y',
+    handle: 'dl-handle',
+    containment: 'dl-editor'
+  });
+
+  packery.bindDraggabillyEvents(draggie);
+}
