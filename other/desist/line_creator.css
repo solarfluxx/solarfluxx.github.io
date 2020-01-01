@@ -1,0 +1,262 @@
+:root {
+  --primary: #ee9102;
+  --primary-light: #ffc246;
+
+  --primary-dec: 238, 145, 2;
+
+  --background: #f1efec;
+
+  --semi: #FFF;
+
+  --text: #000;
+
+  --hover-20: #00000020;
+}
+
+body {
+  font-family: "Montserrat";
+  background: var(--background);
+}
+
+body>h2:first-child {
+  text-align: center;
+  font-weight: 500;
+}
+
+body h3 {
+  text-align: center;
+  font-weight: 500;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+
+dl-editor-container, dl-code-container {
+  display: block;
+  min-width: fit-content;
+  margin: 0 20vw;
+  border-radius: 10px;
+  padding: 20px 40px;
+  box-shadow: 0px 2px 8px 0px #56565680;
+  background: var(--semi);
+  margin-top: 50px;
+}
+
+dl-editor-container {
+  padding-bottom: 59px;
+}
+
+dl-editor-container>dl-button {
+  float: right;
+  display: unset;
+  margin-left: 10px;
+}
+
+
+dl-editor-item {
+  display: flex;
+}
+
+dl-editor-item>dl-input {
+  width: -webkit-fill-available;
+  margin-left: 20px;
+}
+dl-editor-item>dl-input:first-child {
+  margin-left: 0;
+}
+
+dl-editor-item input {
+  width: inherit;
+}
+
+dl-code-item {
+  display: block;
+}
+dl-code-item::before {
+  content: "/";
+}
+
+
+dl-button {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  width: fit-content;
+  color: white;
+  padding: 10px;
+  user-select: none;
+  cursor: pointer;
+  background-color: var(--primary);
+  -webkit-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+dl-button:hover {
+  background: var(--primary-light);
+}
+
+
+cc-ripple {
+  display: block;
+  width: attr(width);
+  height: attr(width);
+  -webkit-transform: translate(-50%, -50%) scale(0);
+      -ms-transform: translate(-50%, -50%) scale(0);
+          transform: translate(-50%, -50%) scale(0);
+  position: absolute;
+  background-color: #FFFFFF42;
+  border-radius: 50%;
+  pointer-events: none;
+}
+cc-ripple.clicked {
+  -webkit-transition: opacity 0.4s 0.2s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
+  transition: opacity 0.4s 0.2s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
+  -o-transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s 0.2s;
+  transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s 0.2s;
+  transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s 0.2s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
+  opacity: 0;
+}
+
+
+dl-input {
+  padding: 10px 0;
+  display: block;
+  position: relative;
+}
+
+dl-hint {
+  position: absolute;
+  margin: 2px;
+  padding: 0 2px;
+  -webkit-transition: margin 0.2s, font-size 0.2s, background-color 0.2s, color 0.1s;
+  -o-transition: margin 0.2s, font-size 0.2s, background-color 0.2s, color 0.1s;
+  transition: margin 0.2s, font-size 0.2s, background-color 0.2s, color 0.1s;
+  pointer-events: none;
+  color: var(--text);
+  user-select: none;
+}
+.open>dl-hint, .downfocus>dl-hint {
+  margin-top: -10px;
+  font-size: 13px;
+  background-color: var(--semi);
+  color: rgba(var(--text-dec), 0.7);
+}
+.focus>dl-hint {
+  color: var(--primary);
+}
+
+dl-input input, dl-select {
+  padding: 10px 4px;
+  background: transparent;
+  color: var(--text);
+  border-style: none;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-color: var(--hover-20);
+  outline: transparent;
+  -webkit-transition: border-color 0.1s, -webkit-box-shadow 0.1s;
+  transition: border-color 0.1s, -webkit-box-shadow 0.1s;
+  -o-transition: box-shadow 0.1s, border-color 0.1s;
+  transition: box-shadow 0.1s, border-color 0.1s;
+  transition: box-shadow 0.1s, border-color 0.1s, -webkit-box-shadow 0.1s;
+}
+dl-input input[disabled] {
+  color: rgba(var(--text-dec), 0.5);
+}
+dl-input.focus input {
+  border-color: transparent;
+  border-radius: 1px;
+  -webkit-box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
+          box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
+}
+
+dl-input dl-option {
+  display: block;
+  padding: 12px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.2s, color 0.2s, -webkit-transform 0.2s;
+  transition: background-color 0.2s, color 0.2s, -webkit-transform 0.2s;
+  -o-transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s, -webkit-transform 0.2s;
+  color: var(--text);
+  font: 400 13.3333px Arial;
+  -webkit-transform: scale(0.95);
+      -ms-transform: scale(0.95);
+          transform: scale(0.95);
+}
+dl-input dl-option:after {
+  content: attr(text);
+}
+dl-input dl-option.selected {
+  background-color: var(--hover-20);
+  color: var(--primary);
+  -webkit-transition: background-color 0.2s, color 0.2s, -webkit-transform 0s;
+  transition: background-color 0.2s, color 0.2s, -webkit-transform 0s;
+  -o-transition: background-color 0.2s, color 0.2s, transform 0s;
+  transition: background-color 0.2s, color 0.2s, transform 0s;
+  transition: background-color 0.2s, color 0.2s, transform 0s, -webkit-transform 0s;
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none;
+}
+dl-input dl-select {
+  display: block;
+  height: 15px;
+  cursor: pointer;
+  font: 400 13.3333px Arial;
+}
+dl-input dl-select:after {
+  content: attr(selection);
+}
+dl-select-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 14;
+}
+dl-input dl-select-menu {
+  display: block;
+  position: absolute;
+  background-color: var(--semi);
+  -webkit-box-shadow: 0 0 8px 0px #00000024;
+          box-shadow: 0 0 8px 0px #00000024;
+  overflow: hidden;
+  border-radius: 4px;
+  z-index: 15;
+  pointer-events: none;
+  opacity: 0;
+  width: calc(100% + 16px);
+  -webkit-transition: opacity 0.1s, background-color 0.2s;
+  -o-transition: opacity 0.1s, background-color 0.2s;
+  transition: opacity 0.1s, background-color 0.2s;
+}
+
+dl-input.downfocus>dl-hint {
+  color: var(--primary);
+}
+dl-input.downfocus dl-select {
+  border-color: transparent;
+  border-radius: 1px;
+  -webkit-box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
+          box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
+}
+dl-input.focus dl-select-overlay {
+  display: block;
+}
+dl-input.focus dl-select-menu {
+  pointer-events: all;
+  opacity: 1;
+}
+dl-input.focus dl-option {
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none;
+}
+dl-input.focus dl-option:hover {
+  background-color: var(--hover-20);
+}

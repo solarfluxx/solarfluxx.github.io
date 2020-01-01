@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <title>Line Generator | Project Desistance</title>
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="line_creator.css">
+  </head>
+
+	<body>
+    <h2>Project Desistance - Story Line Generator</h2>
+    <dl-editor-container>
+      <h3>Edit Lines</h3>
+      <dl-editor>
+        <dl-editor-item>
+          <dl-input field="name" hint="Name">
+            <dl-select></dl-select>
+            <dl-select-overlay></dl-select-overlay>
+            <dl-select-menu>
+              <dl-option text="Chris"></dl-option>
+              <dl-option text="Bree"></dl-option>
+              <dl-option text="RAI"></dl-option>
+              <dl-option default text="Custom"></dl-option>
+            </dl-select-menu>
+          </dl-input>
+
+          <dl-input field="sentence" hint="Sentence" type="text"></dl-input>
+        </dl-editor-item>
+      </dl-editor>
+
+      <dl-button onclick="line_generator.generate();">Generate</dl-button>
+      <dl-button onclick="line_generator.item.add();">Add Line</dl-button>
+    </dl-editor-container>
+
+    <dl-code-container>
+      <h3>Generated Code</h3>
+      <dl-code></dl-code>
+    </dl-code-container>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="line_creator.js"></script>
+  </body>
+</html>
