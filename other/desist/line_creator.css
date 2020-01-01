@@ -16,6 +16,8 @@
 body {
   font-family: "Montserrat";
   background: var(--background);
+  padding: 0;
+  margin: 0;
 }
 
 body>h2:first-child {
@@ -265,4 +267,13 @@ dl-input.focus dl-option {
 }
 dl-input.focus dl-option:hover {
   background-color: var(--hover-20);
+}
+
+@media only screen and (max-width:950px) {
+  dl-editor-container, dl-code-container {
+    padding: 10px;
+    padding-bottom: 59px;
+    margin: 0;
+    margin-top: 50px;
+  }
 }
