@@ -1,16 +1,20 @@
 :root {
   --primary: #ee9102;
   --primary-light: #ffc246;
+  --primary-dark: #b66300;
 
   --primary-dec: 238, 145, 2;
+  --primary-light-dec: 255,194,70;
 
   --background: #f1efec;
 
-  --semi: #FFF;
+  --semi: #fffefd;
 
   --text: #000;
 
   --hover-20: #00000020;
+
+  overflow: overlay;
 }
 
 body {
@@ -18,6 +22,8 @@ body {
   background: var(--background);
   padding: 0;
   margin: 0;
+  padding-bottom: 50px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body>h2:first-child {
@@ -52,6 +58,7 @@ dl-editor-container>dl-button {
   float: right;
   display: unset;
   margin-left: 10px;
+  box-shadow: 0px 1px 3px #00000030;
 }
 
 dl-editor {
@@ -109,6 +116,95 @@ dl-code-item::before {
   content: "/";
 }
 
+dl-chapters-container {
+  display: block;
+  min-width: fit-content;
+  border-radius: 10px;
+  padding-top: 20px;
+  box-shadow: 0px 2px 8px 0px #56565680;
+  background: var(--semi);
+  margin-top: 50px;
+  position: absolute;
+  top: 46.675px;
+  right: 2.5vw;
+  width: 15vw;
+  overflow: hidden;
+}
+
+dl-chapter-item {
+  display: block;
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s, background-color 0.2s;
+}
+dl-chapter-item:hover {
+  color: white;
+  background-color: var(--primary);
+}
+
+
+dl-loader-container {
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.24, 1.17), opacity 0.2s 0.1s;
+  position: fixed;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transform: translate(0, -70px);
+  pointer-events: none;
+}
+dl-loader-container.show {
+  transform: none;
+  opacity: 1;
+}
+
+dl-loader {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: var(--primary-dark);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  transition: all 1s;
+  margin: 20px auto;
+  animation: spin 1s linear infinite;
+}
+
+dl-loader::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  border-radius: inherit;
+  border-style: inherit;
+  border-width: 4px;
+  border-color: var(--primary);
+  border-bottom-color: inherit;
+  animation: spin 2s linear infinite;
+}
+dl-loader::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border-radius: inherit;
+  border-style: inherit;
+  border-width: inherit;
+  border-color: var(--primary-light);
+  border-bottom-color: inherit;
+  animation: spin 3s linear infinite;
+}
+
 
 dl-button {
   display: block;
@@ -120,14 +216,18 @@ dl-button {
   user-select: none;
   cursor: pointer;
   background-color: var(--primary);
-  -webkit-transition: background-color 0.2s;
-  -o-transition: background-color 0.2s;
-  transition: background-color 0.2s;
+  -webkit-transition: background-color 0.2s, color 0.2s;
+  -o-transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
-dl-button:hover {
-  background: var(--primary-light);
+dl-button[color='white'] {
+  color: black;
+  background: white;
 }
+
+dl-button:hover {background: var(--primary-light);}
+dl-button[color='white']:hover {color: white;}
 
 
 cc-ripple {
@@ -295,6 +395,31 @@ dl-input.focus dl-option:hover {
   background-color: var(--hover-20);
 }
 
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
 @media only screen and (max-width:1200px) {
   dl-editor-container, dl-code-container {
     padding: 10px;
@@ -304,5 +429,13 @@ dl-input.focus dl-option:hover {
 
   dl-editor-container {
     padding-bottom: 59px;
+  }
+
+  dl-chapters-container {
+    position: unset;
+    width: unset;
+    padding-top: 10px;
+    margin: 10px;
+    margin-top: 50px;
   }
 }

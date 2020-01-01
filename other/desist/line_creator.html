@@ -12,27 +12,11 @@
     <h2>Project Desistance - Story Line Generator</h2>
     <dl-editor-container>
       <h3>Edit Lines</h3>
-      <dl-editor>
-        <dl-editor-item>
-					<dl-handle><i class="material-icons">unfold_more</i></dl-handle>
-          <dl-input field="name" hint="Name">
-            <dl-select></dl-select>
-            <dl-select-overlay></dl-select-overlay>
-            <dl-select-menu>
-              <dl-option text="Chris"></dl-option>
-              <dl-option text="Bree"></dl-option>
-              <dl-option text="RAI"></dl-option>
-              <dl-option default text="Custom"></dl-option>
-            </dl-select-menu>
-          </dl-input>
-
-          <dl-input field="sentence" hint="Sentence" type="text"></dl-input>
-					<dl-remove onclick="line_generator.item.remove(this);"><i class="material-icons">remove</i></dl-remove>
-        </dl-editor-item>
-      </dl-editor>
+      <dl-editor></dl-editor>
 
       <dl-button onclick="line_generator.generate();">Generate</dl-button>
-      <dl-button onclick="line_generator.item.add();">Add Line</dl-button>
+      <dl-button onclick="line_generator.item.add();" color="white">Add Line</dl-button>
+      <dl-button onclick="line_generator.upload();" color="white">Upload</dl-button>
     </dl-editor-container>
 
     <dl-code-container>
@@ -40,9 +24,21 @@
       <dl-code></dl-code>
     </dl-code-container>
 
+		<dl-chapters-container>
+			<h3>Chapters</h3>
+			<dl-chapters></dl-chapters>
+		</dl-chapters-container>
+
+		<dl-loader-container><dl-loader></dl-loader></dl-loader-container>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="https://unpkg.com/draggabilly@2.2.0/dist/draggabilly.pkgd.js"></script>
 		<script src="https://unpkg.com/packery@2/dist/packery.pkgd.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+
+    <script src="database.js"></script>
     <script src="line_creator.js"></script>
   </body>
 </html>
