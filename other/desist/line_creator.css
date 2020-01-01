@@ -269,7 +269,7 @@ dl-input.focus dl-option:hover {
   background-color: var(--hover-20);
 }
 
-@media only screen and (max-width:950px) {
+@media only screen and (max-width:1200px) {
   dl-editor-container, dl-code-container {
     padding: 10px;
     padding-bottom: 59px;
