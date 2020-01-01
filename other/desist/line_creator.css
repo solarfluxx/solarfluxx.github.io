@@ -72,6 +72,8 @@ dl-editor-item input {
 }
 
 dl-editor-item dl-button {
+  margin-top: 8px;
+  margin-left: 4px;
   width: 135px;
   height: fit-content;
 }
