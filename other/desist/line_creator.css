@@ -69,6 +69,11 @@ dl-editor-item input {
   width: inherit;
 }
 
+dl-editor-item dl-button {
+  width: 135px;
+  height: fit-content;
+}
+
 dl-code-item {
   display: block;
 }

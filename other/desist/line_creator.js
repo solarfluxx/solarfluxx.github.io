@@ -146,6 +146,10 @@ let line_generator = {
       let item_container = document.createElement("dl-editor-item");
       let select_name = document.createElement("dl-input");
       let input_sentence = document.createElement("dl-input");
+      let button_remove = document.createElement("dl-button");
+
+      button_remove.innerHTML = "Remove";
+      button_remove.setAttribute("onclick", "line_generator.item.remove(this);");
 
       select_name.setAttribute("field", "name");
       select_name.setAttribute("hint", "Name");
@@ -176,12 +180,16 @@ let line_generator = {
 
       item_container.appendChild(select_name);
       item_container.appendChild(input_sentence);
+      item_container.appendChild(button_remove);
       return item_container;
     },
     add: function() {
       document.querySelector("dl-editor").append(this.create());
       selects.load();
       loadInputs();
+    },
+    remove: function(element) {
+      element.parentElement.remove();
     }
   }
 };
