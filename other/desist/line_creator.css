@@ -114,6 +114,7 @@ cc-ripple {
   border-radius: 50%;
   pointer-events: none;
 }
+
 cc-ripple.clicked {
   -webkit-transition: opacity 0.4s 0.2s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
   transition: opacity 0.4s 0.2s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
