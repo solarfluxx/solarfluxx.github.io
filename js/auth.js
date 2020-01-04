@@ -28,19 +28,22 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
       if (!cUser.admin) {
         $("#adminlink").remove();
         $("#addUser").remove();
-        $("#removeUser").remove();
+        $(".removeUser").remove();
       }
 
       $("cc-name").html(cUser.firstName + " " + cUser.lastName);
       $("cc-email").html(cUser.email);
-      calendar.firebase.getShiftNames();
+
+      loadInputs();
+
+      if (typeof calendar !== 'undefined') calendar.firebase.getShiftNames();
       getLocations();
-      if (schedule) {
+      if (typeof calendar !== 'undefined' && schedule) {
         calendar.firebase.getAllShifts();
   			choose_user_shift.populate();
-      } else calendar.firebase.getUserShifts();
+      } else if (typeof calendar !== 'undefined') calendar.firebase.getUserShifts();
 
-      doStagerAnim();
+      if (typeof doStagerAnim !== 'undefined') doStagerAnim();
       $("cc-loader").toggleClass("hide");
       var timer = setTimeout(function() {$("cc-loader").remove()}, 500);
     });

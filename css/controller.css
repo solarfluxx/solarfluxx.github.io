@@ -7,6 +7,8 @@
   --secondary-light: #678dff;
   --secondary-dark: #0038ba;
 
+  --primary-dec: 238, 145, 2;
+
   --background-light: #f1efec;
   --background-dark: #171717;
   --background: var(--background-light);
@@ -15,7 +17,19 @@
   --full-dark: #000;
   --full: var(--full-light);
 
+  --semi-light: #FFF;
+  --semi-dark: #101010;
+  --semi: var(--full-light);
+
+  --border-light: #d3d7d7;
+  --border-dark: black;
+  --border: var(--border-light);
+
   --text: var(--full-dark);
+
+  --text-light-dec: 255, 255, 255;
+  --text-dark-dec: 0, 0, 0;
+  --text-dec: var(--text-dark-dec);
 
   --selected-text-light: #fff2d8;
   --selected-text-dark: #312d23;
@@ -25,6 +39,10 @@
   --shadow-dark: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
   --shadow: var(--shadow-light);
 
+  --shadow-color-light: #00000024;
+  --shadow-color-dark: #FFFFFF24;
+  --shadow-color: var(--shadow-color-light);
+
   --white-10: #ffffff1A;
 
   --hover-20-light: #00000020;
@@ -32,13 +50,41 @@
   --hover-20: var(--hover-20-light);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--background-dark);
+  }
+}
+
 body {
-  transition: opacity 0.2s, background 0.2s;
+  -webkit-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+  background-color: var(--background) !important;
   opacity: 0;
 }
+
+input, button, a {
+  outline-color: var(--primary);
+}
+
 body.con_show {
+  -webkit-transition: opacity 0.2s, background-color 0.2s;
+  -o-transition: opacity 0.2s, background-color 0.2s;
+  transition: opacity 0.2s, background-color 0.2s;
   opacity: 1;
 }
 body.con_hide {
   opacity: 0;
+}
+
+body.con_hide .main_center {
+  -webkit-transition: -webkit-transform 0.2s !important;
+  transition: -webkit-transform 0.2s !important;
+  -o-transition: transform 0.2s !important;
+  transition: transform 0.2s !important;
+  transition: transform 0.2s, -webkit-transform 0.2s !important;
+  -webkit-transform: scale(0.95) !important;
+      -ms-transform: scale(0.95) !important;
+          transform: scale(0.95) !important;
 }

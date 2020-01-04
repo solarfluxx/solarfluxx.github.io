@@ -140,7 +140,7 @@ let names = [
   "Bree",
   "RAI",
   "Computer",
-  "Custom",
+  "Custom"
 ];
 
 function Line() {
@@ -177,20 +177,11 @@ function Line() {
   select_name.setAttribute("hint", "Name");
 
   let select_menu = document.createElement("dl-select-menu");
-  let option_chris = document.createElement("dl-option");
-  let option_bree = document.createElement("dl-option");
-  let option_rai = document.createElement("dl-option");
-  let option_custom = document.createElement("dl-option");
-
-  option_chris.setAttribute("text", "Chris");
-  option_bree.setAttribute("text", "Bree");
-  option_rai.setAttribute("text", "RAI");
-  option_custom.setAttribute("text", "Custom");
-
-  select_menu.appendChild(option_chris);
-  select_menu.appendChild(option_bree);
-  select_menu.appendChild(option_rai);
-  select_menu.appendChild(option_custom);
+  names.forEach(function(name) {
+    let option = document.createElement("dl-option");
+    option.setAttribute("text", name);
+    select_menu.appendChild(option);
+  });
 
   this.select = document.createElement("dl-select");
   select_name.appendChild(this.select);

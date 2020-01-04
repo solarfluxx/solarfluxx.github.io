@@ -8,6 +8,7 @@ cc-blocker {
   z-index: -1;
 }
 
+
 cc-popup {
   position: fixed;
   top: 0;
@@ -18,6 +19,8 @@ cc-popup {
   margin: 0 10px;
   opacity: 0;
   pointer-events: none;
+  -webkit-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
   transition: opacity 0.2s;
 }
 cc-popup.show {
@@ -26,13 +29,22 @@ cc-popup.show {
 }
 
 cc-popup>:last-child {
-  transform: scale(0.8) translate(-60%, 0);
+  -webkit-transform: scale(0.8) translate(-60%, 0);
+      -ms-transform: scale(0.8) translate(-60%, 0);
+          transform: scale(0.8) translate(-60%, 0);
+  -webkit-transition: background 0.2s, color 0.2s, -webkit-transform 0.2s;
+  transition: background 0.2s, color 0.2s, -webkit-transform 0.2s;
+  -o-transition: transform 0.2s, background 0.2s, color 0.2s;
   transition: transform 0.2s, background 0.2s, color 0.2s;
+  transition: transform 0.2s, background 0.2s, color 0.2s, -webkit-transform 0.2s;
   will-change: transform;
 }
 cc-popup.show>:last-child {
-  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+      -ms-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
 }
+
 
 cc-prompt {
   display: block;
@@ -40,11 +52,15 @@ cc-prompt {
   background: white;
   max-width: 600px;
   border-radius: 10px;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+          box-shadow: 0 2px 20px rgba(0,0,0,0.1);
   border: none;
   margin: auto;
   margin-top: 30vh;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   padding: 0;
 }
 
@@ -62,6 +78,8 @@ cc-prompt>title {
 }
 
 cc-prompt>message {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   padding: 10px 20px;
 }
@@ -78,7 +96,10 @@ cc-prompt>message>i {
   margin-right: 10px;
 }
 
+
 cc-button {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   cursor: pointer;
   display: block;
@@ -89,6 +110,8 @@ cc-button {
   margin-left: 0;
   font-weight: 500;
   border-radius: 8px;
+  -webkit-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
   transition: background-color 0.2s;
 }
 cc-button:hover {
@@ -108,4 +131,290 @@ cc-button[color="red"] {
 }
 cc-button[color="red"]:hover {
   background-color: #a52626;
+}
+
+
+cc-snackbar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 13;
+  width: 100vw;
+  pointer-events: none;
+}
+cc-snackbar.expand {
+  pointer-events: all;
+}
+
+cc-snackbar>div {
+  -webkit-box-shadow: 0px 4px 8px 0px #00000014;
+          box-shadow: 0px 4px 8px 0px #00000014;
+  background-color: black;
+  color: white;
+  margin: 0 auto;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  min-width: 0;
+  min-height: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  position: fixed;
+  bottom: -45px;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+      -ms-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  pointer-events: all;
+  will-change: min-width, min-height, margin, border-radius, bottom;
+}
+
+cc-snackbar.expand>div {
+  min-width: 70vw;
+  min-height: 70vh;
+  margin: 15vh auto;
+  -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #151515;
+  border-radius: 0;
+}
+
+cc-snackbar.show>div {
+  bottom: 10px;
+}
+cc-snackbar>div:hover {
+  opacity: 0.8;
+}
+cc-snackbar.expand>div:hover {
+  opacity: 1;
+}
+cc-snackbar>div.isClickable>p {
+  cursor: pointer;
+}
+
+cc-snackbar>div>p>i {
+  margin-left: 10px;
+  font-size: 19px !important;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: -webkit-transform 0.3s;
+  -o-transition: transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+}
+cc-snackbar>div>p>i.rotate {
+  -webkit-transform: rotate(-180deg);
+      -ms-transform: rotate(-180deg);
+          transform: rotate(-180deg);
+}
+
+cc-snackbar>div>div>div>div>p {
+  margin-left: 30px;
+  margin-bottom: 5px;
+}
+cc-snackbar>div>div>div>div>p>i {
+  font-size: 19px !important;
+}
+
+cc-snackbar>div>div {
+  position: absolute;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 10px;
+  -webkit-transition: inherit;
+  -o-transition: inherit;
+  transition: inherit;
+  max-height: calc(100% - 39px);
+  min-width: 70vw;
+}
+cc-snackbar>div>div h2 {
+  font-weight: normal;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: white;
+}
+
+cc-snackbar>div>p {
+  background-color: black;
+  padding: 10px;
+  -webkit-box-shadow: 0px 0px 4px 4px black;
+          box-shadow: 0px 0px 4px 4px black;
+}
+
+cc-snackbar>div>p>i {
+  float: right;
+  font-size: 19px;
+}
+
+cc-snackbar p {
+  margin: 0;
+  color: inherit;
+}
+
+
+cc-ripple {
+  display: block;
+  width: attr(width);
+  height: attr(width);
+  -webkit-transform: translate(-50%, -50%) scale(0);
+      -ms-transform: translate(-50%, -50%) scale(0);
+          transform: translate(-50%, -50%) scale(0);
+  position: absolute;
+  background-color: #00000042;
+  border-radius: 50%;
+  pointer-events: none;
+}
+cc-ripple.clicked {
+  -webkit-transition: opacity 0.4s 0.2s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
+  transition: opacity 0.4s 0.2s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
+  -o-transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s 0.2s;
+  transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s 0.2s;
+  transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s 0.2s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
+  opacity: 0;
+}
+
+
+cc-input {
+  padding: 10px 0;
+  display: block;
+  position: relative;
+}
+
+cc-hint {
+  position: absolute;
+  margin: 2px;
+  padding: 0 2px;
+  -webkit-transition: margin 0.2s, font-size 0.2s, background-color 0.2s, color 0.1s;
+  -o-transition: margin 0.2s, font-size 0.2s, background-color 0.2s, color 0.1s;
+  transition: margin 0.2s, font-size 0.2s, background-color 0.2s, color 0.1s;
+  pointer-events: none;
+  color: var(--text);
+}
+.open>cc-hint {
+  margin-top: -10px;
+  font-size: 13px;
+  background-color: var(--semi);
+  color: rgba(var(--text-dec), 0.7);
+}
+.focus>cc-hint {
+  color: var(--primary);
+}
+
+cc-input input, cc-select {
+  padding: 10px 4px;
+  background: transparent;
+  color: var(--text);
+  border-style: none;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-color: var(--hover-20);
+  outline: transparent;
+  -webkit-transition: border-color 0.1s, -webkit-box-shadow 0.1s;
+  transition: border-color 0.1s, -webkit-box-shadow 0.1s;
+  -o-transition: box-shadow 0.1s, border-color 0.1s;
+  transition: box-shadow 0.1s, border-color 0.1s;
+  transition: box-shadow 0.1s, border-color 0.1s, -webkit-box-shadow 0.1s;
+}
+cc-input input[disabled] {
+  color: rgba(var(--text-dec), 0.5);
+}
+cc-input.focus input {
+  border-color: transparent;
+  border-radius: 1px;
+  -webkit-box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
+          box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
+}
+
+cc-input cc-option {
+  display: block;
+  padding: 12px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.2s, color 0.2s, -webkit-transform 0.2s;
+  transition: background-color 0.2s, color 0.2s, -webkit-transform 0.2s;
+  -o-transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s, -webkit-transform 0.2s;
+  color: var(--text);
+  font: 400 13.3333px Arial;
+  -webkit-transform: scale(0.95);
+      -ms-transform: scale(0.95);
+          transform: scale(0.95);
+}
+cc-input cc-option:after {
+  content: attr(text);
+}
+cc-input cc-option.selected {
+  background-color: var(--hover-20);
+  color: var(--primary);
+  -webkit-transition: background-color 0.2s, color 0.2s, -webkit-transform 0s;
+  transition: background-color 0.2s, color 0.2s, -webkit-transform 0s;
+  -o-transition: background-color 0.2s, color 0.2s, transform 0s;
+  transition: background-color 0.2s, color 0.2s, transform 0s;
+  transition: background-color 0.2s, color 0.2s, transform 0s, -webkit-transform 0s;
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none;
+}
+cc-input cc-select {
+  display: block;
+  height: 15px;
+  cursor: pointer;
+  font: 400 13.3333px Arial;
+}
+cc-input cc-select:after {
+  content: attr(selection);
+}
+cc-select-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 14;
+}
+cc-input cc-select-menu {
+  display: block;
+  position: absolute;
+  background-color: var(--full);
+  -webkit-box-shadow: 0 0 8px 0px var(--shadow-color);
+          box-shadow: 0 0 8px 0px var(--shadow-color);
+  overflow: hidden;
+  border-radius: 4px;
+  z-index: 15;
+  pointer-events: none;
+  opacity: 0;
+  width: calc(100% + 16px);
+  -webkit-transition: opacity 0.1s, background-color 0.2s;
+  -o-transition: opacity 0.1s, background-color 0.2s;
+  transition: opacity 0.1s, background-color 0.2s;
+}
+
+cc-input.downfocus>cc-hint {
+  color: var(--primary);
+}
+cc-input.downfocus cc-select {
+  border-color: transparent;
+  border-radius: 1px;
+  -webkit-box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
+          box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
+}
+cc-input.focus cc-select-overlay {
+  display: block;
+}
+cc-input.focus cc-select-menu {
+  pointer-events: all;
+  opacity: 1;
+}
+cc-input.focus cc-option {
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none;
+}
+cc-input.focus cc-option:hover {
+  background-color: var(--hover-20);
 }

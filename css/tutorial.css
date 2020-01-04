@@ -1,0 +1,87 @@
+cc-tut {
+  display: block;
+  position: fixed;
+  background-color: #00000096;
+  z-index: 13;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -webkit-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+  padding: 0 10vw;
+}
+cc-tut.hideTut {
+  opacity: 0;
+  pointer-events: none;
+}
+
+cc-tut-button {
+  background: var(--primary);
+  padding: 5px 10px;
+  display: block;
+  color: white;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+  cursor: pointer;
+  -webkit-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+  position: relative;
+  overflow: hidden;
+  -webkit-box-shadow: 0px 1px 8px #0000001a;
+          box-shadow: 0px 1px 8px #0000001a;
+}
+cc-tut-button:hover {
+  background: var(--primary-light);
+}
+cc-tut-button[skip] {
+  background: white;
+  color: black;
+}
+
+cc-tut-button[next]:after {
+  content: "Continue";
+}
+cc-tut-button[done]:after {
+  content: "Finish";
+}
+cc-tut-button[skip]:after {
+  content: "Skip Tutorial";
+}
+
+cc-tut p {
+  margin: 0 auto;
+  color: white;
+}
+
+cc-tut>p {
+  font-size: 20px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-align: center;
+  margin-top: 30px;
+}
+cc-tut>p:first-child {
+  margin-top: 60px;
+}
+cc-tut>p:last-of-type {
+  margin-bottom: 30px;
+}
+
+cc-tut>div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+}
+cc-tut>div>cc-tut-button:first-child {
+  margin-right: 50px;
+}

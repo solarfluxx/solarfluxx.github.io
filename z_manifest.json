@@ -1,0 +1,20 @@
+{
+  "short_name": "Cart Chart",
+  "name": "The Cart Chart",
+  "icons": [
+    {
+      "src": "favicons/favicon-196x196.png",
+      "type": "image/png",
+      "sizes": "196x196"
+    },
+    {
+      "src": "favicons/favicon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/home",
+  "background_color": "#f1efec",
+  "display": "standalone",
+  "theme_color": "#ee9102"
+}

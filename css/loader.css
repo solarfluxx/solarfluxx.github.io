@@ -6,6 +6,8 @@ cc-loader {
   right: 0;
   background-color: var(--background);
   z-index: 20;
+  -webkit-transition: opacity 0.5s ease;
+  -o-transition: opacity 0.5s ease;
   transition: opacity 0.5s ease;
 }
 cc-loader.hide {

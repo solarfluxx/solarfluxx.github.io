@@ -15,7 +15,10 @@ button {
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   background-image: none;
   border: 1px solid transparent;
   border-radius: 3px;
@@ -23,6 +26,8 @@ button {
   background-color: white;
   border-color: #ccc;
   float: right;
+  -webkit-transition: all 100ms ease-in;
+  -o-transition: all 100ms ease-in;
   transition: all 100ms ease-in;
   -webkit-tap-highlight-color: transparent;
 }
@@ -32,7 +37,8 @@ button:focus {
 }
 
 .form button:active {
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.125);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.125);
+          box-shadow: inset 0 1px 2px rgba(0,0,0,0.125);
 }
 
 div.align_center {
@@ -56,7 +62,7 @@ button.submit:hover {
 
 .form .title {
   font: 400 16px / 22px "Montserrat", Arial, sans-serif;
-  color: #333;
+  color: var(--text);
   text-transform: uppercase;
   border-bottom: 1px solid rgba(0,0,0,0.05);
   margin-bottom: 20px
@@ -67,7 +73,7 @@ button.submit:hover {
 }
 
 .form {
-  background: white;
+  background: var(--semi);
   width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -84,6 +90,8 @@ div.sec_end {
 }
 
 div.form_item_group {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 70%;
 }
@@ -96,9 +104,11 @@ div.submit_group {
 input.form_item {
   border-width: 1px;
   border-style: solid;
-  border-color: #ddd;
+  border-color: var(--border);
   padding: 10px;
   width: 100%;
+  color: var(--text);
+  background-color: var(--semi);
 }
 input {
   outline-color: var(--light-accent-color);
@@ -112,12 +122,12 @@ input.form_item:last-child {
 span.form_item_extra {
   border-width: 1px;
   border-style: solid;
-  border-color: #d3d7d7;
+  border-color: var(--border);
   border-radius: 3px;
   padding: 12px 15px;
   width: 1%;
   display: table;
-  background-color: #d3d7d7;
+  background-color: var(--border);
   color: #555;
   height: 15px;
 }
@@ -150,7 +160,8 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--light-accent-color);
+  -webkit-text-fill-color: var(--text);
+  -webkit-transition: background-color 5000s ease-in-out 0s;
   transition: background-color 5000s ease-in-out 0s;
 }
 
@@ -171,6 +182,19 @@ cc-spinner {
   border-top-color: #8c8c8c;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {

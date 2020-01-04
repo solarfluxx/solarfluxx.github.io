@@ -1,0 +1,24 @@
+div.profile {
+  -webkit-transition: background 0.2s;
+  -o-transition: background 0.2s;
+  transition: background 0.2s;
+  background-color: var(--semi);
+  border-radius: 10px;
+  margin-top: 20px;
+  -webkit-box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+          box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+}
+
+div.profile>p {
+  padding: 20px 0px;
+  margin: 0px;
+  text-align: center;
+  border-bottom: 1px solid rgba(166,168,179,0.12);
+}
+div.profile>div {
+  padding: 20px;
+}
+
+div.profile>div input {
+  width: -webkit-fill-available;
+}

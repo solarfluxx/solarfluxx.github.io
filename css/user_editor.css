@@ -1,17 +1,24 @@
 cc-users, cc-user-shift {
   width: 100%;
   overflow-y: scroll;
+  display: -ms-grid;
   display: grid;
   margin-top: 0;
+  -webkit-transition: background-color 0.3s, opacity 0.3s, height 0.3s, padding 0.3s;
+  -o-transition: background-color 0.3s, opacity 0.3s, height 0.3s, padding 0.3s;
   transition: background-color 0.3s, opacity 0.3s, height 0.3s, padding 0.3s;
 }
 cc-users.anim_disable {
+  -webkit-transition: none;
+  -o-transition: none;
   transition: none;
 }
 
 cc-item {
   height: 40px;
   padding: 0 30px;
+  -webkit-transition: background-color 0.3s, opacity 0.3s 0.1s, height 0.3s, padding 0.3s;
+  -o-transition: background-color 0.3s, opacity 0.3s 0.1s, height 0.3s, padding 0.3s;
   transition: background-color 0.3s, opacity 0.3s 0.1s, height 0.3s, padding 0.3s;
   cursor: pointer;
 }
@@ -22,16 +29,24 @@ cc-item:hover {
 cc-item.hide_item {
   height: 0;
   opacity: 0;
+  -webkit-transition: inherit;
+  -o-transition: inherit;
   transition: inherit;
 }
 
 cc-user-editor {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   overflow: hidden;
   position: relative;
+  -webkit-transition: height 0.3s;
+  -o-transition: height 0.3s;
   transition: height 0.3s;
 }
 cc-user-editor.edit_page {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   overflow: hidden;
   position: relative;
@@ -45,6 +60,8 @@ cc-users-edit {
   display: block;
   pointer-events: all;
   background-color: white;
+  -webkit-transition: width 0.3s;
+  -o-transition: width 0.3s;
   transition: width 0.3s;
 }
 cc-users-edit.edit_page {
@@ -53,20 +70,28 @@ cc-users-edit.edit_page {
 cc-user-text::before {
   content: attr(default);
   position: absolute;
+  -webkit-transition: opacity 0.2s 0.2s;
+  -o-transition: opacity 0.2s 0.2s;
   transition: opacity 0.2s 0.2s;
 }
 cc-user-text::after {
   content: attr(edit-name);
   opacity: 0;
+  -webkit-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
   transition: opacity 0.2s;
   margin-left: 30px;
 }
 cc-user-text.edit_page::before {
   opacity: 0;
+  -webkit-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
   transition: opacity 0.2s;
 }
 cc-user-text.edit_page::after {
   opacity: 1;
+  -webkit-transition: opacity 0.2s 0.2s;
+  -o-transition: opacity 0.2s 0.2s;
   transition: opacity 0.2s 0.2s;
 }
 
@@ -78,6 +103,8 @@ cc-users p, cc-user-shift p {
   height: 20px;
   margin: 0;
   padding: 10px 0;
+  -webkit-transition: color 0.1s;
+  -o-transition: color 0.1s;
   transition: color 0.1s;
   pointer-events: none;
 }
@@ -88,6 +115,8 @@ cc-user-text i {
   font-size: 25px !important;
   position: absolute;
   opacity: 0;
+  -webkit-transition: opacity 0.2s, color 0.1s, background-color 0.2s;
+  -o-transition: opacity 0.2s, color 0.1s, background-color 0.2s;
   transition: opacity 0.2s, color 0.1s, background-color 0.2s;
   border-radius: 50%;
   color: #5d5d5d;
@@ -96,6 +125,8 @@ cc-user-text i {
 }
 cc-user-text.edit_page i {
   opacity: 1;
+  -webkit-transition: opacity 0.2s 0.2s, color 0.1s, background-color 0.2s;
+  -o-transition: opacity 0.2s 0.2s, color 0.1s, background-color 0.2s;
   transition: opacity 0.2s 0.2s, color 0.1s, background-color 0.2s;
   cursor: pointer;
   pointer-events: all;
@@ -111,13 +142,22 @@ cc-popup>div {
   background: var(--full);
   max-width: 1000px;
   border-radius: 10px;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+          box-shadow: 0 2px 20px rgba(0,0,0,0.1);
   border: none;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   position: absolute;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   top: 30px;
   left: 50%;
   width: 90vw;
@@ -143,6 +183,8 @@ cc-popup[use="users"]>div>h2>#search {
   float: right;
   margin-top: -10px;
   width: 30%;
+  -webkit-transition: color 0.2s, background 0.2s;
+  -o-transition: color 0.2s, background 0.2s;
   transition: color 0.2s, background 0.2s;
   color: var(--text);
   background: var(--full);

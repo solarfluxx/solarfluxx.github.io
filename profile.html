@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home | Cart Chart</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,900&display=swap" rel="stylesheet">
+		<link href="css/fonts/FontAwesome/css/all.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/home.css">
+		<link rel="stylesheet" type="text/css" href="css/profile.css">
+		<link rel="stylesheet" type="text/css" href="css/icons.css">
+		<link rel="stylesheet" type="text/css" href="css/navbar.css">
+		<link rel="stylesheet" type="text/css" href="css/calendar.css">
+		<link rel="stylesheet" type="text/css" href="css/loader.css">
+		<link rel="stylesheet" type="text/css" href="css/controller.css">
+		<link rel="stylesheet" type="text/css" href="css/tutorial.css">
+		<link rel="stylesheet" type="text/css" href="css/custom_elements.css">
+		<link rel="icon" type="image/png" href="favicons/favicon-192x192.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="16x16">
+		<link rel="icon" type="image/png" href="favicons/favicon-128.png" sizes="128x128">
+		<link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon-180x180.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="favicons/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="favicons/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="favicons/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="favicons/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="favicons/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="favicons/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
+		<link rel="manifest" href="z_manifest.json">
+		<meta name="theme-color" content="#ee9102"/>
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+	</head>
+
+	<body>
+		<cc-loader><cc-circle></cc-circle></cc-loader>
+
+    <header>
+      <div class="navbar">
+        <div class="title_container"><button class="title_bars" onclick="navbar.toggle();"><i class="fas fa-bars"></i></button><h2 class="title">My Profile</h2></div>
+        <div class="heading">
+          <cc-name class="heading_text" id="dynamic_name"></cc-name>
+          <!-- <a class="heading_icon" href="javascript:controller.page.goto('profile')"><cc-tooltip style="margin-left: -55px;">Profile Settings</cc-tooltip><i class="fa fa-cog"></i></a> -->
+          <a class="heading_icon" href="javascript:logout();"><cc-tooltip style="margin-left: -35px;">Sign Out</cc-tooltip><i class="fa fa-power-off"></i></a>
+          <!-- <a class="heading_icon" id="toggle_modal" href="javascript:toggleModal();"><i class="fas fa-user"></i></a> -->
+        </div>
+      </div>
+    </header>
+
+    <cc-navbar id="navbar">
+			<div class="blocker" id="blocker"></div>
+			<div class="main">
+				<div class="nohover item">
+					<h1>Cart Chart</h1>
+				</div>
+
+				<a onclick="controller.page.goto('home')">
+					<i class="material-icons">home</i>
+					<span>Home</span>
+				</a>
+				<a onclick="controller.page.goto('admin')" id="adminlink">
+					<i class="material-icons">description</i>
+					<span>Admin</span>
+				</a>
+				<div class="group" id="group_location">
+					<button>
+						<div>
+							<i class="material-icons">calendar_today</i>
+							<span>Schedules</span>
+							<i class="material-icons">chevron_left</i>
+						</div>
+					</button>
+				</div>
+
+				<div class="item">
+					<button onclick="navbar.toggle();">
+						<!-- <i class="fas fa-chevron-left"></i> -->
+						<i class="material-icons contract_navbar">chevron_left</i>
+					</button>
+				</div>
+
+			</div>
+		</cc-navbar>
+
+    <div class="main_container">
+      <div class="main_center">
+        <div class="profile info">
+          <p>Your Information</p>
+          <div>
+            <cc-input fill="firstname" type="text" hint="First Name"></cc-input>
+            <cc-input fill="lastname" type="text" hint="Last Name"></cc-input>
+            <cc-input disabled fill="email" type="email" hint="Email Address"></cc-input>
+          </div>
+        </div>
+        <div class="profile settings">
+          <p>Preferences</p>
+					<div>
+						<cc-input hint="App Theme" write="darkmode" onselection="toggleDarkMode(text);">
+							<cc-select></cc-select>
+							<cc-select-overlay></cc-select-overlay>
+							<cc-select-menu>
+								<cc-option text="Light"></cc-option>
+								<cc-option text="Dark"></cc-option>
+								<cc-option text="Time of Day"></cc-option>
+								<cc-option default text="Device Theme"></cc-option>
+							</cc-select-menu>
+						</cc-input>
+					</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-database.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="js/controller.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/auth.js"></script>
+		<script src="js/navbar.js"></script>
+		<script src="js/custom_elements.js"></script>
+		<script>
+			var icon_compact = document.getElementById("compact"),
+			schedule = false;
+
+			navbar.element = document.getElementById('navbar');
+
+			var profile = document.getElementsByClassName("profile_container")[0];
+			function toggleModal() {
+				$(profile).toggleClass("hide");
+			}
+			window.onclick = function(event) {
+				var hide = true,
+						button = document.getElementById("toggle_modal");
+				for (i=0; i<event.path.length; i++) {
+					if (event.path[i] == profile) {
+						hide = false;
+					} else if (event.path[i] == button) {
+						hide = false;
+					}
+				}
+				if (hide) {
+					$(profile).addClass("hide");
+				}
+			}
+
+			function forward() {
+				all.changeDate(date.year, (date.month+1), date.day);
+			}
+			function backward() {
+				all.changeDate(date.year, (date.month-1), date.day);
+			}
+		</script>
+  </body>
+
+</html>

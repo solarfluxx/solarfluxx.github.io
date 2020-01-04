@@ -21,7 +21,10 @@
 body {
   overflow-y: var(--overflow-x);
   overflow-x: hidden;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 cc-navbar p, cc-navbar h1, cc-navbar h2, cc-navbar h3, cc-navbar span {
@@ -31,6 +34,8 @@ cc-navbar p, cc-navbar h1, cc-navbar h2, cc-navbar h3, cc-navbar span {
 cc-navbar {
   color: white;
   width: 0;
+  -webkit-transition: var(--navbar-transition);
+  -o-transition: var(--navbar-transition);
   transition: var(--navbar-transition);
   width: var(--navbar-true-width);
   grid-auto-columns: var(--navbar-true-width);
@@ -54,6 +59,8 @@ cc-navbar div.blocker {
   height: 100%;
   opacity: var(--sidebar-blocker-opacity);
   pointer-events: var(--sidebar-blocker-events);
+  -webkit-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
   will-change: opacity;
 }
@@ -62,14 +69,19 @@ cc-navbar div.main {
   position: fixed;
   z-index: 12;
   background-color: inherit;
-  box-shadow: 0px 0px 5px #0000006e;
+  -webkit-box-shadow: 0px 0px 5px #0000006e;
+          box-shadow: 0px 0px 5px #0000006e;
   width: inherit;
   top: inherit;
   bottom: inherit;
   left: inherit;
   overflow-x: hidden;
+  display: -ms-grid;
   display: grid;
+  -webkit-transition: margin-top 0.5s ease, background-color 0.2s ease;
+  -o-transition: margin-top 0.5s ease, background-color 0.2s ease;
   transition: margin-top 0.5s ease, background-color 0.2s ease;
+  grid-auto-rows: minmax(56px, -webkit-max-content);
   grid-auto-rows: minmax(56px, max-content);
   margin-top: var(--sidenav-margin-top);
   will-change: margin-top;
@@ -83,6 +95,8 @@ cc-navbar div.main>*:last-child {
 }
 
 cc-navbar div.main div {
+  -webkit-transition: inherit;
+  -o-transition: inherit;
   transition: inherit;
 }
 cc-navbar div.main div.group {
@@ -96,17 +110,25 @@ cc-navbar div.main>div.group.hide {
 cc-navbar div.main div.item {
   padding-left: var(--sidenav-padding);
   padding-right: var(--sidenav-padding);
+  -webkit-transition: padding 0.5s, background-color 0.2s;
+  -o-transition: padding 0.5s, background-color 0.2s;
   transition: padding 0.5s, background-color 0.2s;
   will-change: padding-left, padding-right;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 cc-navbar div.main div.item:hover {
   background-color: #ffffff2b;
 }
 
 cc-navbar div.main div:last-child {
-  align-self: unset;
+  -ms-flex-item-align: unset;
+      -ms-grid-row-align: unset;
+      align-self: unset;
 }
 
 cc-navbar div.main div.nohover:hover {
@@ -114,12 +136,15 @@ cc-navbar div.main div.nohover:hover {
 }
 
 cc-navbar div.main a {
+  -webkit-transition: padding 0.5s, background-color 0.2s;
+  -o-transition: padding 0.5s, background-color 0.2s;
   transition: padding 0.5s, background-color 0.2s;
   padding-left: var(--sidenav-button-padding-left);
   padding-right: var(--sidenav-padding);
   color: white;
   cursor: pointer;
   text-decoration: none;
+  display: -ms-grid;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 30px 1fr;
@@ -130,6 +155,8 @@ cc-navbar div.main a:hover {
 }
 
 cc-navbar div.main>div.group>button {
+  -webkit-transition: padding 0.5s, margin-top 0.5s, background-color 0.2s, opacity 0.2s;
+  -o-transition: padding 0.5s, margin-top 0.5s, background-color 0.2s, opacity 0.2s;
   transition: padding 0.5s, margin-top 0.5s, background-color 0.2s, opacity 0.2s;
   padding-left: var(--sidenav-button-padding-left);
   padding-right: var(--sidenav-padding);
@@ -150,33 +177,50 @@ cc-navbar div.main>div.group>button:hover {
   background-color: #ffffff2b;
 }
 cc-navbar div.main>div.group>button>div {
+  display: -ms-grid;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 30px 1fr 30px;
 }
 cc-navbar div.main>div.group>button i:last-child {
-  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+          transform: rotate(90deg);
+  -webkit-transition: -webkit-transform 0.4s;
+  transition: -webkit-transform 0.4s;
+  -o-transition: transform 0.4s;
   transition: transform 0.4s;
+  transition: transform 0.4s, -webkit-transform 0.4s;
 }
 cc-navbar div.main>div.group>button i.rotate:last-child {
-  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+          transform: rotate(-90deg);
 }
 cc-navbar div.main>div.group>a {
   font-size: 14px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  -webkit-transition: opacity 0.2s ease 0.2s, margin 0.2s, padding 0.5s,  background-color 0.2s;
+  -o-transition: opacity 0.2s ease 0.2s, margin 0.2s, padding 0.5s,  background-color 0.2s;
   transition: opacity 0.2s ease 0.2s, margin 0.2s, padding 0.5s,  background-color 0.2s;
 }
 cc-navbar div.main>div.group.hide>a {
-  margin-bottom: -30px;
+  margin-bottom: -38px;
   opacity: 0;
+  -webkit-transition: opacity 0.2s, margin 0.2s ease 0.2s, padding 0.5s, background-color 0.2s;
+  -o-transition: opacity 0.2s, margin 0.2s ease 0.2s, padding 0.5s, background-color 0.2s;
   transition: opacity 0.2s, margin 0.2s ease 0.2s, padding 0.5s, background-color 0.2s;
 }
 
 cc-navbar div.main span {
+  -webkit-transition: opacity 0.4s ease;
+  -o-transition: opacity 0.4s ease;
   transition: opacity 0.4s ease;
   margin-left: 5px;
-  align-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
   opacity: var(--sidenav-navtext-opacity);
   will-change: opacity;
 }
@@ -188,7 +232,9 @@ cc-navbar div.main a span.nohide {
   text-align: center;
 }
 cc-navbar div.main a i {
-  align-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 cc-navbar div.main div>a:first-child {
   height: 56px;
@@ -214,6 +260,8 @@ cc-navbar div.main>div.item>button {
   -webkit-tap-highlight-color: transparent;
   outline: none;
   text-align: right;
+  -webkit-transition: var(--navbar-transition);
+  -o-transition: var(--navbar-transition);
   transition: var(--navbar-transition);
   width: var(--navbar-true-width);
   will-change: width, margin-left, margin-right, padding-left, padding-right;
@@ -228,7 +276,11 @@ cc-navbar i {
 cc-navbar button i {
   font-size: 20px;
   color: white;
+  -webkit-transition: -webkit-transform 0.5s ease;
+  transition: -webkit-transform 0.5s ease;
+  -o-transition: transform 0.5s ease;
   transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
   will-change: transform;
 }
 
@@ -245,7 +297,9 @@ cc-tooltip {
 
 .contract_navbar {
   font-size: 30px;
-  transform: var(--sidenav-icon-rotation);
+  -webkit-transform: var(--sidenav-icon-rotation);
+      -ms-transform: var(--sidenav-icon-rotation);
+          transform: var(--sidenav-icon-rotation);
 }
 
 .navbar {
@@ -255,31 +309,47 @@ cc-tooltip {
   right: 0;
   left: 0;
   margin-right: -10px;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding: 0 10px;
   height: 56px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   z-index: 10;
   will-change: box-shadow;
+  -webkit-transition: background 0.2s, -webkit-box-shadow 150ms ease;
+  transition: background 0.2s, -webkit-box-shadow 150ms ease;
+  -o-transition: box-shadow 150ms ease, background 0.2s;
   transition: box-shadow 150ms ease, background 0.2s;
+  transition: box-shadow 150ms ease, background 0.2s, -webkit-box-shadow 150ms ease;
 }
 .navbar.shadow {
-  box-shadow: var(--shadow);
+  -webkit-box-shadow: var(--shadow);
+          box-shadow: var(--shadow);
   will-change: box-shadow;
 }
 .navbar .title {
   font-size: 1em;
   margin-bottom: 0;
   margin-top: 0;
-  align-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
   padding-bottom: 2px;
   font-weight: 400;
   margin-left: 10px;
+  color: var(--text);
 }
 .navbar .title_container {
   margin-left: var(--navbar-width);
+  -webkit-transition: var(--navbar-transition);
+  -o-transition: var(--navbar-transition);
   transition: var(--navbar-transition);
   will-change: margin-left;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 .navbar .title_container button {
@@ -292,8 +362,11 @@ cc-tooltip {
   border-radius: 50%;
   padding: 12px;
   margin: 8px 0;
+  -webkit-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
   transition: background-color 0.2s ease;
   display: none;
+  color: var(--text);
 }
 .navbar .title_container button:hover {
   color: black;
@@ -305,22 +378,30 @@ cc-tooltip {
 .heading_icon:hover cc-tooltip {
   visibility: visible;
   opacity: 1;
+  -webkit-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
 .heading_text {
   font-size: 1em;
   margin-bottom: 0;
   margin-top: 0;
-  align-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
   padding-bottom: 2px;
   font-weight: 400;
   color: var(--text);
 }
 div.heading:last-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 .heading_icon {
-  align-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
   color: inherit;
   margin-left: 20px;
   font-size: 15px;
@@ -328,6 +409,8 @@ div.heading:last-child {
   background-color: #0000001f;
   padding: 2px 10px;
   border-radius: 2px;
+  -webkit-transition: all 100ms ease 0s;
+  -o-transition: all 100ms ease 0s;
   transition: all 100ms ease 0s;
   color: var(--text);
 }
@@ -346,6 +429,8 @@ cc-model.profile {
   height: 100%;
   z-index: 5;
   pointer-events: none;
+  -webkit-transition: all 0.4s ease 0s, margin 0s ease 0s, color 0.2s, background 0.2s;
+  -o-transition: all 0.4s ease 0s, margin 0s ease 0s, color 0.2s, background 0.2s;
   transition: all 0.4s ease 0s, margin 0s ease 0s, color 0.2s, background 0.2s;
 }
 
@@ -360,9 +445,12 @@ cc-model.profile {
   margin-left: 12px;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,.2);
+  -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.2);
+          box-shadow: 0 2px 10px rgba(0,0,0,.2);
   pointer-events: all;
   text-align: center;
+  -webkit-transition: inherit;
+  -o-transition: inherit;
   transition: inherit;
   overflow: hidden;
 }
@@ -372,10 +460,13 @@ cc-model.profile {
   padding-bottom: 0;
   height: 0;
   margin: 0;
+  -webkit-transition: all 0.4s ease 0s, margin 0s ease 0.4s;
+  -o-transition: all 0.4s ease 0s, margin 0s ease 0.4s;
   transition: all 0.4s ease 0s, margin 0s ease 0.4s;
 }
 
 div.profile_container>div {
+  display: -ms-grid;
   display: grid;
   margin-top: 20px;
 }
@@ -390,7 +481,9 @@ div.profile_container cc-email {
 }
 
 div.profile_container a {
-  transition: color 0.2s;
+  -webkit-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  transition: background-color 0.2s;
   font-size: 13px;
   border-color: #bdbdbd;
   border-style: solid;
@@ -400,7 +493,8 @@ div.profile_container a {
   text-decoration: none;
   color: var(--text);
   font-weight: normal;
-  justify-self: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
   margin: 0;
   margin-top: 20px;
 }

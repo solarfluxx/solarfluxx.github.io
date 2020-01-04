@@ -61,7 +61,7 @@ var calendar = {
 
       day.setAttribute("class", "day");
       if (date.month == new Date().getMonth() && i == date.day) $(day).addClass("current");
-      if (date.month == new Date().getMonth() && i == date.day && schedule) $(day).addClass("selected");
+      if (date.month == new Date().getMonth() && i == date.day && schedule && date.selected == null) $(day).addClass("selected");
       div.setAttribute("class", "day-text");
       day_number.setAttribute("class", "short");
       day_name.setAttribute("class", "long");
@@ -92,8 +92,15 @@ var calendar = {
       // if (schedule) shifts.selectedChanged();
       if (schedule) betterShifts.selectionChanged();
     });
+
     betterShifts.selectionChanged();
-    // shifts.selectedChanged();
+
+    if (date.selected != null) {
+      if (date.selected+1 > date.days) {
+        date.selected = (date.days-1);
+        calendar.items[date.selected].click();
+      } else calendar.items[date.selected].click();
+    }
   },
   populateShifts: function() {
     for (i = 0; i < this.items.length; i++) {
@@ -196,7 +203,7 @@ var shifts = {
     if (noshifts) {
       var div = document.createElement("div"),
       p1 = document.createElement("p");
-      p1.innerHTML = "There are no shifts for " + getMonthName[date.month];
+      if (schedule) p1.innerHTML = "There are no shifts for " + getMonthName[date.month]; else p1.innerHTML = "You have no shifts in " + getMonthName[date.month];
       if (date.year != new Date().getFullYear()) p1.innerHTML = p1.innerHTML + " " + date.year;
       p1.innerHTML = p1.innerHTML + ".";
       div.appendChild(p1);
@@ -289,7 +296,6 @@ var shifts = {
         city = cUser.location.substring(3),
         stateRef = firebase.database().ref("shifts/"+state+"/"+city+"/"+refYear+"/"+(parseInt(refMonth, 10) + 1)+"/"+refDay+"/"+refLoc+"/"+refShift+"/"+refPerson+"/state");
     stateRef.once('value', function(snapshot) {
-      console.log(snapshot.val());
       stateRef.set(newState);
       calendar.firebase.getUserShifts(true);
     });
@@ -364,7 +370,7 @@ var shifts = {
         // if (date.year != new Date().getFullYear()) $("cc-month-year").html($("cc-month-year").html() + " " + date.year);
         if (schedule) $("#shifts").children().remove();
         shifts.createAdvanced(i);
-        date.selected = i;
+        // date.selected = i;
       }
     }
   },
@@ -389,7 +395,7 @@ var all = {
   }
 };
 
-$.fn.exists = function () {
+$.fn.exists = function() {
     return this.length !== 0;
 }
 
@@ -400,23 +406,25 @@ function Shift(user) {
   var item_container = document.createElement("div"),
   name = document.createElement("p"),
   state = document.createElement("section"),
-  remove_user_button = document.createElement("button");
   minus_icon = document.createElement("i");
+  if (cUser.admin) remove_user_button = document.createElement("button");
 
   minus_icon.setAttribute("class", "fas fa-minus");
-  remove_user_button.setAttribute("class", "removeUser");
-  remove_user_button.setAttribute("ref", user.ref);
-  remove_user_button.setAttribute("user_shift_index", user_shifts.length);
-  remove_user_button.appendChild(minus_icon);
-  remove_user_button.onclick = function() {
-    var removeUserRef = firebase.database().ref(this.getAttribute("ref"));
-    var index = parseInt(this.getAttribute("user_shift_index"));
+  if (cUser.admin) {
+    remove_user_button.setAttribute("class", "removeUser");
+    remove_user_button.setAttribute("ref", user.ref);
+    remove_user_button.setAttribute("user_shift_index", user_shifts.length);
+    remove_user_button.appendChild(minus_icon);
+    remove_user_button.onclick = function() {
+      var removeUserRef = firebase.database().ref(this.getAttribute("ref"));
+      var index = parseInt(this.getAttribute("user_shift_index"));
 
-    remove_user_button.parentElement.remove();
-    user_shifts.splice(index, index+1);
-    betterShifts.loadShifts();
+      remove_user_button.parentElement.remove();
+      user_shifts.splice(index, index+1);
+      betterShifts.loadShifts();
 
-    removeUserRef.remove();
+      removeUserRef.remove();
+    }
   }
 
   firebase.database().ref('users/' + user.id).once('value').then(function(snapshot) {
@@ -439,7 +447,7 @@ function Shift(user) {
 
   item_container.appendChild(name);
   item_container.appendChild(state);
-  item_container.appendChild(remove_user_button);
+  if (cUser.admin) item_container.appendChild(remove_user_button);
 
   this.main_element = item_container;
   this.day = user.day-1;

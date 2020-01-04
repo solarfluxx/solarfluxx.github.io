@@ -3,6 +3,7 @@ var togglenavbar = true,
 animation_state = true,
 window_state = false,
 window_stage = [1090, 1480],
+window_old = 2,
 navbar = {
   element: null,
   animation: {
@@ -60,7 +61,7 @@ navbar.size = function(stage) {
       navbar.stage = 2;
       break;
     case 3:
-      root.style.setProperty('--navbar-true-width', "256px");
+      root.style.setProperty('--navbar-true-width', "80vw");
       root.style.setProperty('--sidenav-button-padding-right', root.style.getPropertyValue('--sidenav-padding'));
       root.style.setProperty('--sidenav-button-padding-left', root.style.getPropertyValue('--sidenav-padding'));
       root.style.setProperty('--sidenav-icon-rotation', "unset");
@@ -76,11 +77,7 @@ navbar.size = function(stage) {
 
 navbar.toggle = function() {
   navbar.animation.enable();
-  if ($(window).width() > window_stage[1]) {
-    if (navbar.stage == 2) navbar.size(1); else if (navbar.stage == 1) navbar.size(2);
-  } else {
-    if (navbar.stage == 0) navbar.size(3); else if (navbar.stage == 3) navbar.size(0);
-  }
+  if (navbar.stage == 3) navbar.size(0); else if (navbar.stage == 2) navbar.size(1); else if (navbar.stage == 1) navbar.size(2); else if (navbar.stage == 0) navbar.size(3);
 };
 
 navbarResize(false);
@@ -95,16 +92,31 @@ function navbarResize(animation) {
   } else {
     navbar.animation.disable();
   }
-  if ($(window).width() < window_stage[0]) {
-    navbar.size(0);
-    $(".title_bars").css("display", "block");
-  } else if ($(window).width() < window_stage[1]) {
-    navbar.size(1);
-    $(".title_bars").css("display", "none");
-  } else {
-    navbar.size(2);
-    $(".title_bars").css("display", "none");
+
+  if ($(window).width() < window_stage[0] && window_old != 0) {
+    window_old = 0;
+    if (navbar.stage != 0) {
+      navbar.size(0);
+      $(".title_bars").css("display", "block");
+    }
   }
+
+  if ($(window).width() > window_stage[0] && $(window).width() < window_stage[1] && window_old != 1) {
+    window_old = 1;
+    if (navbar.stage != 1) {
+      navbar.size(1);
+      $(".title_bars").css("display", "none");
+    }
+  }
+
+  if ($(window).width() > window_stage[1] && window_old != 2) {
+    window_old = 2;
+    if (navbar.stage != 2) {
+      navbar.size(2);
+      $(".title_bars").css("display", "none");
+    }
+  }
+
 }
 
 function getLocations() {
