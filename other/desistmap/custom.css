@@ -1,0 +1,147 @@
+:root {
+    --spinner-size: 5px;
+    --spinner-size-2: 5px;
+}
+
+.spinner {
+    height: 200px;
+    width: 200px;
+    position: relative;
+    border: aqua 10px solid;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+.spinner2 {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    border: aqua 10px solid;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin2 1.5s linear infinite;
+}
+
+.spinner3 {
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    border: aqua 10px solid;
+    border-left-color: transparent;
+    border-radius: 50%;
+    animation: spin 2.5s linear infinite;
+}
+
+.spinner4 {
+    position: absolute;
+    top: 35px;
+    bottom: 35px;
+    left: 35px;
+    right: 35px;
+    border: aqua 10px solid;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin2 0.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin2 {
+    0% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+    100% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+}
+
+.GameMessage {
+    display: block;
+    /* width: 100vw; */
+    height: 100vh;
+    position: fixed;
+    top: 0;
+}
+
+body.isHoloMap {
+    overflow: hidden;
+}
+
+body.isHoloMap .GameMessage {
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.bar {
+    position: fixed;
+    background-color: black;
+    width: 100vw;
+    height: 15vh;
+}
+
+.bar.top {
+    top: 0;
+    left: 0;
+}
+
+.bar.bottom {
+    top: 70vh;
+    left: 0;
+}
+
+.room {
+    background-color: black;
+    width: 100px;
+    height: 100px;
+}
+
+.room2 {
+    width: 80px;
+}
+
+body.isHoloMap img {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+}
+
+
+#drag_container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    cursor: grab;
+}
+
+#drag_container:active {
+    cursor: grabbing;
+}
