@@ -9,8 +9,12 @@
 
   --primary-dec: 238, 145, 2;
 
+  --semi-primary-light: var(--primary);
+  --semi-primary-dark: var(--semi-dark);
+  --semi-primary: var(--semi-primary-light);
+
   --background-light: #f1efec;
-  --background-dark: #171717;
+  --background-dark: #1f1f1f;
   --background: var(--background-light);
 
   --full-light: #FFF;
@@ -18,7 +22,7 @@
   --full: var(--full-light);
 
   --semi-light: #FFF;
-  --semi-dark: #101010;
+  --semi-dark: #2f2f2f;
   --semi: var(--full-light);
 
   --border-light: #d3d7d7;
@@ -56,12 +60,26 @@
   }
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(var(--primary-dec), 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--primary-dec));
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--primary-dec), 0.8);
+}
+
 body {
   -webkit-transition: opacity 0.2s;
   -o-transition: opacity 0.2s;
   transition: opacity 0.2s;
   background-color: var(--background) !important;
   opacity: 0;
+  touch-action: pan-y pan-x;
 }
 
 input, button, a {
@@ -87,4 +105,14 @@ body.con_hide .main_center {
   -webkit-transform: scale(0.95) !important;
       -ms-transform: scale(0.95) !important;
           transform: scale(0.95) !important;
+}
+
+body.noscroll .main_container {
+  height: calc(100vh - 103px);
+}
+
+.main_container {
+  right: 0;
+  left: 0;
+  overflow-y: unset;
 }

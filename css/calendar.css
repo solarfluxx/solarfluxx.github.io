@@ -179,11 +179,11 @@ body {
   display: -ms-grid;
   display: grid;
   width: 100%;
-  -ms-grid-columns: (minmax(120px, 1fr))[7];
+  border-radius: 10px;
   grid-template-columns: repeat(7, minmax(120px, 1fr));
   -ms-grid-rows: 50px;
   grid-template-rows: 50px;
-  grid-auto-rows: 160px;
+  grid-auto-rows: 11vw;
   -webkit-transition: background 0.2s;
   -o-transition: background 0.2s;
   transition: background 0.2s;
@@ -193,53 +193,12 @@ body {
 }
 
 
-.calendar > *:nth-child(1) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-}
-
-
-.calendar > *:nth-child(2) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 2;
-}
-
-
-.calendar > *:nth-child(3) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 3;
-}
-
-
-.calendar > *:nth-child(4) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 4;
-}
-
-
-.calendar > *:nth-child(5) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 5;
-}
-
-
-.calendar > *:nth-child(6) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 6;
-}
-
-
-.calendar > *:nth-child(7) {
-  -ms-grid-row: 1;
-  -ms-grid-column: 7;
-}
 .calendar.dark {
   background:-webkit-gradient(linear, left top, left bottom, from(rgba(33,33,33,0.98)), to(rgba(33,33,33,0.98))), url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f9f9fa' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
   background:-o-linear-gradient(rgba(33,33,33,0.98), rgba(33,33,33,0.98)), url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f9f9fa' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
   background:linear-gradient(rgba(33,33,33,0.98), rgba(33,33,33,0.98)), url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f9f9fa' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
 }
 .calendar-container {
-  overflow: hidden;
   -webkit-box-shadow: 0 2px 20px rgba(0,0,0,0.1);
           box-shadow: 0 2px 20px rgba(0,0,0,0.1);
   border-radius: 10px;
@@ -321,18 +280,19 @@ body {
   opacity: 1;
 }
 .day:hover {
--webkit-transition: all 150ms ease, opacity 0.2s, margin-top 0.2s, background 0.2s, border 0s;
--o-transition: all 150ms ease, opacity 0.2s, margin-top 0.2s, background 0.2s, border 0s;
-transition: all 150ms ease, opacity 0.2s, margin-top 0.2s, background 0.2s, border 0s;
+  -webkit-transition: all 150ms ease, opacity 0.2s, margin-top 0.2s, background 0.2s, border 0s;
+  -o-transition: all 150ms ease, opacity 0.2s, margin-top 0.2s, background 0.2s, border 0s;
+  transition: all 150ms ease, opacity 0.2s, margin-top 0.2s, background 0.2s, border 0s;
   border: 1px solid rgba(166,168,179,0.12);
   margin: -8px;
-  -webkit-box-shadow: 0 0 8px #0000001f;
-          box-shadow: 0 0 8px #0000001f;
+  -webkit-box-shadow: 0 0 5px #0000001f;
+          box-shadow: 0 0 5px #0000001f;
   z-index: 3;
+  border-radius: 0 !important;
 }
 .day:active {
-  -webkit-box-shadow: 0 0 8px #00000012;
-          box-shadow: 0 0 8px #00000012;
+  -webkit-box-shadow: 0 0 3px #00000012;
+          box-shadow: 0 0 3px #00000012;
   margin: -4px;
   z-index: 2;
 }
@@ -408,6 +368,12 @@ transition: all 150ms ease, opacity 0.2s, margin-top 0.2s, background 0.2s, bord
   -ms-grid-column: 7;
   grid-column: 7;
 }
+.day:nth-of-type(29) {
+  border-bottom-left-radius: 10px;
+}
+.day:nth-of-type(35) {
+  border-bottom-right-radius: 10px;
+}
 .day-name {
   font-size: 12px;
   text-transform: uppercase;
@@ -444,6 +410,9 @@ transition: all 150ms ease, opacity 0.2s, margin-top 0.2s, background 0.2s, bord
   display: -ms-flexbox;
   display: flex;
   color: rgba(var(--text-dec), 0.7);
+}
+.day.current .day-text {
+  color: var(--primary);
 }
 .day .short {
   display: block;
@@ -616,7 +585,7 @@ transition: all 150ms ease, opacity 0.2s, margin-top 0.2s, background 0.2s, bord
   }
 }
 
-@media only screen and (max-width:1300px) {
+@media only screen and (max-width:1000px) {
   .task.large {
     display: none;
   }
@@ -628,7 +597,7 @@ transition: all 150ms ease, opacity 0.2s, margin-top 0.2s, background 0.2s, bord
   }
 }
 
-@media only screen and (max-width:990px) {
+@media only screen and (max-width:900px) {
   .main_container {
     padding: 40px 6px;
   }

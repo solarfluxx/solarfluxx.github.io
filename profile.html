@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Home | Cart Chart</title>
+		<title>Profile | Cart Chart</title>
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,900&display=swap" rel="stylesheet">
 		<link href="css/fonts/FontAwesome/css/all.css" rel="stylesheet">
@@ -37,19 +37,19 @@
 	<body>
 		<cc-loader><cc-circle></cc-circle></cc-loader>
 
-    <header>
-      <div class="navbar">
-        <div class="title_container"><button class="title_bars" onclick="navbar.toggle();"><i class="fas fa-bars"></i></button><h2 class="title">My Profile</h2></div>
-        <div class="heading">
-          <cc-name class="heading_text" id="dynamic_name"></cc-name>
-          <!-- <a class="heading_icon" href="javascript:controller.page.goto('profile')"><cc-tooltip style="margin-left: -55px;">Profile Settings</cc-tooltip><i class="fa fa-cog"></i></a> -->
-          <a class="heading_icon" href="javascript:logout();"><cc-tooltip style="margin-left: -35px;">Sign Out</cc-tooltip><i class="fa fa-power-off"></i></a>
-          <!-- <a class="heading_icon" id="toggle_modal" href="javascript:toggleModal();"><i class="fas fa-user"></i></a> -->
-        </div>
-      </div>
-    </header>
+		<header>
+		<div class="navbar">
+			<div class="title_container"><button class="title_bars" onclick="navbar.toggle();"><i class="fas fa-bars"></i></button><h2 class="title">My Profile</h2></div>
+			<div class="heading">
+			<cc-name class="heading_text" id="dynamic_name"></cc-name>
+			<!-- <a class="heading_icon" href="javascript:controller.page.goto('profile')"><cc-tooltip style="margin-left: -55px;">Profile Settings</cc-tooltip><i class="fa fa-cog"></i></a> -->
+			<a class="heading_icon" href="javascript:logout();"><cc-tooltip style="margin-left: -35px;">Sign Out</cc-tooltip><i class="fa fa-power-off"></i></a>
+			<!-- <a class="heading_icon" id="toggle_modal" href="javascript:toggleModal();"><i class="fas fa-user"></i></a> -->
+			</div>
+		</div>
+		</header>
 
-    <cc-navbar id="navbar">
+		<cc-navbar id="navbar">
 			<div class="blocker" id="blocker"></div>
 			<div class="main">
 				<div class="nohover item">
@@ -84,18 +84,20 @@
 			</div>
 		</cc-navbar>
 
-    <div class="main_container">
-      <div class="main_center">
-        <div class="profile info">
-          <p>Your Information</p>
-          <div>
-            <cc-input fill="firstname" type="text" hint="First Name"></cc-input>
-            <cc-input fill="lastname" type="text" hint="Last Name"></cc-input>
-            <cc-input disabled fill="email" type="email" hint="Email Address"></cc-input>
-          </div>
-        </div>
-        <div class="profile settings">
-          <p>Preferences</p>
+		<div class="main_container profile_page">
+			<div class="main_center">
+				<div class="profile info">
+					<p>Your Information</p>
+					<div>
+					<cc-input form-id="profile_info" fb-update="firstName" fill="firstname" type="text" hint="First Name"></cc-input>
+					<cc-input form-id="profile_info" fb-update="lastName" fill="lastname" type="text" hint="Last Name"></cc-input>
+					<cc-input form-id="profile_info" fb-update="phoneNumber" fill="phonenumber" type="phone" hint="Phone Number"></cc-input form-id="profile_info">
+					<cc-input disabled fill="email" type="email" hint="Email Address"></cc-input form-id="profile_info">
+					</div>
+				</div>
+
+				<div class="profile settings">
+					<p>Preferences</p>
 					<div>
 						<cc-input hint="App Theme" write="darkmode" onselection="toggleDarkMode(text);">
 							<cc-select></cc-select>
@@ -108,9 +110,13 @@
 							</cc-select-menu>
 						</cc-input>
 					</div>
-        </div>
-      </div>
-    </div>
+				</div>
+			</div>
+		</div>
+		
+		<cc-fab-bar>
+			<cc-fab disabled colored id="save_changes" label="Save Changes" icon="save"></cc-fab-hint>
+		</cc-fab-bar>
 
     <!-- Scripts -->
 		<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
@@ -153,6 +159,21 @@
 			}
 			function backward() {
 				all.changeDate(date.year, (date.month-1), date.day);
+			}
+
+			document.querySelectorAll("cc-input[fb-update]").forEach(function(input) {
+				input.addEventListener('input', custom_input.changed);
+			});
+
+			let profile_form = new Form('profile_info', document.getElementById('save_changes'));
+			profile_form.submissionEvent = function() {
+				profile_form.inputs.forEach(function(input) {
+					if (input.hasAttribute('fb-update')) {
+						cUser[input.getAttribute('fb-update')] = input.getInputValue();
+					}
+				});
+				cUser.updateInfo();
+				profile_form.checkForChanges();
 			}
 		</script>
   </body>

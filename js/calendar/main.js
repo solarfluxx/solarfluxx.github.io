@@ -390,6 +390,8 @@ var all = {
   changeDate: function(year, month, day) {
     calendar.setDate(new Date(year, month, day));
     calendar.populateDates();
+    user_shifts = [];
+    betterShifts.loadShifts();
     if (schedule) calendar.firebase.getAllShifts(); else calendar.firebase.getUserShifts(true);
     doStagerAnim();
   }

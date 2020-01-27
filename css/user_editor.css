@@ -21,10 +21,11 @@ cc-item {
   -o-transition: background-color 0.3s, opacity 0.3s 0.1s, height 0.3s, padding 0.3s;
   transition: background-color 0.3s, opacity 0.3s 0.1s, height 0.3s, padding 0.3s;
   cursor: pointer;
+  color: var(--text);
 }
 cc-item:hover {
   background-color: var(--primary-light);
-  color: white;
+  color: var(--full);
 }
 cc-item.hide_item {
   height: 0;
@@ -32,6 +33,11 @@ cc-item.hide_item {
   -webkit-transition: inherit;
   -o-transition: inherit;
   transition: inherit;
+}
+
+cc-item p {
+  color: inherit;
+  transition: color 0.3s;
 }
 
 cc-user-editor {

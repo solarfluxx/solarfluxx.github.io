@@ -6,6 +6,7 @@ cc-blocker {
   right: 0;
   background-color: #0000001f;
   z-index: -1;
+  touch-action: none;
 }
 
 
@@ -158,6 +159,7 @@ cc-snackbar>div {
   -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  margin-right: 10px;
   min-width: 0;
   min-height: 0;
   border-radius: 4px;
@@ -264,24 +266,30 @@ cc-ripple {
       -ms-transform: translate(-50%, -50%) scale(0);
           transform: translate(-50%, -50%) scale(0);
   position: absolute;
-  background-color: #00000042;
+  background-color: rgba(var(--text-dec), 0.3);
   border-radius: 50%;
   pointer-events: none;
+  will-change: opacity, tranform;
+  -webkit-transition: opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
+  transition: opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
+  -o-transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s;
+  transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s;
+  transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
 }
 cc-ripple.clicked {
-  -webkit-transition: opacity 0.4s 0.2s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
-  transition: opacity 0.4s 0.2s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
-  -o-transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s 0.2s;
-  transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s 0.2s;
-  transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s 0.2s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
   opacity: 0;
 }
+
 
 
 cc-input {
   padding: 10px 0;
   display: block;
   position: relative;
+}
+
+cc-input.error cc-hint {
+  color: red;
 }
 
 cc-hint {
@@ -327,6 +335,26 @@ cc-input.focus input {
   border-radius: 1px;
   -webkit-box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
           box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
+}
+
+cc-input.error.focus input {
+  box-shadow: 0px 0px 1px 2px rgba(255, 0, 0, 0.8);
+}
+
+cc-input-error {
+  color: red;
+  display: block;
+  font-size: 14px;
+  transition: opacity .2s, max-height .2s, margin .2s;
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+}
+
+cc-input.error.focus cc-input-error {
+  opacity: 1;
+  max-height: 12vh;
+  margin: 5px 4px;
 }
 
 cc-input cc-option {
@@ -417,4 +445,94 @@ cc-input.focus cc-option {
 }
 cc-input.focus cc-option:hover {
   background-color: var(--hover-20);
+}
+
+
+cc-fab-bar {
+  display: flex;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: fit-content;
+  flex-flow: column-reverse;
+  z-index: 10;
+}
+
+cc-fab {
+  margin-top: 10px;
+  transition: opacity 0.2s;
+  touch-action: none;
+}
+
+cc-fab cc-fab-hint {
+  display: block;
+  position: absolute;
+  transform: translate(calc(-100% - 10px), -45px);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 4px;
+  border-radius: 3px;
+  color: white;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+cc-fab cc-fab-hint.show {
+  opacity: 1;
+}
+
+cc-fab button {
+  border: none;
+  border-radius: 50%;
+  background-color: var(--full);
+  color: var(--text);
+  padding: 10px;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+  outline-color: transparent;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow 0.2s, background-color 0.2s, color 0.2s;
+  will-change: box-shadow, background, color;
+}
+
+cc-fab:active button {
+  box-shadow: 0 7px 8px -4px rgba(0,0,0,.2), 0 12px 17px 2px rgba(0,0,0,.14), 0 5px 22px 4px rgba(0,0,0,.12);
+}
+
+cc-fab[colored] button {
+  background-color: var(--primary);
+  color: white;
+}
+
+cc-fab[colored] button cc-ripple {
+  background-color: rgba(255,255,255,0.4);
+}
+
+cc-fab[disabled] {
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+cc-fab[disabled] button {
+  box-shadow: none;
+  background-color: rgba(0,0,0,0.12);
+  color: rgba(0,0,0,0.26);
+}
+
+cc-fab i {
+  font-size: 30px !important;
+  pointer-events: none;
+}
+
+@media only screen and (max-width:900px) {
+  cc-snackbar.expand>div {
+    min-width: 95vw;
+  }
+  cc-snackbar.expand>div>div {
+    min-width: calc(95vw - 20px);
+  }
 }

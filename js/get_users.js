@@ -121,13 +121,13 @@ var user_popup = {
   open: function(type) {
     if (type == "users") $("cc-popup[use='users']").addClass("show");
     if (type == "shifts") $("cc-popup[use='shifts']").addClass("show");
-    $("body").css("overflow", "hidden");
+    disableScroll();
   },
   close: function() {
     $("cc-popup[use='users']").removeClass("show");
     $("cc-popup[use='shifts']").removeClass("show");
-    $("body").removeAttr("style");
     promiseBroken(true);
+    enableScroll();
   },
   getUser: function(type) {
     this.open(type);
@@ -138,26 +138,22 @@ var user_popup = {
   }
 };
 
-$("button#addUser").click(function() {
-  user_popup.getUser("users").then(function(value) {
-    var selectedUser = value;
+$("#addUser").click(function() {
+  user_popup.getUser("shifts").then(function(value) {
+    var selectedShift = value;
 
-    user_popup.getUser("shifts").then(function(value) {
-      console.log(value);
+    user_popup.getUser("users").then(function(value) {
       var state = cUser.location.substring(0,2),
       city = cUser.location.substring(3),
-      addUserRef = firebase.database().ref("shifts/"+state+"/"+city+"/"+date.year+"/"+(date.month+1)+"/"+(date.selected+1)+"/"+getQueryVariable("location")+"/"+value.shift_index+"/");
+      addUserRef = firebase.database().ref("shifts/"+state+"/"+city+"/"+date.year+"/"+(date.month+1)+"/"+(date.selected+1)+"/"+getQueryVariable("location")+"/"+selectedShift.shift_index+"/");
       addUserRef.push({
-        id: selectedUser.id,
+        id: value.id,
         state: 0
       });
-
     }).catch(function(e) {
-      console.log("No shift chosen");
-
+      console.log("No user chosen");
     });
   }).catch(function(e) {
-    console.log("No user chosen");
-
+    console.log("No shift chosen");
   });
 });

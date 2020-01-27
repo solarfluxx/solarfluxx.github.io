@@ -93,7 +93,7 @@
 				</div>
 			</div>
 		</cc-model>
-		<cc-popup use="users">
+		<cc-popup use="users" get="multipule">
 			<cc-blocker></cc-blocker>
 			<div>
 				<h2 class="title">
@@ -142,13 +142,16 @@
 
 				<div class="shifts-container">
 					<div>
-						<button id="addUser"><i class="fas fa-plus"></i></button>
 						<p class="month_year title"><cc-selected-day></cc-selected-day>'s Shifts</p>
 					</div>
 					<div id="shifts"></div>
 				</div>
 			</div>
 		</div>
+
+		<cc-fab-bar>
+			<cc-fab label="Add User To Shift" icon="add" id="addUser"></cc-fab>
+		</cc-fab-bar>
 
 		<footer>
 		</footer>

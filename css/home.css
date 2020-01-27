@@ -1,16 +1,3 @@
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: #a3a3a385;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #7c7c7c85;
-}
-
 body {
   background: var(--background);
   font-family: "Montserrat";
@@ -85,15 +72,21 @@ div.align_center {
   margin-top: 43px;
   margin-left: var(--navbar-width);
   padding:30px;
-  -webkit-transition: var(--navbar-transition);
-  -o-transition: var(--navbar-transition);
+  /* -webkit-transition: var(--navbar-transition);
+  -o-transition: var(--navbar-transition); */
   transition: var(--navbar-transition);
   will-change: margin-left;
+  overflow: hidden;
 }
+.main_container.disableScroll {
+  max-height: calc(100vh - 104px);
+}
+.main_container.profile_page {
+  overflow: unset;
+}
+
 .main_center {
   margin: auto;
-  width: 90%;
-  max-width: 1200px;
   will-change: margin;
 }
 
