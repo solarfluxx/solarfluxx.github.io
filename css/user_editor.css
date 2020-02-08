@@ -17,15 +17,14 @@ cc-users.anim_disable {
 cc-item {
   height: 40px;
   padding: 0 30px;
-  -webkit-transition: background-color 0.3s, opacity 0.3s 0.1s, height 0.3s, padding 0.3s;
-  -o-transition: background-color 0.3s, opacity 0.3s 0.1s, height 0.3s, padding 0.3s;
-  transition: background-color 0.3s, opacity 0.3s 0.1s, height 0.3s, padding 0.3s;
+  -webkit-transition: background-color 0.1s, opacity 0.3s 0.1s, height 0.3s, padding 0.3s;
+  -o-transition: background-color 0.1s, opacity 0.3s 0.1s, height 0.3s, padding 0.3s;
+  transition: background-color 0.1s, opacity 0.3s 0.1s, height 0.3s, padding 0.3s;
   cursor: pointer;
   color: var(--text);
 }
 cc-item:hover {
-  background-color: var(--primary-light);
-  color: var(--full);
+  background-color: rgba(var(--text-dec), 0.05);
 }
 cc-item.hide_item {
   height: 0;

@@ -2,7 +2,7 @@ let root = document.documentElement;
 var togglenavbar = true,
 animation_state = true,
 window_state = false,
-window_stage = [1090, 1480],
+window_stage = [978, 1480],
 window_old = 2,
 navbar = {
   element: null,
@@ -20,7 +20,7 @@ navbar.animation.enable = function() {
 };
 
 navbar.animation.disable = function() {
-  root.style.setProperty('--navbar-transition', "unset");
+  root.style.setProperty('--navbar-transition', "background-color 0.2s");
 };
 
 navbar.size = function(stage) {

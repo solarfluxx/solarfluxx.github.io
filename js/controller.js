@@ -35,6 +35,7 @@ function toggleDarkMode(mode) {
 	function on() {
 		document.documentElement.style.setProperty('--selected-text', getComputedStyle(document.documentElement).getPropertyValue('--selected-text-dark'));
 		document.documentElement.style.setProperty('--semi-primary', getComputedStyle(document.documentElement).getPropertyValue('--semi-primary-dark'));
+		document.documentElement.style.setProperty('--text-light', getComputedStyle(document.documentElement).getPropertyValue('--text-light-dark'));
 		document.documentElement.style.setProperty('--background', getComputedStyle(document.documentElement).getPropertyValue('--background-dark'));
 		document.documentElement.style.setProperty('--text-dec', getComputedStyle(document.documentElement).getPropertyValue('--text-light-dec'));
 		document.documentElement.style.setProperty('--hover-20', getComputedStyle(document.documentElement).getPropertyValue('--hover-20-dark'));
@@ -50,6 +51,7 @@ function toggleDarkMode(mode) {
 	function off() {
 		document.documentElement.style.setProperty('--selected-text', getComputedStyle(document.documentElement).getPropertyValue('--selected-text-light'));
 		document.documentElement.style.setProperty('--semi-primary', getComputedStyle(document.documentElement).getPropertyValue('--semi-primary-light'));
+		document.documentElement.style.setProperty('--text-light', getComputedStyle(document.documentElement).getPropertyValue('--text-light-light'));
 		document.documentElement.style.setProperty('--background', getComputedStyle(document.documentElement).getPropertyValue('--background-light'));
 		document.documentElement.style.setProperty('--hover-20', getComputedStyle(document.documentElement).getPropertyValue('--hover-20-light'));
 		document.documentElement.style.setProperty('--text-dec', getComputedStyle(document.documentElement).getPropertyValue('--text-dark-dec'));
@@ -148,6 +150,17 @@ var controller = {
 			}, 200);
 			return false;
 		}
+	},
+	createElement: (element, options) => {
+		let return_element = document.createElement(element);
+
+		// Apply Options
+		return_element.innerHTML = options.innerHTML;
+		if (Array.isArray(options.class)) options.class.forEach((newClass) => {
+			return_element.classList.add(newClass);
+		});
+
+		return return_element;
 	}
 };
 
@@ -214,3 +227,8 @@ $(window).scroll(function() {
         if (!document.body.classList.contains('noscroll')) $(".navbar").removeClass("shadow");
     }
 });
+
+window.addEventListener('load', function() {
+	new EasyRipple(document.querySelector('.title_bars'), 0.1, 0.3);
+});
+

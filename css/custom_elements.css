@@ -1,538 +1,643 @@
 cc-blocker {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #0000001f;
-  z-index: -1;
-  touch-action: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #00000066;
+	z-index: -1;
+	touch-action: none;
 }
 
 
 cc-popup {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 14;
-  margin: 0 10px;
-  opacity: 0;
-  pointer-events: none;
-  -webkit-transition: opacity 0.2s;
-  -o-transition: opacity 0.2s;
-  transition: opacity 0.2s;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 14;
+	margin: 0 10px;
+	opacity: 0;
+	pointer-events: none;
+	-webkit-transition: opacity 0.2s;
+	-o-transition: opacity 0.2s;
+	transition: opacity 0.2s;
 }
 cc-popup.show {
-  opacity: 1;
-  pointer-events: all;
+	opacity: 1;
+	pointer-events: all;
 }
 
 cc-popup>:last-child {
-  -webkit-transform: scale(0.8) translate(-60%, 0);
-      -ms-transform: scale(0.8) translate(-60%, 0);
-          transform: scale(0.8) translate(-60%, 0);
-  -webkit-transition: background 0.2s, color 0.2s, -webkit-transform 0.2s;
-  transition: background 0.2s, color 0.2s, -webkit-transform 0.2s;
-  -o-transition: transform 0.2s, background 0.2s, color 0.2s;
-  transition: transform 0.2s, background 0.2s, color 0.2s;
-  transition: transform 0.2s, background 0.2s, color 0.2s, -webkit-transform 0.2s;
-  will-change: transform;
+	-webkit-transform: scale(0.8) translate(-60%, 0);
+		-ms-transform: scale(0.8) translate(-60%, 0);
+			transform: scale(0.8) translate(-60%, 0);
+	-webkit-transition: background 0.2s, color 0.2s, -webkit-transform 0.2s;
+	transition: background 0.2s, color 0.2s, -webkit-transform 0.2s;
+	-o-transition: transform 0.2s, background 0.2s, color 0.2s;
+	transition: transform 0.2s, background 0.2s, color 0.2s;
+	transition: transform 0.2s, background 0.2s, color 0.2s, -webkit-transform 0.2s;
+	will-change: transform;
 }
 cc-popup.show>:last-child {
-  -webkit-transform: translate(-50%, 0);
-      -ms-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
+	-webkit-transform: translate(-50%, 0);
+		-ms-transform: translate(-50%, 0);
+			transform: translate(-50%, 0);
 }
 
 
 cc-prompt {
-  display: block;
-  overflow: hidden;
-  background: white;
-  max-width: 600px;
-  border-radius: 10px;
-  -webkit-box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-          box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-  border: none;
-  margin: auto;
-  margin-top: 30vh;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  padding: 0;
+	position: absolute;
+    left: 50%;
+	display: block;
+	background: white;
+	max-width: 75vw;
+    width: 600px;
+	border-radius: 15px;
+	-webkit-box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+			box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+	border: none;
+	margin: auto;
+	margin-top: 30vh;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+		-ms-user-select: none;
+			user-select: none;
+	padding: 20px;
 }
 
 cc-prompt>title {
-  display: block;
-  font: 500 16px / 22px "Montserrat", Arial, sans-serif;
-  color: #333;
-  text-transform: uppercase;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  margin-top: 0;
-  padding-bottom: 15px;
-  padding-left: 5px;
-  margin: 20px;
-  margin-bottom: 0;
+	display: block;
+    font: 500 16px / 22px "Montserrat", Arial, sans-serif;
+    color: #333;
+    text-transform: uppercase;
+    margin-top: 0;
+    padding-bottom: 15px;
+    margin: 20px 0;
+    margin-bottom: 0;
 }
 
 cc-prompt>message {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 10px 20px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	padding: 10px 20px;
 }
 cc-prompt>message[error] {
-  background-color: #ff00000d;
-  color: #d32f2f;
-  font-weight: 500;
+	background-color: #ff00000d;
+	color: #d32f2f;
+	font-weight: 500;
 }
 
 cc-prompt>message>i {
-  color: inherit;
-  font-size: 26px !important;
-  margin-top: -4px;
-  margin-right: 10px;
+	color: inherit;
+	font-size: 26px !important;
+	margin-top: -4px;
+	margin-right: 10px;
 }
 
 
 cc-button {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  cursor: pointer;
-  display: block;
-  float: right;
-  margin: 10px;
-  padding: 9px 12px;
-  color: #505050;
-  margin-left: 0;
-  font-weight: 500;
-  border-radius: 8px;
-  -webkit-transition: background-color 0.2s;
-  -o-transition: background-color 0.2s;
-  transition: background-color 0.2s;
+	width: -webkit-fit-content;
+	width: -moz-fit-content;
+	width: fit-content;
+	cursor: pointer;
+	display: block;
+	float: right;
+	margin: 10px;
+	padding: 9px 12px;
+	color: #505050;
+	margin-left: 0;
+	font-weight: 500;
+	border-radius: 8px;
+	-webkit-transition: background-color 0.2s;
+	-o-transition: background-color 0.2s;
+	transition: background-color 0.2s;
 }
 cc-button:hover {
-  background-color: #0000001c;
+	background-color: #0000001c;
 }
 
 cc-button[type="positive"] {
-  background-color: #32d033;
-  color: white;
+	background-color: var(--primary);
+	color: white;
 }
 cc-button[type="positive"]:hover {
-  background-color: #239424;
+	background-color: var(--primary-light);
 }
 
 cc-button[color="red"] {
-  background-color: #d32f2f;
+	background-color: #d32f2f;
 }
 cc-button[color="red"]:hover {
-  background-color: #a52626;
+	background-color: #a52626;
 }
 
 
 cc-snackbar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  z-index: 13;
-  width: 100vw;
-  pointer-events: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	z-index: 13;
+	width: 100vw;
+	pointer-events: none;
 }
 cc-snackbar.expand {
-  pointer-events: all;
+	pointer-events: all;
 }
 
 cc-snackbar>div {
-  -webkit-box-shadow: 0px 4px 8px 0px #00000014;
-          box-shadow: 0px 4px 8px 0px #00000014;
-  background-color: black;
-  color: white;
-  margin: 0 auto;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-  -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-  margin-right: 10px;
-  min-width: 0;
-  min-height: 0;
-  border-radius: 4px;
-  overflow: hidden;
-  position: fixed;
-  bottom: -45px;
-  left: 50%;
-  -webkit-transform: translate(-50%, 0);
-      -ms-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
-  pointer-events: all;
-  will-change: min-width, min-height, margin, border-radius, bottom;
+	-webkit-box-shadow: 0px 4px 8px 0px #00000014;
+					box-shadow: 0px 4px 8px 0px #00000014;
+	background-color: black;
+	color: white;
+	margin: 0 auto;
+	width: -webkit-fit-content;
+	width: -moz-fit-content;
+	width: fit-content;
+	-webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+	-o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+	margin-right: 10px;
+	min-width: 0;
+	min-height: 0;
+	border-radius: 4px;
+	overflow: hidden;
+	position: fixed;
+	bottom: -45px;
+	left: 50%;
+	-webkit-transform: translate(-50%, 0);
+			-ms-transform: translate(-50%, 0);
+					transform: translate(-50%, 0);
+	pointer-events: all;
+	will-change: min-width, min-height, margin, border-radius, bottom;
 }
 
 cc-snackbar.expand>div {
-  min-width: 70vw;
-  min-height: 70vh;
-  margin: 15vh auto;
-  -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background-color: #151515;
-  border-radius: 0;
+	min-width: 70vw;
+	min-height: 70vh;
+	margin: 15vh auto;
+	-webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	-o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	background-color: #151515;
+	border-radius: 0;
 }
 
 cc-snackbar.show>div {
-  bottom: 10px;
+	bottom: 10px;
 }
 cc-snackbar>div:hover {
-  opacity: 0.8;
+	opacity: 0.8;
 }
 cc-snackbar.expand>div:hover {
-  opacity: 1;
+	opacity: 1;
 }
 cc-snackbar>div.isClickable>p {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 cc-snackbar>div>p>i {
-  margin-left: 10px;
-  font-size: 19px !important;
-  -webkit-transition: -webkit-transform 0.3s;
-  transition: -webkit-transform 0.3s;
-  -o-transition: transform 0.3s;
-  transition: transform 0.3s;
-  transition: transform 0.3s, -webkit-transform 0.3s;
+	margin-left: 10px;
+	font-size: 19px !important;
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: -webkit-transform 0.3s;
+	-o-transition: transform 0.3s;
+	transition: transform 0.3s;
+	transition: transform 0.3s, -webkit-transform 0.3s;
 }
 cc-snackbar>div>p>i.rotate {
-  -webkit-transform: rotate(-180deg);
-      -ms-transform: rotate(-180deg);
-          transform: rotate(-180deg);
+	-webkit-transform: rotate(-180deg);
+			-ms-transform: rotate(-180deg);
+					transform: rotate(-180deg);
 }
 
 cc-snackbar>div>div>div>div>p {
-  margin-left: 30px;
-  margin-bottom: 5px;
+	margin-left: 30px;
+	margin-bottom: 5px;
 }
 cc-snackbar>div>div>div>div>p>i {
-  font-size: 19px !important;
+	font-size: 19px !important;
 }
 
 cc-snackbar>div>div {
-  position: absolute;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 10px;
-  -webkit-transition: inherit;
-  -o-transition: inherit;
-  transition: inherit;
-  max-height: calc(100% - 39px);
-  min-width: 70vw;
+	position: absolute;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	margin: 0;
+	padding: 10px;
+	-webkit-transition: inherit;
+	-o-transition: inherit;
+	transition: inherit;
+	max-height: calc(100% - 39px);
+	min-width: 70vw;
 }
 cc-snackbar>div>div h2 {
-  font-weight: normal;
-  margin-bottom: 10px;
-  font-size: 20px;
-  color: white;
+	font-weight: normal;
+	margin-bottom: 10px;
+	font-size: 20px;
+	color: white;
 }
 
 cc-snackbar>div>p {
-  background-color: black;
-  padding: 10px;
-  -webkit-box-shadow: 0px 0px 4px 4px black;
-          box-shadow: 0px 0px 4px 4px black;
+	background-color: black;
+	padding: 10px;
+	-webkit-box-shadow: 0px 0px 4px 4px black;
+					box-shadow: 0px 0px 4px 4px black;
 }
 
 cc-snackbar>div>p>i {
-  float: right;
-  font-size: 19px;
+	float: right;
+	font-size: 19px;
 }
 
 cc-snackbar p {
-  margin: 0;
-  color: inherit;
+	margin: 0;
+	color: inherit;
 }
 
 
 cc-ripple {
-  display: block;
-  width: attr(width);
-  height: attr(width);
-  -webkit-transform: translate(-50%, -50%) scale(0);
-      -ms-transform: translate(-50%, -50%) scale(0);
-          transform: translate(-50%, -50%) scale(0);
-  position: absolute;
-  background-color: rgba(var(--text-dec), 0.3);
-  border-radius: 50%;
-  pointer-events: none;
-  will-change: opacity, tranform;
-  -webkit-transition: opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
-  transition: opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
-  -o-transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s;
-  transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s;
-  transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
+	display: block;
+	width: attr(width);
+	height: attr(width);
+	-webkit-transform: translate(-50%, -50%) scale(0);
+			-ms-transform: translate(-50%, -50%) scale(0);
+					transform: translate(-50%, -50%) scale(0);
+	position: absolute;
+	background-color: rgba(var(--text-dec), 0.3);
+	border-radius: 50%;
+	pointer-events: none;
+	will-change: opacity, tranform;
+	-webkit-transition: opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
+	transition: opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
+	-o-transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s;
+	transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s;
+	transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
 }
 cc-ripple.clicked {
-  opacity: 0;
+	opacity: 0;
 }
 
 
 
 cc-input {
-  padding: 10px 0;
-  display: block;
-  position: relative;
+	padding: 10px 0;
+	display: block;
+	position: relative;
 }
 
 cc-input.error cc-hint {
-  color: red;
+	color: red;
 }
 
 cc-hint {
-  position: absolute;
-  margin: 2px;
-  padding: 0 2px;
-  -webkit-transition: margin 0.2s, font-size 0.2s, background-color 0.2s, color 0.1s;
-  -o-transition: margin 0.2s, font-size 0.2s, background-color 0.2s, color 0.1s;
-  transition: margin 0.2s, font-size 0.2s, background-color 0.2s, color 0.1s;
-  pointer-events: none;
-  color: var(--text);
+	position: absolute;
+	-webkit-transition: margin 0.2s, font-size 0.2s, background-color 0.2s, color 0.2s;
+	-o-transition: margin 0.2s, font-size 0.2s, background-color 0.2s, color 0.2s;
+	transition: margin 0.2s, font-size 0.2s, background-color 0.2s, color 0.2s;
+	pointer-events: none;
+	color: var(--text);
 }
-.open>cc-hint {
-  margin-top: -10px;
-  font-size: 13px;
-  background-color: var(--semi);
-  color: rgba(var(--text-dec), 0.7);
+.open>cc-hint, .hint>cc-hint {
+	margin-top: -11px;
+	font-size: 11px;
+	color: rgba(0,0,0,.54);
 }
 .focus>cc-hint {
-  color: var(--primary);
+	color: var(--primary);
 }
 
 cc-input input, cc-select {
-  padding: 10px 4px;
-  background: transparent;
-  color: var(--text);
-  border-style: none;
-  border-bottom-style: solid;
-  border-width: 1px;
-  border-color: var(--hover-20);
-  outline: transparent;
-  -webkit-transition: border-color 0.1s, -webkit-box-shadow 0.1s;
-  transition: border-color 0.1s, -webkit-box-shadow 0.1s;
-  -o-transition: box-shadow 0.1s, border-color 0.1s;
-  transition: box-shadow 0.1s, border-color 0.1s;
-  transition: box-shadow 0.1s, border-color 0.1s, -webkit-box-shadow 0.1s;
+	font-size: 15px;
+	font-family: inherit;
+	padding: 6px 0;
+	background: transparent;
+	color: var(--text);
+	border-style: none;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: var(--hover-20);
+	outline: transparent;
+	-webkit-transition: border-color 0.1s, -webkit-box-shadow 0.1s;
+	transition: border-color 0.1s, -webkit-box-shadow 0.1s;
+	-o-transition: box-shadow 0.1s, border-color 0.1s;
+	transition: box-shadow 0.1s, border-color 0.1s;
+	transition: box-shadow 0.1s, border-color 0.1s, -webkit-box-shadow 0.1s;
+}
+cc-input.error input, cc-select.error {
+	border-color: red;
 }
 cc-input input[disabled] {
-  color: rgba(var(--text-dec), 0.5);
-}
-cc-input.focus input {
-  border-color: transparent;
-  border-radius: 1px;
-  -webkit-box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
-          box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
+	color: rgba(var(--text-dec), 0.5);
 }
 
-cc-input.error.focus input {
-  box-shadow: 0px 0px 1px 2px rgba(255, 0, 0, 0.8);
-}
 
 cc-input-error {
-  color: red;
-  display: block;
-  font-size: 14px;
-  transition: opacity .2s, max-height .2s, margin .2s;
-  opacity: 0;
-  max-height: 0;
-  margin: 0;
+	color: red;
+    display: block;
+    font-size: 11px;
+    transition: opacity 0.2s, transform 0.2s;
+    opacity: 0;
+    margin: 0;
+    margin-top: 6px;
+    transform: translate(0, -10px);
+}
+cc-input-error::after {
+	content: 'A';
+	opacity: 0;
 }
 
 cc-input.error.focus cc-input-error {
-  opacity: 1;
-  max-height: 12vh;
-  margin: 5px 4px;
+	opacity: 1;
+    transform: none;
+}
+
+cc-input-line, cc-select-line {
+    position: absolute;
+	width: 0;
+	opacity: 0;
+    transform: translate(0, calc(-50% + 31px));
+    margin-left: -50%;
+    height: 2px;
+    background-color: var(--primary);
+    transition: opacity 0.2s, width 0s 0.2s, margin-left 0s 0.2s;
+}
+cc-input.focus cc-input-line, cc-input.focus cc-select-line, cc-input.open cc-select-line {
+    width: 100%;
+    margin-left: -100%;
+	opacity: 1;
+    transition: width 0.3s, margin-left 0.3s;
+}
+cc-input.error cc-input-line {
+    background-color: red;
+}
+
+cc-input cc-select-line {
+    margin-left: 50% !important;
+    transform: translate(0, -50%);
+}
+cc-input.focus cc-select-line, cc-input.open cc-select-line {
+    margin-left: 0 !important;
+}
+
+cc-input cc-select-icon {
+    display: block;
+    position: absolute;
+    transform: translate(-24px, -27px);
+    margin-left: 100%;
+	color: rgba(0,0,0,0.6);
+	transition: color 0.2s;
+}
+cc-input.focus cc-select-icon, cc-input.open cc-select-icon {
+	color: var(--primary);
 }
 
 cc-input cc-option {
-  display: block;
-  padding: 12px;
-  cursor: pointer;
-  -webkit-transition: background-color 0.2s, color 0.2s, -webkit-transform 0.2s;
-  transition: background-color 0.2s, color 0.2s, -webkit-transform 0.2s;
-  -o-transition: background-color 0.2s, color 0.2s, transform 0.2s;
-  transition: background-color 0.2s, color 0.2s, transform 0.2s;
-  transition: background-color 0.2s, color 0.2s, transform 0.2s, -webkit-transform 0.2s;
-  color: var(--text);
-  font: 400 13.3333px Arial;
-  -webkit-transform: scale(0.95);
-      -ms-transform: scale(0.95);
-          transform: scale(0.95);
+	display: block;
+    padding: 13px;
+	cursor: pointer;
+	-webkit-transition: background-color 0.2s, color 0.2s;
+	transition: background-color 0.2s, color 0.2s;
+	-o-transition: background-color 0.2s, color 0.2s;
+	transition: background-color 0.2s, color 0.2s;
+	transition: background-color 0.2s, color 0.2s;
+	color: var(--text-light);
+    font-size: 15px;
+    font-family: inherit;
 }
 cc-input cc-option:after {
-  content: attr(text);
+	content: attr(text);
 }
 cc-input cc-option.selected {
-  background-color: var(--hover-20);
-  color: var(--primary);
-  -webkit-transition: background-color 0.2s, color 0.2s, -webkit-transform 0s;
-  transition: background-color 0.2s, color 0.2s, -webkit-transform 0s;
-  -o-transition: background-color 0.2s, color 0.2s, transform 0s;
-  transition: background-color 0.2s, color 0.2s, transform 0s;
-  transition: background-color 0.2s, color 0.2s, transform 0s, -webkit-transform 0s;
-  -webkit-transform: none;
-      -ms-transform: none;
-          transform: none;
+	background-color: var(--hover-20) !important;
+	color: var(--primary);
+	-webkit-transition: background-color 0.2s, color 0.2s, -webkit-transform 0.12s;
+	transition: background-color 0.2s, color 0.2s, -webkit-transform 0.12s;
+	-o-transition: background-color 0.2s, color 0.2s, transform 0.12s;
+	transition: background-color 0.2s, color 0.2s, transform 0.12s;
+	transition: background-color 0.2s, color 0.2s, transform 0.12s, -webkit-transform 0.12s;
+	-webkit-transform: scaleY(1.2);
+		-ms-transform: scaleY(1.2);
+			transform: scaleY(1.2);
+}
+cc-input cc-select-menu[checkbox="true"] cc-option.selected {
+	background-color: unset !important;
+}
+cc-input cc-select-menu[checkbox="true"] cc-option:hover.selected {
+	background-color: rgba(var(--text-dec), 0.06) !important;
+}
+cc-select-category cc-option {
+    padding-left: 32px;
 }
 cc-input cc-select {
-  display: block;
-  height: 15px;
-  cursor: pointer;
-  font: 400 13.3333px Arial;
+	display: block;
+    height: 15px;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: inherit;
 }
 cc-input cc-select:after {
-  content: attr(selection);
+	content: attr(selection);
+	display: block;
+    width: calc(100% - 20px);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 cc-select-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 14;
+	display: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 14;
 }
 cc-input cc-select-menu {
-  display: block;
-  position: absolute;
-  background-color: var(--full);
-  -webkit-box-shadow: 0 0 8px 0px var(--shadow-color);
-          box-shadow: 0 0 8px 0px var(--shadow-color);
-  overflow: hidden;
-  border-radius: 4px;
-  z-index: 15;
-  pointer-events: none;
-  opacity: 0;
-  width: calc(100% + 16px);
-  -webkit-transition: opacity 0.1s, background-color 0.2s;
-  -o-transition: opacity 0.1s, background-color 0.2s;
-  transition: opacity 0.1s, background-color 0.2s;
+	display: block;
+	position: absolute;
+	-webkit-box-shadow: 0 0 8px 0px var(--shadow-color);
+					box-shadow: 0 0 8px 0px var(--shadow-color);
+	z-index: 15;
+	pointer-events: none;
+	opacity: 0;
+	width: calc(100% + 24px);
+	-webkit-transition: opacity 0.1s;
+	-o-transition: opacity 0.1s;
+	transition: opacity 0.1s;
 }
 
-cc-input.downfocus>cc-hint {
-  color: var(--primary);
+cc-input cc-select-container {
+	transform: scaleY(0.8) !important;
+	transition: transform 0.12s, background-color 0.2s;
+	transform-origin: 50% 60px;
+	display: block;
+	background-color: var(--full);
+	max-height: 256px;
+    border-radius: 4px;
+    overflow-y: scroll;
 }
-cc-input.downfocus cc-select {
-  border-color: transparent;
-  border-radius: 1px;
-  -webkit-box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
-          box-shadow: 0px 0px 1px 2px rgba(var(--primary-dec), 0.5);
+cc-input.open cc-select-container {
+	transform: scaleY(1) !important;
 }
-cc-input.focus cc-select-overlay {
-  display: block;
+cc-input.open cc-select-overlay {
+	display: block;
 }
-cc-input.focus cc-select-menu {
-  pointer-events: all;
-  opacity: 1;
+cc-input.open cc-select-menu {
+	pointer-events: all;
+	opacity: 1;
 }
-cc-input.focus cc-option {
-  -webkit-transform: none;
-      -ms-transform: none;
-          transform: none;
+
+cc-input cc-select-menu cc-select-category::before {
+    content: attr(text);
+    display: block;
+    padding: 13px;
+    padding-left: 16px;
+    color: rgba(var(--text-dec), 0.5);
+    font-weight: 500;
 }
-cc-input.focus cc-option:hover {
-  background-color: var(--hover-20);
+
+cc-input.open cc-option {
+	-webkit-transform: none;
+		-ms-transform: none;
+			transform: none;
+}
+cc-input.open cc-option:hover {
+	background-color: rgba(var(--text-dec), 0.06);
 }
 
 
 cc-fab-bar {
-  display: flex;
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  width: fit-content;
-  flex-flow: column-reverse;
-  z-index: 10;
+	display: flex;
+	position: fixed;
+	bottom: 16px;
+	right: 16px;
+	width: fit-content;
+	flex-flow: column-reverse;
+	z-index: 10;
 }
 
 cc-fab {
-  margin-top: 10px;
-  transition: opacity 0.2s;
-  touch-action: none;
+	margin-top: 10px;
+	transition: opacity 0.2s;
+	touch-action: none;
+    border-radius: 50%;
 }
 
 cc-fab cc-fab-hint {
-  display: block;
-  position: absolute;
-  transform: translate(calc(-100% - 10px), -45px);
-  background-color: rgba(0, 0, 0, 0.4);
-  padding: 4px;
-  border-radius: 3px;
-  color: white;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s;
+	display: block;
+	position: absolute;
+	transform: translate(calc(-100% - 10px), -40px);
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: 4px;
+	border-radius: 3px;
+	color: white;
+	white-space: nowrap;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.2s;
 }
 
 cc-fab cc-fab-hint.show {
-  opacity: 1;
+	opacity: 1;
 }
 
 cc-fab button {
-  border: none;
-  border-radius: 50%;
-  background-color: var(--full);
-  color: var(--text);
-  padding: 10px;
-  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
-  outline-color: transparent;
-  width: 64px;
-  height: 64px;
-  cursor: pointer;
-  overflow: hidden;
-  position: relative;
-  transition: box-shadow 0.2s, background-color 0.2s, color 0.2s;
-  will-change: box-shadow, background, color;
+	border: none;
+	border-radius: 50%;
+	background-color: var(--full);
+	color: var(--text);
+	padding: 10px;
+	box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+	outline-color: transparent;
+	width: 56px;
+	height: 56px;
+	cursor: pointer;
+	overflow: hidden;
+	position: relative;
+	transition: box-shadow 0.2s, background-color 0.2s, color 0.2s;
+	will-change: box-shadow, background, color;
 }
 
 cc-fab:active button {
-  box-shadow: 0 7px 8px -4px rgba(0,0,0,.2), 0 12px 17px 2px rgba(0,0,0,.14), 0 5px 22px 4px rgba(0,0,0,.12);
+	box-shadow: 0 7px 8px -4px rgba(0,0,0,.2), 0 12px 17px 2px rgba(0,0,0,.14), 0 5px 22px 4px rgba(0,0,0,.12);
 }
 
 cc-fab[colored] button {
-  background-color: var(--primary);
-  color: white;
+	background-color: var(--primary);
+	color: white;
 }
 
 cc-fab[colored] button cc-ripple {
-  background-color: rgba(255,255,255,0.4);
+	background-color: rgba(255,255,255,0.4);
 }
 
 cc-fab[disabled] {
-  opacity: 0.8;
-  pointer-events: none;
+	opacity: 0.8;
+	pointer-events: none;
 }
 
 cc-fab[disabled] button {
-  box-shadow: none;
-  background-color: rgba(0,0,0,0.12);
-  color: rgba(0,0,0,0.26);
+	box-shadow: none;
+	background-color: rgba(0,0,0,0.12);
+	color: rgba(0,0,0,0.26);
 }
 
 cc-fab i {
-  font-size: 30px !important;
-  pointer-events: none;
+	font-size: 30px !important;
+	pointer-events: none;
+}
+cc-fab[icon='add'] i {
+	font-size: 35px !important;
+}
+
+cc-checkbox {
+	display: inline-block;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    border: 2px solid;
+    border-radius: 2px;
+    margin-bottom: -3px;
+    margin-right: 8px;
+    box-sizing: border-box;
+    color: rgba(0,0,0,.54);
+    transition: color 0.2s, background-color 0.2s;
+}
+
+cc-checkbox[checked='true'] {
+    color: var(--primary);
+    background-color: var(--primary);
+}
+
+cc-checkbox::after {
+    content: ' ';
+    position: absolute;
+    top: 2.4px;
+    left: 1px;
+    width: 8px;
+    height: 3px;
+    border-left: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg);
+    opacity: 1;
+    box-sizing: content-box;
+	color: var(--full);
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+
+cc-checkbox[checked='true']::after {
+	opacity: 1;
 }
 
 @media only screen and (max-width:900px) {
-  cc-snackbar.expand>div {
-    min-width: 95vw;
-  }
-  cc-snackbar.expand>div>div {
-    min-width: calc(95vw - 20px);
-  }
+	cc-snackbar.expand>div {
+		min-width: 95vw;
+	}
+	cc-snackbar.expand>div>div {
+		min-width: calc(95vw - 20px);
+	}
 }

@@ -45,7 +45,7 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
       $("cc-name").html(cUser.firstName + " " + cUser.lastName);
       $("cc-email").html(cUser.email);
 
-      custom_input.load();
+      custom_input.load(document);
 
       if (typeof calendar !== 'undefined') calendar.firebase.getShiftNames();
       getLocations();

@@ -31,6 +31,10 @@
 
   --text: var(--full-dark);
 
+  --text-light-light: rgba(0,0,0,.87);
+  --text-light-dark: rgba(255,255,255,.87);
+  --text-light: var(--text-light-light);
+
   --text-light-dec: 255, 255, 255;
   --text-dark-dec: 0, 0, 0;
   --text-dec: var(--text-dark-dec);
@@ -115,4 +119,17 @@ body.noscroll .main_container {
   right: 0;
   left: 0;
   overflow-y: unset;
+  min-height: calc(100vh - 103px);
+}
+
+footer {
+  transition: var(--navbar-transition);
+  margin-left: var(--navbar-width);
+  /* background-color: rgba(0,0,0,0.8); */
+  padding: 20px;
+  min-height: 96px;
+  color: white;
+}
+footer p {
+  color: inherit;
 }

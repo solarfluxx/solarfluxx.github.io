@@ -50,7 +50,7 @@ cc-navbar {
 }
 
 cc-navbar div.blocker {
-  background-color: #00000026;
+  background-color: #00000066;
   z-index: 11;
   position: fixed;
   top: 0;
@@ -361,7 +361,9 @@ cc-tooltip {
   font-size: 16px;
   border-radius: 50%;
   padding: 12px;
-  margin: 8px 0;
+  height: 48px;
+  width: 48px;
+  margin: 4px 0;
   -webkit-transition: background-color 0.2s ease;
   -o-transition: background-color 0.2s ease;
   transition: background-color 0.2s ease;
@@ -370,9 +372,6 @@ cc-tooltip {
 }
 .navbar .title_container button:hover {
   color: black;
-}
-.navbar .title_container button:active {
-  background-color: #5945292b;
 }
 
 .heading_icon:hover cc-tooltip {
