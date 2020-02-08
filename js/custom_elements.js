@@ -224,13 +224,6 @@ class Prompt {
 		setTimeout(function() {
 			this.reference.classList.add('show');
 		}.bind(this), 50);
-
-		return new Promise((kept, broken) => {
-			this.promise = {
-				kept: kept,
-				broken: broken
-			}
-		});
 	}
 	close() {
 		enableScroll();
@@ -238,11 +231,10 @@ class Prompt {
 	}
 	positive() {
 		this.close();
-		this.promise.kept(true);
+		this.options.processing(this.reference.querySelector('content'));
 	}
 	negitive() {
 		this.close();
-		this.promise.broken(true);
 	}
 }
 
@@ -346,8 +338,16 @@ class Input {
 			this.elements.select.addEventListener('touchend', (() => {this.clickEnd()}).bind(this));
 			this.elements.select.addEventListener('touchcancel', (() => {this.clickEnd()}).bind(this));
 
-			console.log(this);
+			// Bind this to element
+			element.inputData = this;
+		}
 
+		get value() {
+			let callback = [];
+			this.menu.selection.forEach(selection => {
+				callback.push(this.values[selection]);
+			});
+			return callback;
 		}
 
 		clickStart() {
@@ -452,12 +452,19 @@ function FormBuilder(elements, options) {
 					snap_options.options.forEach(function(category) {
 						let category_element = document.createElement('cc-select-category');
 						category_element.setAttribute('text', category.name);
-						category.children.text.forEach(function(option) {
-							appendOption(category_element, option);
-						});
-						category.children.value.forEach(function(value) {
-							option_values.push(value);
-						});
+						if (Array.isArray(category.children)) {
+							category.children.forEach(function(option) {
+								appendOption(category_element, option);
+								option_values.push(option);
+							});
+						} else {
+							category.children.text.forEach(function(option) {
+								appendOption(category_element, option);
+							});
+							category.children.value.forEach(function(value) {
+								option_values.push(value);
+							});
+						}
 						select_conatiner.appendChild(category_element);
 					});
 					select_menu.appendChild(select_conatiner);
@@ -491,7 +498,6 @@ function FormBuilder(elements, options) {
 
 	if (options.padding != undefined) container.style.setProperty('padding', options.padding);
 	custom_input.load(container);
-	// selects.load(container);
 	return container;
 }
 
@@ -1104,5 +1110,11 @@ HTMLElement.prototype.clearError = function() {
 }
 
 HTMLElement.prototype.getInputValue = function() {return this.querySelector('input').value;}
+
+/* HTMLElement.prototype.getValue = function() {
+	if (this.classList.contains('select')) {
+		
+	} else return this.querySelector('input').value;
+} */
 
 //#endregion

@@ -303,7 +303,7 @@ cc-hint {
 .open>cc-hint, .hint>cc-hint {
 	margin-top: -11px;
 	font-size: 11px;
-	color: rgba(0,0,0,.54);
+	color: rgba(var(--text-dec),.54);
 }
 .focus>cc-hint {
 	color: var(--primary);
