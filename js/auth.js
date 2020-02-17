@@ -57,6 +57,8 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
       if (typeof doStagerAnim !== 'undefined') doStagerAnim();
       $("cc-loader").toggleClass("hide");
       var timer = setTimeout(function() {$("cc-loader").remove()}, 500);
+
+      window.dispatchEvent(new Event('loggedin'));
     });
 
   } else {

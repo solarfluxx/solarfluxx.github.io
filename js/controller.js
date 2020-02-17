@@ -15,17 +15,18 @@ function toggleDarkMode(mode) {
 	if (mode == null) {
 		if (darkMode == false) on(); else off();
 	} else {
-		switch (mode) {
-			case "Light":
+		switch (mode.toLowerCase()) {
+			case "Light".toLowerCase():
 				off();
 				break;
-			case "Dark":
+			case "Dark".toLowerCase():
 				on();
 				break;
-			case "Time of Day":
-				if (new Date().getHours() >= 19 || new Date().getHours() <= 6) on(); else off();
+			case "Time of Day".toLowerCase():
+				let time = new Date().getHours();
+				if (time >= 19 || time <= 6) on(); else off();
 				break;
-			case "Device Theme":
+			case "Device Theme".toLowerCase():
 				if (preferedTheme.matches) on(); else off();
 				break;
 		}

@@ -51,7 +51,7 @@ cc-prompt {
 	position: absolute;
     left: 50%;
 	display: block;
-	background: white;
+	background: var(--full);
 	max-width: 75vw;
     width: 600px;
 	border-radius: 15px;
@@ -70,11 +70,10 @@ cc-prompt {
 cc-prompt>title {
 	display: block;
     font: 500 16px / 22px "Montserrat", Arial, sans-serif;
-    color: #333;
+    color: rgba(var(--text-dec), 0.8);
     text-transform: uppercase;
-    margin-top: 0;
     padding-bottom: 15px;
-    margin: 20px 0;
+    margin: 10px 0;
     margin-bottom: 0;
 }
 
@@ -266,7 +265,7 @@ cc-ripple {
 			-ms-transform: translate(-50%, -50%) scale(0);
 					transform: translate(-50%, -50%) scale(0);
 	position: absolute;
-	background-color: rgba(var(--text-dec), 0.3);
+	background-color: rgba(var(--text-dec), 0.2);
 	border-radius: 50%;
 	pointer-events: none;
 	will-change: opacity, tranform;
@@ -387,7 +386,7 @@ cc-input cc-select-icon {
     position: absolute;
     transform: translate(-24px, -27px);
     margin-left: 100%;
-	color: rgba(0,0,0,0.6);
+	color: rgba(var(--text-dec), 0.6);
 	transition: color 0.2s;
 }
 cc-input.focus cc-select-icon, cc-input.open cc-select-icon {
@@ -603,7 +602,7 @@ cc-checkbox {
     margin-bottom: -3px;
     margin-right: 8px;
     box-sizing: border-box;
-    color: rgba(0,0,0,.54);
+    color: rgba(var(--text-dec),.54);
     transition: color 0.2s, background-color 0.2s;
 }
 

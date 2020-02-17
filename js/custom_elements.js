@@ -17,9 +17,9 @@ class EasyRipple {
 		this.element.addEventListener('mousedown', start);
 		this.element.addEventListener('mouseup', end);
 		this.element.addEventListener('mouseout', end);
-		this.element.addEventListener('touchstart', start, false);
-		this.element.addEventListener('touchend', end, false);
-		this.element.addEventListener('touchcancel', end, false);
+		this.element.addEventListener('touchstart', start, {passive: true});
+		this.element.addEventListener('touchend', end, {passive: true});
+		this.element.addEventListener('touchcancel', end, {passive: true});
 	}
 	clickStart(event) {
 		if (event.targetTouches != undefined) event = event.targetTouches['0']
@@ -96,12 +96,15 @@ class Form {
 		this.button = button;
 
 		let inputs = document.querySelectorAll('cc-input[form-id='+id+']');
-		let callback_inputChanged = this.inputChanged;
+		let callback_inputChanged = event => this.inputChanged(event);
+		let callback_inputLeave = event => this.inputLeave(event);
 		if (inputs.length > 0) {
 			let callbackInputs = this.inputs;
 			inputs.forEach(function(input) {
 				callbackInputs.push(input);
+
 				input.addEventListener('input', callback_inputChanged);
+				input.querySelector('input').addEventListener('blur', callback_inputLeave);
 			});
 		}
 
@@ -116,7 +119,7 @@ class Form {
 	set submissionEvent(Function) {
 		this.clearSubmissionEvent();
 		this.onSubmission = Function;
-		this.button.addEventListener('click', this.onSubmission);
+		this.button.addEventListener('click', () => this.onSubmission());
 	}
 
 	clearSubmissionEvent() {
@@ -125,10 +128,17 @@ class Form {
 	checkForChanges() {
 		let enable = false;
 		let fail = false;
-		this.inputs.forEach(function(input) {
-			if (input.getInputValue() != "" && input.getInputValue() != cUser[input.getAttribute('fb-update')]) enable = true;
+		this.inputs.forEach((function(input) {
+			if (input.getInputValue() != cUser[input.getAttribute('fb-update')]) enable = true;
 			if (input.classList.contains('error')) fail = true;
-		});
+
+			this.inputValidations.forEach(function(validation) {
+				if (validation.input == event.target.parentElement) {
+					let check = validation.valid_require(validation.input.getInputValue());
+					if (check.repair != undefined && input.getInputValue() != check.repair()) enable = false;
+				}
+			});
+		}).bind(this));
 
 		if (enable && !fail) this.enableSubmission(); else this.disableSubmission();
 	}
@@ -149,20 +159,32 @@ class Form {
 		this.inputValidations.push(validation);
 	}
 	inputChanged(event) {
-		// let text = event.target.value;
-		// let type = event.target.parentElement.getAttribute('fb-update');
-
-		inputValidations.forEach(function(validation) {
-			if (validation.input == event.target) {
-				console.log(`This is same input: ${validation}`);
-				
+		this.inputValidations.forEach(function(validation) {
+			if (validation.input == event.target.parentElement) {
+				let check = validation.valid_require(validation.input.getInputValue());
+				let vaild = {failed: false, message: ''};
+				check.require.forEach((state, index) => {if (!state) vaild = {failed: true, message: check.messages[index]}});
+				if (vaild.failed) validation.input.setError(`This field ${vaild.message}.`); else validation.input.clearError();
 			}
 		});
+		Form.get(event.target.parentElement.getAttribute('form-id')).checkForChanges();
+	}
+	inputLeave(event) {
+		this.inputValidations.forEach(function(validation) {
+			if (validation.input == event.target.parentElement) {
+				let check = validation.valid_require(validation.input.getInputValue());
+				let vaild = {failed: false, message: ''};
 
-		// let validation;
+				if (check.repair != undefined && check.repair() != undefined) {
+					validation.input.querySelector('input').value = check.repair();
+					check = validation.valid_require(validation.input.getInputValue());
+				}
 
-		// if (validation.failed) event.target.parentElement.setError(validation.message); else event.target.parentElement.clearError();
-		// Form.get(event.target.parentElement.getAttribute('form-id')).checkForChanges();
+				check.require.forEach((state, index) => {if (!state) vaild = {failed: true, message: check.messages[index]}});
+				if (vaild.failed) validation.input.setError(`This field ${vaild.message}.`); else validation.input.clearError();
+			}
+		});
+		Form.get(event.target.parentElement.getAttribute('form-id')).checkForChanges();
 	}
 }
 
@@ -195,6 +217,18 @@ class Prompt {
 			document.createElement('cc-button'),
 			document.createElement('cc-button')
 		];
+
+		prompt[1].addEventListener('click', () => {
+			let inputs = this.reference.querySelectorAll('cc-input');
+			let closePrompt = true;
+			inputs.forEach(input => {
+				if (input.classList.contains('open')) {
+					input.inputData.close();
+					closePrompt = false;
+				}
+			});
+			if (closePrompt) this.close();
+		});
 
 		prompt[3].innerText = setDefaultVal(this.options.title, 'Prompt');
 		prompt[5].innerText = setDefaultVal(this.options.positive && this.options.positive.text, 'Okay');
@@ -238,6 +272,15 @@ class Prompt {
 	}
 }
 
+class SimplePromise {
+	constructor() {
+		this.promise = new Promise((resolve, reject) => {
+			this.resolve = resolve;
+			this.reject = reject;
+		});
+	}
+}
+
 class Input {
 	constructor() {}
 
@@ -275,6 +318,11 @@ class Input {
 				},
 				setSelection: (option) => {
 					if (String(this.elements.menu.getAttribute('checkbox')) == 'true') {
+						let offsetTop = option.element.offsetTop - this.elements.options_container.scrollTop;
+						let offsetBottom = option.element.offsetTop - (this.elements.options_container.scrollTop+256-45);
+						if (offsetTop < 0) this.elements.options_container.scrollTop = this.elements.options_container.scrollTop + offsetTop;
+						if (offsetBottom > 0) this.elements.options_container.scrollTop = this.elements.options_container.scrollTop + offsetBottom;
+
 						let checkbox = option.element.querySelector('cc-checkbox');
 						if (String(checkbox.getAttribute('checked')) == 'true') {
 							option.element.classList.remove('selected');
@@ -295,6 +343,7 @@ class Input {
 						updateText(this);
 						this.close();
 					}
+
 					function updateText(select) {
 						let text_selection = '';
 						select.menu.selection.forEach(index => {
@@ -302,12 +351,21 @@ class Input {
 						});
 						select.elements.select.setAttribute('selection', text_selection);
 					}
+
+					if (this.elements.input.getAttribute('write') != undefined) {
+						lStorage.setItem(this.elements.input.getAttribute('write'), option.text);
+					}
+
+					if (this.elements.input.getAttribute('onselection') != null) {
+						let text = option.text;
+						eval(this.elements.input.getAttribute('onselection'));
+					}
 				}
 			};
 
 			// Get options and category's and add them to this.menu
-			let categorys = this.elements.input.querySelectorAll('cc-select-category');
-			if (categorys.length >= 0) {
+			let categorys = this.elements.options_container.querySelectorAll('cc-select-category');
+			if (categorys.length > 0) {
 				this.menu.categorys = [];
 				categorys.forEach(category => {
 					let options = [];
@@ -323,10 +381,28 @@ class Input {
 					});
 				});
 			} else {
-				this.elements.input.querySelectorAll('cc-option').forEach(option => {
+				this.elements.options_container.querySelectorAll('cc-option').forEach(option => {
 					let optionPacket = new Input.Select.Option(this, option, undefined);
 					this.menu.options.push(optionPacket);
 				});
+			}
+
+			// Fill data
+			let write_attr = this.elements.input.getAttribute('write');
+			if (write_attr != null) {
+				let write_data = lStorage.getItem(write_attr);
+				let defaultElement = this.elements.menu.querySelector('cc-option[default]');
+				if (write_data == null) {
+					lStorage.setItem(write_attr, defaultElement.getAttribute('text'));
+					write_data = lStorage.getItem(write_attr);
+
+					if (defaultElement) {
+						this.menu.setSelection(this.menu.getOption(defaultElement).option);
+						this.elements.input.classList.add('hint');
+					}
+				} else {
+					this.menu.setSelection(this.menu.getOption(this.elements.menu.querySelector(`cc-option[text="${write_data}"]`)).option)
+				}
 			}
 
 			// Click Listeners
@@ -334,9 +410,9 @@ class Input {
 			this.elements.select.addEventListener('click', (() => {this.open()}).bind(this));
 			this.elements.select.addEventListener('mousedown', (() => {this.clickStart()}).bind(this));
 			this.elements.select.addEventListener('mouseout', (() => {this.clickEnd()}).bind(this));
-			this.elements.select.addEventListener('touchstart', (() => {this.clickStart()}).bind(this));
-			this.elements.select.addEventListener('touchend', (() => {this.clickEnd()}).bind(this));
-			this.elements.select.addEventListener('touchcancel', (() => {this.clickEnd()}).bind(this));
+			this.elements.select.addEventListener('touchstart', (() => {this.clickStart()}).bind(this), {passive: true});
+			this.elements.select.addEventListener('touchend', (() => {this.clickEnd()}).bind(this), {passive: true});
+			this.elements.select.addEventListener('touchcancel', (() => {this.clickEnd()}).bind(this), {passive: true});
 
 			// Bind this to element
 			element.inputData = this;
@@ -360,20 +436,21 @@ class Input {
 			let translation;
 			let translation_origin;
 			let option = this.menu.options[this.menu.selection[0]];
-			let	right = ((option != undefined && option.element != undefined && (Number.parseInt(window.getComputedStyle(option.element, null).getPropertyValue('padding-left').replace( /[^\d]/g, '')))) || 16) + ((String(this.elements.menu.getAttribute('checkbox')) == 'true') && 24 || 0);
+			let	right = ((option != undefined && option.element != undefined && (Number.parseInt(window.getComputedStyle(option.element, null).getPropertyValue('padding-left').replace( /[^\d]/g, '')))) || 13) + ((String(this.elements.menu.getAttribute('checkbox')) == 'true') && 24 || 0);
 			let transform_index = this.menu.categorys && 2 || 1;
 			let	height = this.menu.options[0].element.offsetHeight;
 			let search_group = this.elements.options_container.querySelectorAll('cc-select-category, cc-option');
 
 			search_group.forEach((element, index) => {if (option != undefined && element == option.element) transform_index = (index+1)});
-			if (transform_index > 3 && search_group.length - transform_index > 3) {
-				if (option != undefined) option.element.scrollIntoView({block: 'center'});
+			if (transform_index > 3 && search_group.length - transform_index >= 3) {
+				if (option != undefined) this.elements.options_container.scrollTop = 29+(height*(transform_index-4));
 				translation =  Math.round((this.elements.menu.offsetHeight/2)+(height/2));
 				translation_origin =  Math.round(this.elements.menu.offsetHeight/2);
-			} else if (search_group.length - transform_index <= 3) {
-				if (option != undefined) option.element.scrollIntoView({block: 'center'});
+			} else if (transform_index > 3 && search_group.length - transform_index < 3) {
+				if (option != undefined) this.elements.options_container.scrollTop = 29+(height*(transform_index-4));
 				translation = Math.round(156 + 10 + Math.abs(height*(((search_group.length-2)-transform_index))));
-				translation_origin = (translation-height)+(height/2);
+				translation_origin = Math.round((translation-height)+(height/2));
+				if (search_group.length - transform_index == 0) translation_origin = translation;
 			} else {
 				this.elements.options_container.scrollTop = 0;
 				translation = transform_index*height;
@@ -390,7 +467,7 @@ class Input {
 		}
 		close() {
 			this.elements.input.classList.remove('open');
-			if (this.elements.select.getAttribute('selection') == null) {
+			if (this.elements.select.getAttribute('selection') == null || this.elements.select.getAttribute('selection') == '') {
 				this.elements.input.classList.remove('hint');
 			} else {
 				this.elements.input.classList.add('hint');
@@ -417,6 +494,7 @@ class Input {
 
 //#endregion Classes
 
+
 //#region Other
 
 function setDefaultVal(value, defaultValue){
@@ -437,8 +515,11 @@ function FormBuilder(elements, options) {
 				element.setAttribute('hint', snap_options.hint);
 				break;
 			case 'select':
+				let option_count = 0;
 				element = document.createElement('cc-input');
 				element.setAttribute('hint', snap_options.hint);
+				if (snap_options.write != undefined) element.setAttribute('write', snap_options.write);
+				if (snap_options.onselection != undefined) element.setAttribute('onselection', snap_options.onselection);
 
 				let option_values = [];
 				let select_menu = document.createElement('cc-select-menu');
@@ -454,12 +535,14 @@ function FormBuilder(elements, options) {
 						category_element.setAttribute('text', category.name);
 						if (Array.isArray(category.children)) {
 							category.children.forEach(function(option) {
-								appendOption(category_element, option);
+								appendOption(category_element, option, option_count);
+								option_count++;
 								option_values.push(option);
 							});
 						} else {
 							category.children.text.forEach(function(option) {
-								appendOption(category_element, option);
+								appendOption(category_element, option, option_count);
+								option_count++;
 							});
 							category.children.value.forEach(function(value) {
 								option_values.push(value);
@@ -471,7 +554,9 @@ function FormBuilder(elements, options) {
 					element.appendChild(select_menu);
 				} else {
 					snap_options.options.forEach(function(option) {
-						appendOption(select_conatiner, option);
+						appendOption(select_conatiner, option, option_count);
+						option_count++;
+						option_values.push(option);
 					});
 					select_menu.appendChild(select_conatiner);
 					element.appendChild(select_menu);
@@ -479,41 +564,72 @@ function FormBuilder(elements, options) {
 
 				element.appendChild(controller.createElement('cc-select-icon', {class: ['material-icons'], innerHTML: 'arrow_drop_down'}));
 				element.appendChild(document.createElement('cc-select-line'));
-
+				
 				new Input.Select(element, option_values);
 				break;
 		}
 		container.appendChild(element);
 
-		function appendOption(container, option) {
+		function appendOption(container, option, count) {
 			let option_element = document.createElement('cc-option');
 			if (snap_options.checkbox) {
 				option_element.prepend(document.createElement('cc-checkbox'));
 				option_element.setAttribute('checkbox', 'true');
 			}
 			option_element.setAttribute('text', option);
+			if (count == snap_options.default) option_element.setAttribute('default', '');
 			container.appendChild(option_element);
 		}
 	});
 
-	if (options.padding != undefined) container.style.setProperty('padding', options.padding);
+	if (options != undefined && options.padding != undefined) container.style.setProperty('padding', options.padding);
 	custom_input.load(container);
 	return container;
 }
 
 //#endregion
 
+
 //#region Any code for custom elements
 
 $('cc-blocker').click(function() {
-	$(this).parent().removeClass('show');
-	$('body').removeAttr('style');
+	this.parentElement.classList.remove('show');
 	enableScroll();
 });
 
 $("cc-button[type='negative']").click(function() {
 	$(this).parent().parent().removeClass('show');
 	$('body').removeAttr('style');
+});
+
+let sendnot_element = document.getElementById('sendNot');
+if (sendnot_element) sendnot_element.addEventListener('click', () => {
+	new Prompt('sendnotification', {
+		title: 'Send Notifications',
+		positive: {text: 'Send'},
+		content: FormBuilder([
+				['select', {hint: 'Targets', options: [
+					'Recently Added',
+					'Unnotified',
+					'All'
+				]}],
+				['select', {hint: 'Time Frame', options: [
+					'This month',
+					'Next month',
+					'All Time'
+				]}],
+		], {padding: '0px'}),
+		processing: content => {
+			console.log('Prossessing Run');
+
+			let data = content.querySelector('cc-input[hint=Targets]').inputData;
+			let targets = data.menu.selection[0];
+			let timeframe = data.menu.selection[0];
+
+			console.log(targets);
+			
+		}
+	}).open();
 });
 
 var noti_list,
@@ -736,12 +852,14 @@ var custom_input = {
 		var inputs = $(search_box.querySelectorAll('cc-input'));
 		
 		inputs.each(function(index) {
-			if (inputs[index].querySelector('cc-select') == null) var html_input = document.createElement('input');
-			let hint_element = document.createElement('cc-hint');
+			let html_input;
+			let hint_element;
+			if (inputs[index].querySelector('cc-select') == null) html_input = document.createElement('input');
+			if (inputs[index].querySelector('cc-hint') == null) hint_element = document.createElement('cc-hint');
 			let error_element = document.createElement('cc-input-error');
 			let line_element = document.createElement('cc-input-line');
 		
-			if (inputs[index].getAttribute('hint') != null) {
+			if (inputs[index].getAttribute('hint') != null && inputs[index].querySelector('cc-hint') == null) {
 				hint_element.innerHTML = inputs[index].getAttribute('hint');
 				inputs[index].prepend(hint_element);
 			}
@@ -1015,7 +1133,7 @@ var selects = {
 		if (ref.querySelector('cc-select').getAttribute('selection') == null) element.parentElement.classList.remove('open');
 	}
 }
-selects.load(document);
+// selects.load(document);
 
 let fab = {
 	load: function() {
@@ -1023,7 +1141,6 @@ let fab = {
 			index = 0;
 
 		fabs.forEach(function(fab) {
-			if (index != 0) fab.style.setProperty('button', (20+(index*(fab.clientHeight+10))) + 'px');
 			let button = document.createElement('button'),
 				fab_ripple,
 				hint_timer,
@@ -1035,7 +1152,8 @@ let fab = {
 			button.appendChild(icon);
 			fab.appendChild(button);
 
-
+			button.style.setProperty('z-index', (10+(fabs.length-index)));
+			if (index != 0) fab.style.setProperty('button', (20+(index*(fab.clientHeight+10))) + 'px');
 			if (fab.getAttribute('label') != null) {
 				hint = document.createElement('cc-fab-hint');
 				hint.innerText = fab.getAttribute('label');
@@ -1047,14 +1165,14 @@ let fab = {
 			fab.addEventListener('mouseup', clickEnd);
 			fab.addEventListener('mouseout', hoverEnd);
 
-			fab.addEventListener('touchstart', touchStart, false);
-			fab.addEventListener('touchend', touchEnd, false);
-			fab.addEventListener('touchcancel', touchEnd, false);
+			fab.addEventListener('touchstart', touchStart, {passive: true});
+			fab.addEventListener('touchend', touchEnd, {passive: true});
+			fab.addEventListener('touchcancel', touchEnd, {passive: true});
 
 			function hoverStart() {
 				if (hint != undefined) hint_timer = setTimeout(function() {
 				hint.classList.add('show');
-				}, 1000);
+				}, 500);
 			}
 
 			function hoverEnd() {
@@ -1096,6 +1214,7 @@ let fab = {
 fab.load();
 
 //#endregion
+
 
 //#region Prototype additions
 

@@ -140,7 +140,8 @@ var user_popup = {
 	}
 };
 
-document.getElementById('addUser').addEventListener('click', () => {
+let adduser_element = document.getElementById('addUser');
+if (adduser_element) adduser_element.addEventListener('click', () => {
 	let users = {names: [], ids: []};
 	let shifts = {names: [], indexs: []};
 	firebase.database().ref().child('users').orderByChild('firstname').once("value", function(snapshot) {
@@ -162,7 +163,7 @@ document.getElementById('addUser').addEventListener('click', () => {
 			title: 'Add user to shift',
 			positive: {text: 'Add User'},
 			content: FormBuilder([
-					['select', {hint: 'Shift', category: true, options:[
+					['select', {hint: 'Shift', category: true, options: [
 						{name: 'Normal', children: {text: shifts.names.slice(0, 4), value: shifts.indexs.slice(0, 4)}},
 						{name: 'Short', children: {text: shifts.names.slice(4), value: shifts.indexs.slice(4)}}
 					]}],
