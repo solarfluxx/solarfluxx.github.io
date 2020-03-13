@@ -1,9 +1,11 @@
-var buttons = document.getElementsByTagName("cc-tut-button");
-for (var i = 0; i < buttons.length; i++) {
-	buttons[i].addEventListener("mousedown", function(event) {
-		event.target.appendChild(new Ripple(event).element);
-	});
-}
+// var buttons = document.getElementsByTagName("cc-tut-button");
+// for (var i = 0; i < buttons.length; i++) {
+// 	buttons[i].addEventListener("mousedown", function(event) {
+// 		event.target.appendChild(new Ripple(event).element);
+// 	});
+// }
+
+document.querySelectorAll('cc-tut-button').forEach(element => new EasyRipple(element, {unbounded: true}));
 
 var skip_button = document.querySelector("cc-tut-button[skip]");
 if (skip_button != null) {

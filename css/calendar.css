@@ -239,9 +239,6 @@ body {
 .calendar-header button:first-child {
   float: left;
 }
-.calendar-header button:hover {
-  background-color: var(--hover-20);
-}
 .calendar-header button:active {
   color: var(--text);
 }

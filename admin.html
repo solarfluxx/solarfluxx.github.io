@@ -13,6 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="css/controller.css">
 		<link rel="stylesheet" type="text/css" href="css/invite.css">
 		<link rel="stylesheet" type="text/css" href="css/user_editor.css">
+		<link rel="stylesheet" type="text/css" href="css/custom_elements.css">
 		<link rel="icon" type="image/png" href="favicons/favicon-192x192.png" sizes="192x192">
 		<link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96">
 		<link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32">
@@ -167,31 +168,48 @@
 				}
 			}
 
-      function create_user() {
-        var email_input = document.getElementById("email");
-        var email = email_input.value;
-        var password = "{emptypassword}";
+		async function create_user() {
+			var email_input = document.getElementById("email");
+			var email = email_input.value;
+			var password = "{emptypassword}";
 				var first_name_value = document.getElementById("first_name").value;
 				var last_name_value = document.getElementById("last_name").value;
-        secondaryApp.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
+				secondaryApp.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
 					var user = secondaryApp.auth().currentUser;
 					var uid = user.uid;
 					firebase.database().ref('users/' + uid).set({
-				    firstname: first_name_value,
-				    lastname: last_name_value,
-				    location: cUser.location
-				  });
-          secondaryApp.auth().signOut();
-					setSuccess("Successfully invited " + first_name_value + " " + last_name_value);
+						firstname: first_name_value,
+						lastname: last_name_value,
+						location: cUser.location,
+						email: email
+					});
+					secondaryApp.auth().signOut();
+					setSuccess("Sending email to: " + first_name_value + " " + last_name_value);
+					emailUser();
 
-        }).catch(function(error) {
-          if (error.code == "auth/invalid-email") {
-            setError("Please enter a valid email address");
-          } else if (error.code == "auth/email-already-in-use") {
-            setError("That user has already been invited");
-          }
-        });
-      }
+					async function emailUser() {
+						let data = await sendEmail('Invitation to join the Cart Chart.', [email], 0, {
+							name: {
+								prefix: 'Brother/Sister',
+								first: first_name_value,
+								last: last_name_value
+							},
+							location: {
+								town: toTitleCase(cUser.location.slice(3)),
+								state: cUser.location.slice(0,2).toUpperCase()
+							}
+						});
+
+						if (data.success) setSuccess("Sucsessfully sent email"); else setError('Could\'nt send email: '+data.message);
+					}
+			}).catch(function(error) {
+			if (error.code == "auth/invalid-email") {
+				setError("Please enter a valid email address");
+			} else if (error.code == "auth/email-already-in-use") {
+				setError("That user has already been invited");
+			}
+			});
+		}
 		</script>
 	</body>
 </html>

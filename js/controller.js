@@ -1,3 +1,7 @@
+function printLog(print) {
+	if (window.localStorage.development == 'true') console.log(print);
+}
+
 var darkMode = false;
 var darkThemeMode = window.localStorage.darkmode;
 var preferedTheme = window.matchMedia("(prefers-color-scheme: dark)");
@@ -171,6 +175,13 @@ function toTitleCase(str) {
 	});
 }
 
+String.prototype.toTitleCase = function() {
+	let str = this;
+	return str.replace(/\w\S*/g, function(txt) {
+		return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+	});
+}
+
 function Password(password) {
 	var requirements = [
 		password.length >= 6,
@@ -230,6 +241,77 @@ $(window).scroll(function() {
 });
 
 window.addEventListener('load', function() {
-	new EasyRipple(document.querySelector('.title_bars'), 0.1, 0.3);
+	new EasyRipple(document.querySelector('.title_bars'), {transparency: 0.1, anim_time: 0.3, centered: true});
 });
 
+async function sendEmail(subject, addresses, template, data) {
+	if (!Array.isArray(addresses)) return 'addresses is not an Array';
+	if (!Number.isInteger(template)) return 'template is not a Number';
+	if (!data) return 'data is not an Object';
+	if (data.constructor.name != 'Object') return 'data is not an Object Literal';
+
+	const res = await fetch('https://j4z7fif0wg.execute-api.us-east-1.amazonaws.com/default/send-email', {
+		headers: {
+			'x-api-key': 'm0lgJYWaui4YPNObIGuyzaF9ZOgkuXon27uDckBU',
+			'content-type': 'application/json',
+			'accept': 'application/json'
+		},
+		method: 'POST',
+		body: JSON.stringify({
+			addresses: addresses,
+			subject: subject,
+			message: {
+				template: template,
+				data: data
+			}
+		})
+	});
+
+	const callbackdata = await res.json();
+	return callbackdata;
+}
+
+function spinnerAnimation(amount, size) {
+	let circle_size = Math.ceil(size);
+	let keyframes = [];
+
+	let keyframe_count = amount + 1;
+	let rotate = 360 / amount;
+	let offset = {
+		default: circle_size / amount,
+		full: circle_size - (circle_size / amount)
+	}
+
+	let offset_type = 0;
+	for (let index = 0; index < keyframe_count; index++) {
+		let keyframe = {
+			strokeDashoffset: offset_type == 0 && offset.default || offset_type == 1 && offset.full || offset_type == 2 && -offset.default,
+			transform: `rotate(${index != 0 && rotate * (index-1) || 0}deg)`,
+			offset: (1 / amount) * index
+		}
+		keyframes.push(keyframe);
+
+		if (index != 0 && keyframe_count - index != 1) {
+			let second_keyframe = {
+				strokeDashoffset: offset_type == 1 && -offset.full || offset_type == 2 && offset.default,
+				transform: `rotate(${rotate * index}deg)`,
+				offset: ((1 / amount) * index) + 0.000001
+			}
+
+			keyframes.push(second_keyframe);
+		}
+
+		if (offset_type >= 2) offset_type = 1; else offset_type++;
+	}
+
+	return keyframes;
+}
+
+function spinAnimation(element) {
+	element.style.setProperty('stroke-dasharray', element.getTotalLength());
+	element.animate(spinnerAnimation(8, element.getTotalLength()), {
+		duration: 4000,
+		easing: 'linear',
+		iterations: Infinity,
+	});
+}

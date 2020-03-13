@@ -68,13 +68,13 @@
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(var(--primary-dec), 0.2);
+  background: rgba(0,0,0,0.2);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(var(--primary-dec));
+  background: rgba(0,0,0,1);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(var(--primary-dec), 0.8);
+  background: rgba(0,0,0,0.8);
 }
 
 body {

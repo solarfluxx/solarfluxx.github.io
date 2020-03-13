@@ -1,3 +1,18 @@
-<div>
-    <p>${name.prefix} ${name.last},</p>
+<div style="font-family: 'Google Sans', 'Roboto'; color: black;">
+	<div style="border: solid 1px #e0e0e0; border-bottom: none;">
+		<div style="background-color: #f3f3f3; padding: 15px;">
+			<h2 style="margin: 0;">Invitation</h2>
+			<p style="margin: 0; font-weight: 500; color: #484848;">${location.town}, ${location.state}</p>
+		</div>
+		<div style="padding: 8px 22px;">
+			<p>Hello ${name.prefix} ${name.last},</p>
+			<p>You have been invited to join the Cart Chart. This will enable you to receive notifications when you have been assigned to any shifts for the local public witnessing. You will also be able to view the current local cart witnessing schedule for ${location.town}, ${location.state}.</p>
+			<p>Please click on the following link to login and set up your account. When prompted, you will need to enter a password. Please choose something that is at least 6 characters, conatins an uppercase, lowercase and a number.</p>
+			<a href="https://cartchart.impells.com/register" style="text-decoration: none; color: #ee9102;">cartchart.impells.com</a>
+			<p>If you have any issues with login, please email us at <span style="color: #b66300; text-transform: lowercase;">${location.town}-${location.state}-CC@impells.com</span>.</p>
+		</div>
+	</div>
+	<div style="background-color: #ee9102; padding: 15px;">
+		<p style="margin: 0; color: white;">This email is intended solely for those who have been invited to join the Cart Chart. If you have received this email in error please disregard.</p>
+	</div>
 </div>

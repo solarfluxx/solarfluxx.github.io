@@ -11,7 +11,7 @@ function UserPacket(id, firstname, lastname, index) {
 	this.element = container_element;
 	this.text_element = text_element;
 
-	new EasyRipple(this.element, 0.1, 0.4);
+	new EasyRipple(this.element, {transparency: 0.1, anim_time: 0.4});
 
 	text_element.innerHTML = this.name_full;
 }
@@ -144,10 +144,14 @@ let adduser_element = document.getElementById('addUser');
 if (adduser_element) adduser_element.addEventListener('click', () => {
 	let users = {names: [], ids: []};
 	let shifts = {names: [], indexs: []};
+	let content_promise = new SimplePromise();
+
 	firebase.database().ref().child('users').orderByChild('firstname').once("value", function(snapshot) {
 		snapshot.forEach(function(data) {
-			users.names.push(`${data.val().firstname} ${data.val().lastname}`);
-			users.ids.push(data.key);
+			if (data.val().location == cUser.location) {
+				users.names.push(`${data.val().firstname} ${data.val().lastname}`);
+				users.ids.push(data.key);
+			}
 		});
 	}).then(() => {
 		firebase.database().ref("shifts/"+cUser.state+"/"+cUser.city+"/shifts").once("value", function(snapshot) {
@@ -155,34 +159,36 @@ if (adduser_element) adduser_element.addEventListener('click', () => {
 				shifts.names.push(shift.val());
 				shifts.indexs.push(shift.key);
 			});
-		}).then(showPrompt);
+		}).then(() => {
+			let content = FormBuilder([
+				['select', {hint: 'Shift', category: true, options: [
+					{name: 'Normal', children: {text: shifts.names.slice(0, 4), value: shifts.indexs.slice(0, 4)}},
+					{name: 'Short', children: {text: shifts.names.slice(4), value: shifts.indexs.slice(4)}}
+				]}],
+				['select', {hint: 'User', category: true, checkbox: true, options: [
+					{name: 'Available', children: {text: users.names, value: users.ids}}
+				]}],
+			], {padding: '0px'});
+
+			content_promise.resolve(content);
+		});
 	});
 
-	function showPrompt() {
-		new Prompt('usershift', {
-			title: 'Add user to shift',
-			positive: {text: 'Add User'},
-			content: FormBuilder([
-					['select', {hint: 'Shift', category: true, options: [
-						{name: 'Normal', children: {text: shifts.names.slice(0, 4), value: shifts.indexs.slice(0, 4)}},
-						{name: 'Short', children: {text: shifts.names.slice(4), value: shifts.indexs.slice(4)}}
-					]}],
-					['select', {hint: 'User', category: true, checkbox: true, options: [
-						{name: 'Available', children: {text: users.names, value: users.ids}}
-					]}],
-			], {padding: '0px'}),
-			processing: content => {
-				let userIds = content.querySelector('cc-input[hint="User"]').inputData.value;
-				let shiftTime = content.querySelector('cc-input[hint="Shift"]').inputData.value[0];
-	
-				userIds.forEach(id => {
-					addUserRef = firebase.database().ref("shifts/"+cUser.state+"/"+cUser.city+"/"+date.year+"/"+(date.month+1)+"/"+(date.selected+1)+"/"+getQueryVariable("location")+"/"+shiftTime+"/");
-					addUserRef.push({
-						id: id,
-						state: 0
-					});
+	new Prompt('usershift', {
+		title: 'Add user to shift',
+		positive: {text: 'Add User'},
+		content: content_promise,
+		processing: content => {
+			let userIds = content.querySelector('cc-input[hint="User"]').inputData.value;
+			let shiftTime = content.querySelector('cc-input[hint="Shift"]').inputData.value[0];
+
+			userIds.forEach(id => {
+				addUserRef = firebase.database().ref("shifts/"+cUser.state+"/"+cUser.city+"/"+date.year+"/"+(date.month+1)+"/"+(date.selected+1)+"/"+getQueryVariable("location")+"/"+shiftTime+"/");
+				addUserRef.push({
+					id: id,
+					state: 0
 				});
-			}
-		}).open();
-	}
+			});
+		}
+	}).open();
 });

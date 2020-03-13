@@ -30,63 +30,65 @@ cc-popup.show {
 }
 
 cc-popup>:last-child {
-	-webkit-transform: scale(0.8) translate(-60%, 0);
-		-ms-transform: scale(0.8) translate(-60%, 0);
-			transform: scale(0.8) translate(-60%, 0);
+	-webkit-transform: scale(0.8) translate(-60%, -60%);
+		-ms-transform: scale(0.8) translate(-60%, -60%);
+			transform: scale(0.8) translate(-60%, -60%);
 	-webkit-transition: background 0.2s, color 0.2s, -webkit-transform 0.2s;
-	transition: background 0.2s, color 0.2s, -webkit-transform 0.2s;
 	-o-transition: transform 0.2s, background 0.2s, color 0.2s;
-	transition: transform 0.2s, background 0.2s, color 0.2s;
 	transition: transform 0.2s, background 0.2s, color 0.2s, -webkit-transform 0.2s;
-	will-change: transform;
+	transition: background 0.2s, color 0.2s, -webkit-transform 0.2s;
+	transition: transform 0.2s, background 0.2s, color 0.2s;
 }
 cc-popup.show>:last-child {
-	-webkit-transform: translate(-50%, 0);
-		-ms-transform: translate(-50%, 0);
-			transform: translate(-50%, 0);
+	-webkit-transform: translate(-50%, -50%);
+		-ms-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
 }
 
 
 cc-prompt {
 	position: absolute;
-    left: 50%;
+	left: 50%;
+	top: 50%;
 	display: block;
 	background: var(--full);
 	max-width: 75vw;
     width: 600px;
 	border-radius: 15px;
-	-webkit-box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-			box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 	border: none;
-	margin: auto;
-	margin-top: 30vh;
 	-webkit-user-select: none;
 	   -moz-user-select: none;
 		-ms-user-select: none;
 			user-select: none;
-	padding: 20px;
+	padding: 25px;
+	font-family: 'Roboto' !important;
 }
 
 cc-prompt>title {
 	display: block;
-    font: 500 16px / 22px "Montserrat", Arial, sans-serif;
-    color: rgba(var(--text-dec), 0.8);
-    text-transform: uppercase;
+	font-weight: 500;
+	font-size: 20px;
+    color: var(--text-dec);
     padding-bottom: 15px;
-    margin: 10px 0;
-    margin-bottom: 0;
 }
 
 cc-prompt>message {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	padding: 10px 20px;
+	font-weight: 500;
+	padding: 12px 20px;
+    margin-bottom: 20px;
 }
 cc-prompt>message[error] {
 	background-color: #ff00000d;
 	color: #d32f2f;
-	font-weight: 500;
+}
+cc-prompt>message[info] {
+	background-color: rgba(var(--primary-dec), 0.1);
+    color: rgba(var(--primary-dec));
 }
 
 cc-prompt>message>i {
@@ -94,6 +96,10 @@ cc-prompt>message>i {
 	font-size: 26px !important;
 	margin-top: -4px;
 	margin-right: 10px;
+}
+
+cc-prompt>content {
+	display: block;
 }
 
 
@@ -115,15 +121,12 @@ cc-button {
 	transition: background-color 0.2s;
 }
 cc-button:hover {
-	background-color: #0000001c;
+	background-color: rgba(0,0,0,0.05);
 }
 
 cc-button[type="positive"] {
 	background-color: var(--primary);
 	color: white;
-}
-cc-button[type="positive"]:hover {
-	background-color: var(--primary-light);
 }
 
 cc-button[color="red"] {
@@ -269,11 +272,11 @@ cc-ripple {
 	border-radius: 50%;
 	pointer-events: none;
 	will-change: opacity, tranform;
-	-webkit-transition: opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
-	transition: opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
-	-o-transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s;
-	transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s;
-	transition: transform 0.2s cubic-bezier(0, 0, 0, 1), opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0, 1);
+	-webkit-transition: opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0.8, 1);
+	transition: opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0.8, 1);
+	-o-transition: transform 0.2s cubic-bezier(0, 0, 0.8, 1), opacity 0.4s;
+	transition: transform 0.2s cubic-bezier(0, 0, 0.8, 1), opacity 0.4s;
+	transition: transform 0.2s cubic-bezier(0, 0, 0.8, 1), opacity 0.4s, -webkit-transform 0.2s cubic-bezier(0, 0, 0.8, 1);
 }
 cc-ripple.clicked {
 	opacity: 0;
@@ -395,6 +398,7 @@ cc-input.focus cc-select-icon, cc-input.open cc-select-icon {
 
 cc-input cc-option {
 	display: block;
+	height: 19px;
     padding: 13px;
 	cursor: pointer;
 	-webkit-transition: background-color 0.2s, color 0.2s;
@@ -412,14 +416,9 @@ cc-input cc-option:after {
 cc-input cc-option.selected {
 	background-color: var(--hover-20) !important;
 	color: var(--primary);
-	-webkit-transition: background-color 0.2s, color 0.2s, -webkit-transform 0.12s;
-	transition: background-color 0.2s, color 0.2s, -webkit-transform 0.12s;
-	-o-transition: background-color 0.2s, color 0.2s, transform 0.12s;
-	transition: background-color 0.2s, color 0.2s, transform 0.12s;
-	transition: background-color 0.2s, color 0.2s, transform 0.12s, -webkit-transform 0.12s;
-	-webkit-transform: scaleY(1.2);
-		-ms-transform: scaleY(1.2);
-			transform: scaleY(1.2);
+	-webkit-transition: background-color 0.2s, color 0.2s;
+	-o-transition: background-color 0.2s, color 0.2s;
+	transition: background-color 0.2s, color 0.2s;
 }
 cc-input cc-select-menu[checkbox="true"] cc-option.selected {
 	background-color: unset !important;
@@ -457,29 +456,28 @@ cc-select-overlay {
 cc-input cc-select-menu {
 	display: block;
 	position: absolute;
-	-webkit-box-shadow: 0 0 8px 0px var(--shadow-color);
-					box-shadow: 0 0 8px 0px var(--shadow-color);
 	z-index: 15;
 	pointer-events: none;
 	opacity: 0;
 	width: calc(100% + 24px);
-	-webkit-transition: opacity 0.1s;
-	-o-transition: opacity 0.1s;
-	transition: opacity 0.1s;
+	transition: opacity 0.1s, width 0s 0.2s;
 }
 
 cc-input cc-select-container {
 	transform: scaleY(0.8) !important;
-	transition: transform 0.12s, background-color 0.2s;
+    transition: transform 0s 0.2s, background-color 0.2s;
 	transform-origin: 50% 60px;
 	display: block;
 	background-color: var(--full);
 	max-height: 256px;
     border-radius: 4px;
-    overflow-y: scroll;
+	overflow-y: scroll;
+	box-shadow: 0 0 8px 0px var(--shadow-color);
+	backface-visibility: hidden;
 }
 cc-input.open cc-select-container {
 	transform: scaleY(1) !important;
+    transition: transform 0.2s, background-color 0.2s;
 }
 cc-input.open cc-select-overlay {
 	display: block;
@@ -487,11 +485,13 @@ cc-input.open cc-select-overlay {
 cc-input.open cc-select-menu {
 	pointer-events: all;
 	opacity: 1;
+    transition: opacity 0.1s, width 0.2s;
 }
 
 cc-input cc-select-menu cc-select-category::before {
     content: attr(text);
-    display: block;
+	display: block;
+	height: 19px;
     padding: 13px;
     padding-left: 16px;
     color: rgba(var(--text-dec), 0.5);
@@ -630,6 +630,27 @@ cc-checkbox::after {
 
 cc-checkbox[checked='true']::after {
 	opacity: 1;
+}
+
+cc-sendnot>users {
+	display: block;
+	overflow-y: auto;
+	max-height: 322px;
+	padding-left: 5px;
+}
+cc-sendnot user {
+	display: inherit;
+	margin-top: 5px;
+}
+cc-sendnot h1 {
+	margin: 0;
+    padding: 0px 0px 7px;
+    font-weight: normal;
+    font-size: 13px;
+	color: rgba(var(--text-dec), 0.7);
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: rgba(0, 0, 0, 0.2);
 }
 
 @media only screen and (max-width:900px) {

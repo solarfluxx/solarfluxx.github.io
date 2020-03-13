@@ -107,8 +107,8 @@
 			<div class="main_center">
 				<div class="calendar-container">
 				  <div class="calendar-header">
-						<button onclick="backward();"><i class="fas fa-chevron-left"></i></button>
-						<button onclick="forward();"><i class="fas fa-chevron-right"></i></button>
+						<button ripple onclick="backward();"><i class="fas fa-chevron-left"></i></button>
+						<button ripple onclick="forward();"><i class="fas fa-chevron-right"></i></button>
 
 						<button style="display: none" class="compact" onclick="toggle();"><span id="compact" class="arrow_condense"></span></button>
 				    <p class="month_year"><cc-month-year></cc-month-year>'s Calendar</p>
@@ -140,8 +140,8 @@
 		<script src="js/calendar/main.js"></script>
 		<script src="js/calendar/compact.js"></script>
 		<script src="js/calendar/firebase.js"></script>
-		<script src="js/tutorial.js"></script>
 		<script src="js/custom_elements.js"></script>
+		<script src="js/tutorial.js"></script>
 		<script>
 			var icon_compact = document.getElementById("compact"),
 					schedule = false;

@@ -1,17 +1,24 @@
 //#region Classes
 
 class EasyRipple {
-	constructor(element, transparency, animation_time) {
+	/**
+	 * Adds ripple effect to an element
+	 * @param {HTMLElement} element Ripple will be added to this element
+	 * @param {{transparency: number, color: number, anim_time: number, centered: boolean, unbounded: boolean}} options Ripple options
+	 */
+	constructor(element, options) {
 		this.element = element;
-		this.anim_time = animation_time;
-		this.transparency = transparency;
+		this.colors = ['var(--text-dec)', '255, 255, 255'];
+		this.options = options;
 		this.ripple = null;
 		this.rippleList = [];
+
+		this.options.color = this.colors[this.options.color] || this.colors[0];
 
 		// Callbacks
 		let tempclass = this,
 			start = event => tempclass.clickStart(event),
-			end = () => tempclass.clickEnd();
+			end = event => tempclass.clickEnd(event);
 
 		// Event Listeners
 		this.element.addEventListener('mousedown', start);
@@ -22,30 +29,43 @@ class EasyRipple {
 		this.element.addEventListener('touchcancel', end, {passive: true});
 	}
 	clickStart(event) {
-		if (event.targetTouches != undefined) event = event.targetTouches['0']
+		if (event.targetTouches != undefined) event = event.targetTouches['0'];
 		this.ripple = new EasyRipple.Ripple(event, this);
 		this.rippleList.push(this.ripple);
 		this.element.appendChild(this.ripple.element);
 		this.element.style.setProperty('position', 'relative');
-		this.element.style.setProperty('overflow', 'hidden');
+		if (!this.options.unbounded) this.element.style.setProperty('overflow', 'hidden');
 	}
-	clickEnd() {
-		this.rippleList.forEach(ripple => {
-			if (ripple != undefined) {
-				if (ripple.timeoutOver) {
-					ripple.hide();
+	clickEnd(event) {
+		if (event.type == 'mouseup' || event.target == this.element && (!event.relatedTarget || !event.relatedTarget.getParents().includes(this.element))) {
+			this.rippleList.forEach(ripple => {
+				if (ripple != undefined) {
+					if (ripple.timeoutOver) {
+						ripple.hide();
+					}
+					ripple.mouseup = true;
 				}
-				ripple.mouseup = true;
-			}
-		});
+			});
+			setTimeout(() => {
+				if (!this.element.querySelector('cc-ripple')) {
+					this.element.style.setProperty('position', '');
+					this.element.style.setProperty('overflow', '');
+				}
+			}, 401);
+		}
 	}
 	static Ripple = class {
 		constructor(event, that) {
 			let x = event.clientX - that.element.getBoundingClientRect().left,
 				y = event.clientY - that.element.getBoundingClientRect().top,
 				scaleRange = [1, 1.5],
-				pixelRange = [1, that.element.clientWidth/4],
-				scale = (((Math.abs((that.element.clientWidth/2) - x) + Math.abs((that.element.clientHeight/2) - y) - pixelRange[0]) * (scaleRange[1] - scaleRange[0])) / (pixelRange[1] - pixelRange[0])) + scaleRange[0];
+				pixelRange = [1, that.element.clientWidth/4];
+
+			if (that.options.centered) {
+				x = that.element.clientWidth/2;
+				y = that.element.clientHeight/2;
+			}
+			let scale = (((Math.abs((that.element.clientWidth/2) - x) + Math.abs((that.element.clientHeight/2) - y) - pixelRange[0]) * (scaleRange[1] - scaleRange[0])) / (pixelRange[1] - pixelRange[0])) + scaleRange[0];
 
 			this.element = document.createElement('cc-ripple');
 			this.element.setAttribute('size', scale);
@@ -58,12 +78,12 @@ class EasyRipple {
 			this.that = that;
 			this.timeout = setTimeout((() => {
 				this.timeoutEnd();
-			}).bind(this), (that.anim_time*1000));
+			}).bind(this), (that.options.anim_time*1000));
 
 			let temp_ripple = this.element;
 			setTimeout(function() {
-				if (that.anim_time != null && that.anim_time >= 0) temp_ripple.style.setProperty('transition', `transform ${that.anim_time}s cubic-bezier(0, 0, 0, 1), opacity 0.4s`);
-				if (that.transparency != null && that.transparency >= 0) temp_ripple.style.setProperty('background-color', `rgba(var(--text-dec), ${that.transparency})`);
+				if (that.options.anim_time != null && that.options.anim_time >= 0) temp_ripple.style.setProperty('transition', `transform ${that.options.anim_time}s cubic-bezier(0, 0, 0, 1), opacity 0.4s`);
+				if (that.options.transparency != null && that.options.transparency >= 0) temp_ripple.style.setProperty('background-color', `rgba(${that.options.color}, ${that.options.transparency})`);
 				temp_ripple.style.setProperty('transform', `translate(-50%, -50%) scale(${temp_ripple.getAttribute('size')})`);
 				temp_ripple.style.setProperty('left', temp_ripple.getAttribute('left'));
 				temp_ripple.style.setProperty('top', temp_ripple.getAttribute('top'));
@@ -189,10 +209,11 @@ class Form {
 }
 
 class Prompt {
-	constructor(id, options) {
+	constructor(id, options, extra) {
 		this.id = id;
 		this.options = options;
 		this.reference = this.createPromptElements();
+		this.extra = extra || '';
 
 		// Add this prompt to array for searching
 		if (Prompt.list == undefined) Prompt.list = [];
@@ -208,17 +229,18 @@ class Prompt {
 	}
 
 	createPromptElements() {
-		let prompt = [
+		this.prompt = [
 			document.createElement('cc-popup'),
 			document.createElement('cc-blocker'),
 			document.createElement('cc-prompt'),
 			document.createElement('title'),
 			document.createElement('content'),
 			document.createElement('cc-button'),
-			document.createElement('cc-button')
+			document.createElement('cc-button'),
+			[]
 		];
 
-		prompt[1].addEventListener('click', () => {
+		this.prompt[1].addEventListener('click', () => {
 			let inputs = this.reference.querySelectorAll('cc-input');
 			let closePrompt = true;
 			inputs.forEach(input => {
@@ -230,28 +252,55 @@ class Prompt {
 			if (closePrompt) this.close();
 		});
 
-		prompt[3].innerText = setDefaultVal(this.options.title, 'Prompt');
-		prompt[5].innerText = setDefaultVal(this.options.positive && this.options.positive.text, 'Okay');
-		prompt[6].innerText = setDefaultVal(this.options.negitive && this.options.negitive.text, 'Cancel');
+		this.prompt[3].innerText = setDefaultVal(this.options.title, 'Prompt');
+		this.prompt[5].innerText = setDefaultVal(this.options.positive && this.options.positive.text, 'Okay');
+		this.prompt[6].innerText = setDefaultVal(this.options.negitive && this.options.negitive.text, 'Cancel');
 
-		prompt[5].addEventListener('click', () => this.positive());
-		prompt[6].addEventListener('click', () => this.negitive());
+		this.prompt[5].addEventListener('click', () => this.positive());
+		this.prompt[6].addEventListener('click', () => this.negitive());
+		this.prompt[5].setAttribute('type', 'positive');
+		this.prompt[6].setAttribute('type', 'negative');
+
+		new EasyRipple(this.prompt[5], {
+			transparency: 0.4,
+			color: 1
+		});
+		new EasyRipple(this.prompt[6], {
+			transparency: 0.1
+		});
+
+		if (this.options.content.constructor.name == 'SimplePromise') {
+			let spinner = document.createElement('cc-progress-spinner');
+			this.prompt[4].appendChild(spinner);
+
+			this.options.content.promise.then((content) => {
+				this.prompt[4].innerHTML = '';
+				this.prompt[4].appendChild(content);
+			});
+		} else this.prompt[4].appendChild(this.options.content);
+
+		this.prompt[0].appendChild(this.prompt[1]);
+		this.prompt[0].appendChild(this.prompt[2]);
+		this.prompt[2].appendChild(this.prompt[3]);
 		
-		prompt[5].setAttribute('type', 'positive');
-		prompt[6].setAttribute('type', 'negative');
-		
-		new EasyRipple(prompt[5], 0.1, 0.2);
-		new EasyRipple(prompt[6], 0.1, 0.2);
+		if (this.options.messages) {
+			this.options.messages.forEach(snapshot => {
+				let element = document.createElement('message');
+				element.innerText = setDefaultVal(snapshot.message, '');
+				element.setAttribute(snapshot.type, '');
+				this.prompt[7].push(element);
+				this.prompt[2].appendChild(element);
+			});
+		}
 
-		prompt[4].appendChild(this.options.content);
-		prompt[0].appendChild(prompt[1]);
-		prompt[0].appendChild(prompt[2]);
-		prompt[2].appendChild(prompt[3]);
-		prompt[2].appendChild(prompt[4]);
-		prompt[2].appendChild(prompt[5]);
-		prompt[2].appendChild(prompt[6]);
+		this.prompt[2].appendChild(this.prompt[4]);
+		this.prompt[2].appendChild(this.prompt[5]);
+		this.prompt[2].appendChild(this.prompt[6]);
 
-		return document.body.appendChild(prompt[0]);
+		let append = document.body.appendChild(this.prompt[0]);
+		new Spinner(this.prompt[4].querySelector('cc-progress-spinner'));
+
+		return append;
 	}
 	open() {
 		disableScroll();
@@ -265,7 +314,7 @@ class Prompt {
 	}
 	positive() {
 		this.close();
-		this.options.processing(this.reference.querySelector('content'));
+		this.options.processing(this.reference.querySelector('content'), this.extra);
 	}
 	negitive() {
 		this.close();
@@ -408,6 +457,9 @@ class Input {
 			// Click Listeners
 			this.elements.overlay.addEventListener('click', (() => {this.close()}).bind(this));
 			this.elements.select.addEventListener('click', (() => {this.open()}).bind(this));
+
+			this.elements.select.addEventListener('focus', (() => {this.clickStart()}).bind(this));
+			this.elements.select.addEventListener('blur', (() => {this.clickEnd()}).bind(this));
 			this.elements.select.addEventListener('mousedown', (() => {this.clickStart()}).bind(this));
 			this.elements.select.addEventListener('mouseout', (() => {this.clickEnd()}).bind(this));
 			this.elements.select.addEventListener('touchstart', (() => {this.clickStart()}).bind(this), {passive: true});
@@ -472,6 +524,8 @@ class Input {
 			} else {
 				this.elements.input.classList.add('hint');
 			}
+
+			this.elements.menu.style.setProperty('width', `100%`);
 		}
 
 		static Option = class {
@@ -481,7 +535,10 @@ class Input {
 				this.category = category;
 				this.text = element.getAttribute('text');
 
-				new EasyRipple(element, 0.09, 0.6);
+				new EasyRipple(element, {
+					transparency: 0.09,
+					anim_time: 0.6
+				});
 				element.addEventListener('click', (event => {this.clicked()}).bind(this));
 			}
 
@@ -489,6 +546,33 @@ class Input {
 				this.select.menu.setSelection(this);
 			}
 		}
+	}
+}
+
+class HTMLBuilder {
+	constructor(html) {
+		this.container = document.createElement('container');
+		this.container.insertAdjacentHTML('beforeend', html);
+	}
+}
+
+class Spinner {
+	constructor(element) {
+		this.elements = {
+			container: element,
+			svg: document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+			circle: document.createElementNS('http://www.w3.org/2000/svg', 'circle')
+		}
+
+		this.elements.circle.setAttribute('cx', '50%');
+		this.elements.circle.setAttribute('cy', '50%');
+		this.elements.circle.setAttribute('r', '10');
+
+		this.elements.svg.appendChild(this.elements.circle);
+		this.elements.container.appendChild(this.elements.svg);
+
+		this.elements.container.spinner = this;
+		spinAnimation(this.elements.circle)
 	}
 }
 
@@ -604,32 +688,89 @@ $("cc-button[type='negative']").click(function() {
 
 let sendnot_element = document.getElementById('sendNot');
 if (sendnot_element) sendnot_element.addEventListener('click', () => {
-	new Prompt('sendnotification', {
+	let prompt = new Prompt('sendnotification', {
 		title: 'Send Notifications',
+		messages: [{
+			message: 'Sends notifications to unnotified users this month',
+			type: 'info'
+		}],
 		positive: {text: 'Send'},
-		content: FormBuilder([
-				['select', {hint: 'Targets', options: [
-					'Recently Added',
-					'Unnotified',
-					'All'
-				]}],
-				['select', {hint: 'Time Frame', options: [
-					'This month',
-					'Next month',
-					'All Time'
-				]}],
-		], {padding: '0px'}),
-		processing: content => {
-			console.log('Prossessing Run');
+		content: new HTMLBuilder(`
+		<cc-sendnot>
+			<h1>Targeted users</h1>
+			<users><cc-progress-spinner></cc-progress-spinner></users>
+		</cc-sendnot>
+		`).container,
+		processing: (_content, users) => {
+			let failed_emails = '';
+			users.forEach((snapshot, index) => {
+				if (snapshot.user.email) {
+					let user_data = {
+						name: {
+							prefix: 'Brother/Sister',
+							first: snapshot.user.firstname,
+							last: snapshot.user.lastname
+						},
+						location: {
+							town: cUser.city.toTitleCase(),
+							state: cUser.state.toUpperCase()
+						},
+						shift: {
+							location: firebase_users[index].location.toTitleCase(),
+							time: shift_names[snapshot.shift.shift_time],
+							date: `${getMonthName[date.month]} ${snapshot.shift.day}`
+						}
+					}
 
-			let data = content.querySelector('cc-input[hint=Targets]').inputData;
-			let targets = data.menu.selection[0];
-			let timeframe = data.menu.selection[0];
+					email();
+					async function email() {
+						if (lStorage.development == 'true') {
+							console.log(user_data);
+						} else {
+							let email = await sendEmail('You\'ve been added to a shift.', [snapshot.user.email], 1, user_data);
+							if (!email.success) failed_emails = failed_emails == '' && `${snapshot.user.email}` || `${failed_emails}, ${snapshot.user.email}`;
+						}
+					}
+				}
+			});
 
-			console.log(targets);
-			
+			if (failed_emails != '') new Snackbar(`Could not send emails to: ${failed_emails}`, preset.snackbar.length.long).show();
 		}
-	}).open();
+	});
+
+	prompt.open();
+	firebase.database().ref('users').on('value', snapshot => {
+		let snaphot_users = snapshot.val();
+		let targeted_users = [];
+
+		prompt.options.content.querySelector('users').innerHTML = '';
+		if (firebase_users.length == 0) {
+			let element = document.createElement('p');
+			element.innerHTML = 'There are no users this month.';
+			prompt.options.content.querySelector('users').append(element);
+		}
+
+		firebase_users.forEach(shift => {
+			targeted_users.push({
+				shift: shift,
+				user: snaphot_users[shift.id]
+			});
+		});
+
+		let shown_users = [];
+		targeted_users.forEach(snapshot => {
+			let user_text = document.createElement('user');
+			let name = `${snapshot.user.firstname} ${snapshot.user.lastname}`;
+			if (!shown_users.includes(name)) {
+				user_text.innerHTML = name;
+				prompt.options.content.querySelector('users').append(user_text);
+			}
+			
+			shown_users.push(name);
+		});
+
+		prompt.extra = targeted_users;
+	});
 });
 
 var noti_list,
@@ -1083,7 +1224,7 @@ var selects = {
 
 		$(search_box.querySelectorAll('cc-select-overlay')).click(function(e) {tempClose(this);});
 
-		search_box.querySelectorAll('cc-option').forEach(option => new EasyRipple(option, 0.09, 0.6));
+		search_box.querySelectorAll('cc-option').forEach(option => new EasyRipple(option, {transparency: 0.09,anim_time: 0.6}));
 	},
 	open: function(element, option) {
 		let parent_element = $(element.parentElement).find('cc-select-category, cc-option');
@@ -1213,6 +1354,8 @@ let fab = {
 }
 fab.load();
 
+document.querySelectorAll('[ripple]').forEach(element => new EasyRipple(element, {transparency: 0.1, anim_time: 0.1, centered: true, unbounded: true}));
+
 //#endregion
 
 
@@ -1235,5 +1378,12 @@ HTMLElement.prototype.getInputValue = function() {return this.querySelector('inp
 		
 	} else return this.querySelector('input').value;
 } */
+
+HTMLElement.prototype.getParents = function() {
+	let parents = [];
+	let element = this;
+	for (element && element !== document; element = element.parentNode;) parents.push(element);
+	return parents;
+}
 
 //#endregion

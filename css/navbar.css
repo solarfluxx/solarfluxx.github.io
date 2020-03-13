@@ -112,8 +112,8 @@ cc-navbar div.main div.item {
   padding-right: var(--sidenav-padding);
   -webkit-transition: padding 0.5s, background-color 0.2s;
   -o-transition: padding 0.5s, background-color 0.2s;
-  transition: padding 0.5s, background-color 0.2s;
-  will-change: padding-left, padding-right;
+  transition: padding 0.5s, background-color 0.2s, opacity 0.2s;
+  will-change: padding-left, padding-right, opacity;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -201,16 +201,17 @@ cc-navbar div.main>div.group>a {
   font-size: 14px;
   padding-top: 8px;
   padding-bottom: 8px;
-  -webkit-transition: opacity 0.2s ease 0.2s, margin 0.2s, padding 0.5s,  background-color 0.2s;
-  -o-transition: opacity 0.2s ease 0.2s, margin 0.2s, padding 0.5s,  background-color 0.2s;
-  transition: opacity 0.2s ease 0.2s, margin 0.2s, padding 0.5s,  background-color 0.2s;
+  -webkit-transition: opacity 0.1s 0.1s, margin 0.2s, padding 0.5s,  background-color 0.2s;
+  -o-transition: opacity 0.1s 0.1s, margin 0.2s, padding 0.5s,  background-color 0.2s;
+  transition: opacity 0.1s 0.1s, margin 0.2s, padding 0.5s,  background-color 0.2s;
 }
 cc-navbar div.main>div.group.hide>a {
-  margin-bottom: -38px;
+  margin-top: -38px;
+  pointer-events: none;
   opacity: 0;
-  -webkit-transition: opacity 0.2s, margin 0.2s ease 0.2s, padding 0.5s, background-color 0.2s;
-  -o-transition: opacity 0.2s, margin 0.2s ease 0.2s, padding 0.5s, background-color 0.2s;
-  transition: opacity 0.2s, margin 0.2s ease 0.2s, padding 0.5s, background-color 0.2s;
+  -webkit-transition: opacity 0.1s, margin 0.2s, padding 0.5s, background-color 0.2s;
+  -o-transition: opacity 0.1s, margin 0.2s, padding 0.5s, background-color 0.2s;
+  transition: opacity 0.1s, margin 0.2s, padding 0.5s, background-color 0.2s;
 }
 
 cc-navbar div.main span {

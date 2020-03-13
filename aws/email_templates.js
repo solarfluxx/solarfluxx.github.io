@@ -12,10 +12,10 @@ class EmailTemplate {
 	constructor(template, data) {
 		this.data = (data && data.constructor == Object) && data || undefined;
 		this.template_index = (template && Number.isInteger(template)) && template || 0;
-		this.template_names = ['invite'];
+		this.template_names = ['invite', 'shiftnoti'];
 		this.template = this.template_names[this.template_index];
 		this.html = new Promise((resolve, reject) => {
-			fs.readFile(`aws/templates/${this.template}.html`, 'utf8', (err, html) => {
+			fs.readFile(`../solarfluxx.github.io/aws/templates/${this.template}.html`, 'utf8', (err, html) => {
 				if (err) {
 					reject(err);
 					throw err;
@@ -58,6 +58,30 @@ EmailComeIn({
 			prefix: 'Brother',
 			first: 'Robert',
 			last: 'Impellitteri'
+		},
+		location: {
+			town: 'Wakefield',
+			state: 'RI'
+		}
+	}
+});
+
+EmailComeIn({
+	template: 1,
+	data: {
+		name: {
+			prefix: 'Brother',
+			first: 'Robert',
+			last: 'Impellitteri'
+		},
+		location: {
+			town: 'Wakefield',
+			state: 'RI'
+		},
+		shift: {
+			location: 'Main Street',
+			time: '8AM - 10AM',
+			data: 'February 20'
 		}
 	}
 });
