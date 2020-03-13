@@ -138,7 +138,10 @@ var controller = {
 				if (current_page.includes("file:///")) {
 					final_page = "/GitHub/solarfluxx.github.io/" + page;
 					if (!final_page.includes(".html")) final_page = final_page + ".html";
-				} else final_page = "/" + page;
+				} else {
+					final_page = "/" + page
+					if (!final_page.includes('.html')) final_page = final_page + ".html";
+				}
 
 				if (typeof query != "undefined") {
 					var query_out = "";
