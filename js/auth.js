@@ -63,7 +63,7 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
 
   } else {
     if (window.location.host == "") {
-      controller.page.goto("index");
+      controller.page.goto("index.html");
     } else {
       controller.page.goto("");
     }

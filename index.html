@@ -31,7 +31,7 @@
 			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_profile"></span></span><input class="form_item" type="email" name="email" id="email" placeholder="Email"></div></div>
 			<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_key"></span></span><input class="form_item" type="password" name="password" id="password" placeholder="Password"><span class="form_item_extra"><input class="form_item_extra" type="checkbox" name="show_password" id="show_password"></span></div></div>
 			<div class="form_item"><div class="form_item_group submit_group"><button class="submit" onclick="login();">Login</button></div></div>
-			<div class="form_item"><div class="form_item_group submit_group"><button onclick="controller.page.goto('register');">Register</button></div></div>
+			<div class="form_item"><div class="form_item_group submit_group"><button onclick="controller.page.goto('register.html');">Register</button></div></div>
 			<div class="align_center"><span class="error_message" id="error_text"></span></div>
 		</div>
 
@@ -93,7 +93,7 @@
 
 			function UserIsLoggedIn(user_data) {
 				setError("");
-				controller.page.goto("home");
+				controller.page.goto("home.html");
 			}
 
 			function UserIsLoggedOut() {}

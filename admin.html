@@ -41,7 +41,7 @@
 				<div class="title_container"><button class="title_bars" onclick="navbar.toggle();"><i class="material-icons">menu</i></button><h2 class="title">Admin Tools</h2></div>
 				<div class="heading">
 					<cc-name class="heading_text" id="dynamic_name"></cc-name>
-					<a class="heading_icon" href="javascript:controller.page.goto('profile')"><cc-tooltip style="margin-left: -55px;">Profile Settings</cc-tooltip><i class="fa fa-cog"></i></a>
+					<a class="heading_icon" href="javascript:controller.page.goto('profile.html')"><cc-tooltip style="margin-left: -55px;">Profile Settings</cc-tooltip><i class="fa fa-cog"></i></a>
 					<a class="heading_icon" href="javascript:logout();"><cc-tooltip style="margin-left: -35px;">Sign Out</cc-tooltip><i class="fa fa-power-off"></i></a>
 					<a class="heading_icon" id="toggle_modal" href="javascript:toggleModal();"><i class="fas fa-user"></i></a>
 				</div>
@@ -66,11 +66,11 @@
 					<h1>Cart Chart</h1>
 				</div>
 
-				<a onclick="controller.page.goto('home')">
+				<a onclick="controller.page.goto('home.html')">
 					<i class="material-icons">home</i>
 					<span>Home</span>
 				</a>
-				<a onclick="controller.page.goto('admin')" id="adminlink">
+				<a onclick="controller.page.goto('admin.html')" id="adminlink">
 					<i class="material-icons">description</i>
 					<span>Admin</span>
 				</a>

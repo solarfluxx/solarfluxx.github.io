@@ -30,7 +30,7 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
       $("cc-email").html(cUser.email);
       getLocations();
       if (!cUser.admin) {
-        controller.page.goto("home");
+        controller.page.goto("home.html");
       } else {
         $("cc-loader").toggleClass("hide");
         var timer = setTimeout(function() {$("cc-loader").remove()}, 500);
@@ -39,7 +39,7 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
 
   } else {
     if (window.location.host == "") {
-      controller.page.goto("index");
+      controller.page.goto("index.html");
     } else {
       controller.page.goto("");
     }
