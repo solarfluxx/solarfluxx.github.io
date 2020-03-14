@@ -122,11 +122,11 @@ self.addEventListener('notificationclick', function(event) {
       });
 
       if (client !== undefined) {
-        client.navigate('http://127.0.0.1:8080/');
+        client.navigate('http://cartchart.impells.com/');
         client.focus();
       } else {
         // there are no visible windows. Open one.
-        clients.openWindow('http://127.0.0.1:8080/');
+        clients.openWindow('http://cartchart.impells.com/');
         event.notification.close();
       }
 

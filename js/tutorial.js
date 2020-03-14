@@ -15,7 +15,7 @@ if (skip_button != null) {
 			event.target.parentElement.parentElement.remove();
 			var snack = new Snackbar("You can view the tutorial by going to Profile &#129046; Play Tutorial", preset.snackbar.length.long, true);
 			snack.click(function() {
-				controller.page.goto("profile.html", ['to="tutorial"']);
+				controller.page.goto("profile", ['to="tutorial"']);
 			});
 			snack.show();
 		}, 200);
