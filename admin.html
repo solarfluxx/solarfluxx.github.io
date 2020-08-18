@@ -34,16 +34,16 @@
 	</head>
 
 	<body>
-		<cc-loader><cc-circle></cc-circle></cc-loader>
+		<cc-page-loader><cc-circle></cc-circle></cc-page-loader>
 
 		<header>
 			<div class="navbar">
 				<div class="title_container"><button class="title_bars" onclick="navbar.toggle();"><i class="material-icons">menu</i></button><h2 class="title">Admin Tools</h2></div>
 				<div class="heading">
 					<cc-name class="heading_text" id="dynamic_name"></cc-name>
-					<a class="heading_icon" href="javascript:controller.page.goto('profile')"><cc-tooltip style="margin-left: -55px;">Profile Settings</cc-tooltip><i class="fa fa-cog"></i></a>
-					<a class="heading_icon" href="javascript:logout();"><cc-tooltip style="margin-left: -35px;">Sign Out</cc-tooltip><i class="fa fa-power-off"></i></a>
-					<a class="heading_icon" id="toggle_modal" href="javascript:toggleModal();"><i class="fas fa-user"></i></a>
+					<button class="heading_icon" onclick="controller.page.goto('profile')"><i class="material-icons">settings</i></button>
+					<button class="heading_icon" onclick="logout();"><i class="material-icons">power_settings_new</i></button>
+					<button class="heading_icon" id="toggle_modal" onclick="toggleModal();"><i class="material-icons">person</i></button>
 				</div>
 			</div>
 		</header>
@@ -102,6 +102,10 @@
 				<div class="form_item"><div class="form_item_group"><span class="form_item_extra"><span class="icon_mail"></span></span><input class="form_item" type="email" name="email" id="email" placeholder="Email"></div></div>
 				<div class="form_item"><div class="form_item_group submit_group"><button class="submit" onclick="create_user();">Invite</button></div></div>
 				<div class="align_center"><span class="error_message" id="error_text"></span></div>
+
+				<!-- <cc-input form-id="invite_user" type="text" hint="First Name"></cc-input>
+				<cc-input form-id="invite_user" type="text" hint="Last Name"></cc-input>
+				<cc-input form-id="invite_user" type="text" hint="Email"></cc-input> -->
 			</div>
 
 			<div class="form double">
@@ -114,16 +118,7 @@
 				<cc-user-editor>
 					<cc-users></cc-users>
 					<cc-users-edit>
-						<input>
-						<p>Test</p>
-						<p>Test</p>
-						<p>Test</p>
-						<p>Test</p>
-						<p>Test</p>
-						<p>Test</p>
-						<p>Test</p>
-						<p>Test</p>
-						<p>Test</p>
+						<p>User Editor</p>
 					</cc-users-edit>
 				</cc-user-editor>
 			</div>
@@ -168,48 +163,48 @@
 				}
 			}
 
-		async function create_user() {
-			var email_input = document.getElementById("email");
-			var email = email_input.value;
-			var password = "{emptypassword}";
-				var first_name_value = document.getElementById("first_name").value;
-				var last_name_value = document.getElementById("last_name").value;
-				secondaryApp.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
-					var user = secondaryApp.auth().currentUser;
-					var uid = user.uid;
-					firebase.database().ref('users/' + uid).set({
-						firstname: first_name_value,
-						lastname: last_name_value,
-						location: cUser.location,
-						email: email
-					});
-					secondaryApp.auth().signOut();
-					setSuccess("Sending email to: " + first_name_value + " " + last_name_value);
-					emailUser();
-
-					async function emailUser() {
-						let data = await sendEmail('Invitation to join the Cart Chart.', [email], 0, {
-							name: {
-								prefix: 'Brother/Sister',
-								first: first_name_value,
-								last: last_name_value
-							},
-							location: {
-								town: toTitleCase(cUser.location.slice(3)),
-								state: cUser.location.slice(0,2).toUpperCase()
-							}
+			async function create_user() {
+				var email_input = document.getElementById("email");
+				var email = email_input.value;
+				var password = "{emptypassword}";
+					var first_name_value = document.getElementById("first_name").value;
+					var last_name_value = document.getElementById("last_name").value;
+					secondaryApp.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
+						var user = secondaryApp.auth().currentUser;
+						var uid = user.uid;
+						firebase.database().ref('users/' + uid).set({
+							firstname: first_name_value,
+							lastname: last_name_value,
+							location: cUser.location,
+							email: email
 						});
+						secondaryApp.auth().signOut();
+						setSuccess("Sending email to: " + first_name_value + " " + last_name_value);
+						emailUser();
 
-						if (data.success) setSuccess("Sucsessfully sent email"); else setError('Could\'nt send email: '+data.message);
-					}
-			}).catch(function(error) {
-			if (error.code == "auth/invalid-email") {
-				setError("Please enter a valid email address");
-			} else if (error.code == "auth/email-already-in-use") {
-				setError("That user has already been invited");
+						async function emailUser() {
+							let data = await sendEmail('Invitation to join the Cart Chart.', [email], 0, {
+								name: {
+									prefix: 'Brother/Sister',
+									first: first_name_value,
+									last: last_name_value
+								},
+								location: {
+									town: toTitleCase(cUser.location.slice(3)),
+									state: cUser.location.slice(0,2).toUpperCase()
+								}
+							});
+
+							if (data.success) setSuccess("Sucsessfully sent email"); else setError('Could\'nt send email: '+data.message);
+						}
+				}).catch(function(error) {
+				if (error.code == "auth/invalid-email") {
+					setError("Please enter a valid email address");
+				} else if (error.code == "auth/email-already-in-use") {
+					setError("That user has already been invited");
+				}
+				});
 			}
-			});
-		}
 		</script>
 	</body>
 </html>

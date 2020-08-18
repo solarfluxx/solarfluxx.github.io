@@ -10,6 +10,7 @@ function LoopUser(day, shiftTime, person, location) {
   this.person = person.key;
   this.id = person.val().id;
   this.state = person.val().state;
+  this.notified = person.val().notified;
   this.location = location;
   this.ref = person.ref.toString().substring(firebase.database().ref().toString().length-1);
 }

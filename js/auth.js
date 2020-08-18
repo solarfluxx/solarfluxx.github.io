@@ -55,7 +55,7 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
       } else if (typeof calendar !== 'undefined') calendar.firebase.getUserShifts();
 
       if (typeof doStagerAnim !== 'undefined') doStagerAnim();
-      $("cc-loader").toggleClass("hide");
+      $("cc-page-loader").toggleClass("hide");
       var timer = setTimeout(function() {$("cc-loader").remove()}, 500);
 
       window.dispatchEvent(new Event('loggedin'));

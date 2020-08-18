@@ -4,16 +4,20 @@ class EasyRipple {
 	/**
 	 * Adds ripple effect to an element
 	 * @param {HTMLElement} element Ripple will be added to this element
-	 * @param {{transparency: number, color: number, anim_time: number, centered: boolean, unbounded: boolean}} options Ripple options
+	 * @param {{transparency: number, color: number, anim_time: number, centered: boolean, unbounded: boolean, scale: number}} options Ripple options
 	 */
 	constructor(element, options) {
-		this.element = element;
+		//#region Varible Declaration
 		this.colors = ['var(--text-dec)', '255, 255, 255'];
-		this.options = options;
 		this.ripple = null;
 		this.rippleList = [];
+		this.options = options;
+		this.container_element = element;
+		this.element = this.options.element || this.container_element;
 
 		this.options.color = this.colors[this.options.color] || this.colors[0];
+		this.options.anim_time = this.options.anim_time || 0.2;
+		//#endregion Varible Declaration
 
 		// Callbacks
 		let tempclass = this,
@@ -21,12 +25,12 @@ class EasyRipple {
 			end = event => tempclass.clickEnd(event);
 
 		// Event Listeners
-		this.element.addEventListener('mousedown', start);
-		this.element.addEventListener('mouseup', end);
-		this.element.addEventListener('mouseout', end);
-		this.element.addEventListener('touchstart', start, {passive: true});
-		this.element.addEventListener('touchend', end, {passive: true});
-		this.element.addEventListener('touchcancel', end, {passive: true});
+		this.container_element.addEventListener('mousedown', start);
+		this.container_element.addEventListener('mouseup', end);
+		this.container_element.addEventListener('mouseout', end);
+		this.container_element.addEventListener('touchstart', start, {passive: true});
+		this.container_element.addEventListener('touchend', end, {passive: true});
+		this.container_element.addEventListener('touchcancel', end, {passive: true});
 	}
 	clickStart(event) {
 		if (event.targetTouches != undefined) event = event.targetTouches['0'];
@@ -37,7 +41,10 @@ class EasyRipple {
 		if (!this.options.unbounded) this.element.style.setProperty('overflow', 'hidden');
 	}
 	clickEnd(event) {
-		if (event.type == 'mouseup' || event.target == this.element && (!event.relatedTarget || !event.relatedTarget.getParents().includes(this.element))) {
+		let endRipple = false;
+		endRipple = event.type == 'mouseup';
+		endRipple = endRipple || event.relatedTarget && !event.relatedTarget.getParents().includes(this.element) && event.relatedTarget != this.element;
+		if (endRipple) {
 			this.rippleList.forEach(ripple => {
 				if (ripple != undefined) {
 					if (ripple.timeoutOver) {
@@ -66,6 +73,7 @@ class EasyRipple {
 				y = that.element.clientHeight/2;
 			}
 			let scale = (((Math.abs((that.element.clientWidth/2) - x) + Math.abs((that.element.clientHeight/2) - y) - pixelRange[0]) * (scaleRange[1] - scaleRange[0])) / (pixelRange[1] - pixelRange[0])) + scaleRange[0];
+			if (that.options.scale) scale = scale * that.options.scale;
 
 			this.element = document.createElement('cc-ripple');
 			this.element.setAttribute('size', scale);
@@ -76,9 +84,10 @@ class EasyRipple {
 			this.timeoutOver = false;
 			this.mouseup = false;
 			this.that = that;
+			this.timeoutTime = (that.options.anim_time*1000);
 			this.timeout = setTimeout((() => {
 				this.timeoutEnd();
-			}).bind(this), (that.options.anim_time*1000));
+			}).bind(this), this.timeoutTime);
 
 			let temp_ripple = this.element;
 			setTimeout(function() {
@@ -100,9 +109,7 @@ class EasyRipple {
 			}).bind(this), 400);
 		}
 		timeoutEnd() {
-			if (this.mouseup) {
-				this.hide();
-			}
+			if (this.mouseup) this.hide();
 			this.timeoutOver = true;
 		}
 	}
@@ -331,12 +338,36 @@ class SimplePromise {
 }
 
 class Input {
-	constructor() {}
+	constructor(options) {
+		this.options = options || {};
+		let input = this.options.template && '' || `<input type="${this.options.type || 'text'}">`
+
+		this.element = new HTMLBuilder(`
+			<cc-hint></cc-hint>
+			${input}
+			<cc-input-line></cc-input-line>
+			<cc-input-error></cc-input-error>
+		`, document.createElement('cc-input')).html;
+
+		this.elements = {
+			hint: this.element.querySelector('cc-hint'),
+			input: this.element.querySelector('input'),
+			line: this.element.querySelector('cc-input-line'),
+			error: this.element.querySelector('cc-input-error')
+		}
+
+		this.element.setAttribute('type', this.options.type || 'text');
+		if (this.options.hint) this.element.setAttribute('hint', this.options.hint);
+
+		if (this.options.type) this.elements.input.setAttribute('type', this.options.type);
+		if (this.options.name) this.elements.input.setAttribute('name', this.options.name);
+	}
 
 	static Select = class {
-		constructor(element, values) {
+		constructor(element, options) {
 			// Declare Variables
-			this.values = values;
+			this.options = options;
+			this.values = options.values;
 			this.elements = {
 				input: element,
 				select: element.querySelector('cc-select'),
@@ -375,7 +406,7 @@ class Input {
 						let checkbox = option.element.querySelector('cc-checkbox');
 						if (String(checkbox.getAttribute('checked')) == 'true') {
 							option.element.classList.remove('selected');
-							checkbox.setAttribute('checked', 'false');
+							checkbox.removeAttribute('checked');
 						} else {
 							option.element.classList.add('selected');
 							checkbox.setAttribute('checked', 'true');
@@ -547,12 +578,46 @@ class Input {
 			}
 		}
 	}
+
+	static Check = class {
+		constructor(options) {
+			this.options = options || {}
+			this.element = document.createElement('cc-checkbox');
+			this.box = document.createElement('box');
+
+			this.element.inputData = this;
+			if (this.options) {
+				this.isChecked = this.options.checked || false;
+				if (this.options.before) this.element.setAttribute('before', '');
+				if (this.options.text) this.element.setAttribute('text', this.options.text);
+				if (this.options.indicator) this.element.setAttribute('indicator',''); else {
+					this.element.addEventListener('click', () => this.toggle());
+					new EasyRipple(this.element, {element: this.box,unbounded: true, centered: true, scale: 3, transparency: 0.1});
+				}
+			}
+
+			this.element.append(this.box);
+		}
+
+		toggle() {
+			this.element.toggleAttribute('checked');
+			this.isChecked = !this.isChecked;
+
+			if (this.onclick) this.onclick(this.isChecked);
+		}
+		click(_function) {
+			this.onclick = _function;
+		}
+		disabled(state) {
+			if (state) this.element.setAttribute('disabled', ''); else this.element.removeAttribute('disabled');
+		}
+	}
 }
 
 class HTMLBuilder {
-	constructor(html) {
-		this.container = document.createElement('container');
-		this.container.insertAdjacentHTML('beforeend', html);
+	constructor(html, container) {
+		if (container instanceof HTMLElement) this.html = container; else this.html = document.createElement('container');
+		this.html.insertAdjacentHTML('beforeend', html);
 	}
 }
 
@@ -573,6 +638,24 @@ class Spinner {
 
 		this.elements.container.spinner = this;
 		spinAnimation(this.elements.circle)
+	}
+}
+
+class Snackbar {
+	constructor(text, options) {
+		this.element = document.createElement('cc-snackbar');
+		this.text = text;
+
+		// Options
+		this.options = options || {};
+		this.options.duration = this.options.duration || 3;
+
+		// Other
+		this.element.setAttribute('text', this.text);
+	}
+
+	show() {
+		document.body.appendChild(this.element);
 	}
 }
 
@@ -657,7 +740,7 @@ function FormBuilder(elements, options) {
 		function appendOption(container, option, count) {
 			let option_element = document.createElement('cc-option');
 			if (snap_options.checkbox) {
-				option_element.prepend(document.createElement('cc-checkbox'));
+				option_element.prepend(new Input.Check({indicator: true}).element);
 				option_element.setAttribute('checkbox', 'true');
 			}
 			option_element.setAttribute('text', option);
@@ -691,7 +774,7 @@ if (sendnot_element) sendnot_element.addEventListener('click', () => {
 	let prompt = new Prompt('sendnotification', {
 		title: 'Send Notifications',
 		messages: [{
-			message: 'Sends notifications to unnotified users this month',
+			message: 'Send notifications to targeted users this month',
 			type: 'info'
 		}],
 		positive: {text: 'Send'},
@@ -701,8 +784,9 @@ if (sendnot_element) sendnot_element.addEventListener('click', () => {
 			<users><cc-progress-spinner></cc-progress-spinner></users>
 		</cc-sendnot>
 		`).container,
-		processing: (_content, users) => {
+		processing: (_content, options) => {
 			let failed_emails = '';
+			let users = options.users[options.user_group];
 			users.forEach((snapshot, index) => {
 				if (snapshot.user.email) {
 					let user_data = {
@@ -722,13 +806,14 @@ if (sendnot_element) sendnot_element.addEventListener('click', () => {
 						}
 					}
 
-					email();
+					if (!snapshot.shift.notified) email();
 					async function email() {
 						if (lStorage.development == 'true') {
 							console.log(user_data);
 						} else {
+							let personRef = firebase.database().ref(`shifts/${cUser.state}/${cUser.city}/${date.year}/${date.month+1}/${snapshot.shift.day}/${snapshot.shift.location.replace(' ','_')}/${snapshot.shift.shift_time}/${snapshot.shift.person}`);
 							let email = await sendEmail('You\'ve been added to a shift.', [snapshot.user.email], 1, user_data);
-							if (!email.success) failed_emails = failed_emails == '' && `${snapshot.user.email}` || `${failed_emails}, ${snapshot.user.email}`;
+							if (email.success) personRef.update({notified: true}); else failed_emails = failed_emails == '' && `${snapshot.user.email}` || `${failed_emails}, ${snapshot.user.email}`;
 						}
 					}
 				}
@@ -738,26 +823,36 @@ if (sendnot_element) sendnot_element.addEventListener('click', () => {
 		}
 	});
 
+	let targeted_users = [];
+	let all_users = [];
+	let checkbox = new Input.Check({text: 'Target Notified Users'});
+	checkbox.click(state => {
+		if (state) prompt.extra.user_group = 1; else prompt.extra.user_group = 0;
+		if (prompt.extra.users) promptDisplayUsers(prompt.extra.users[prompt.extra.user_group]);
+	});
+	prompt.options.content.querySelector('cc-sendnot>h1').append(checkbox.element);
 	prompt.open();
+
 	firebase.database().ref('users').on('value', snapshot => {
 		let snaphot_users = snapshot.val();
-		let targeted_users = [];
-
 		prompt.options.content.querySelector('users').innerHTML = '';
-		if (firebase_users.length == 0) {
-			let element = document.createElement('p');
-			element.innerHTML = 'There are no users this month.';
-			prompt.options.content.querySelector('users').append(element);
-		}
 
 		firebase_users.forEach(shift => {
-			targeted_users.push({
-				shift: shift,
-				user: snaphot_users[shift.id]
-			});
+			if (!shift.notified) targeted_users.push({shift: shift,user: snaphot_users[shift.id]});
+			all_users.push({shift: shift, user: snaphot_users[shift.id]});
 		});
 
+		promptDisplayUsers(targeted_users);
+		prompt.extra = {user_group: 0, users: [targeted_users, all_users]};
+
+		if (targeted_users.length == all_users.length) {
+			checkbox.disabled(true);
+		}
+	});
+
+	function promptDisplayUsers(targeted_users) {
 		let shown_users = [];
+		prompt.options.content.querySelector('users').innerHTML = '';
 		targeted_users.forEach(snapshot => {
 			let user_text = document.createElement('user');
 			let name = `${snapshot.user.firstname} ${snapshot.user.lastname}`;
@@ -769,8 +864,12 @@ if (sendnot_element) sendnot_element.addEventListener('click', () => {
 			shown_users.push(name);
 		});
 
-		prompt.extra = targeted_users;
-	});
+		if (targeted_users.length == 0) {
+			let element = document.createElement('p');
+			element.innerHTML = 'There are no targeted users this month.';
+			prompt.options.content.querySelector('users').append(element);
+		}
+	}
 });
 
 var noti_list,
@@ -835,105 +934,12 @@ function FAB(element, event) {
 	}
 }
 
-function Snackbar(text, length, persistant) {
-	this.snackbar_element = document.createElement('cc-snackbar');
-	this.container_element = document.createElement('div');
-	this.text_element = document.createElement('p');
-	this.content_element = document.createElement('div');
-
-	this.text = text;
-	this.length = length;
-	this.persistant = persistant;
-
-	this.text_element.innerHTML = this.text;
-
-	this.snackbar_element.appendChild(this.container_element);
-	this.container_element.appendChild(this.text_element);
-	this.container_element.appendChild(this.content_element);
-
-	this.click = function(fun) {
-	this.container_element.classList.add('isClickable');
-	this.icon_element = document.createElement('i');
-	this.icon_element.innerHTML = 'call_made';
-	this.icon_element.classList.add('material-icons');
-	this.text_element.appendChild(this.icon_element);
-	this.container_element.addEventListener('click', function(event) {
-		fun();
-	});
-	};
-
-	this.show = function() {
-	if (document.querySelector('cc-snackbar') == null) {
-		var tempSnack = this.snackbar_element,
-		tempLength = this.length;
-		tempEnd = this.end;
-		document.querySelector('body').appendChild(this.snackbar_element);
-
-		var disappearTimeout;
-
-		if (this.content_element.children.length > 0) {
-		this.icon_element = document.createElement('i');
-		this.icon_element.innerHTML = 'expand_less';
-		this.icon_element.classList.add('material-icons');
-		this.text_element.appendChild(this.icon_element);
-
-		this.container_element.classList.add('isClickable');
-
-		var tempSnack = this.snackbar_element;
-		var tempIcon = this.icon_element;
-		this.text_element.addEventListener('click', function(event) {
-			if (tempSnack.classList.contains('expand')) close(); else clearTimeout(disappearTimeout);
-			tempSnack.classList.toggle('expand');
-			tempIcon.classList.toggle('rotate');
-			lStorage.currentNew = lastestNew;
-		});
-		}
-
-		setTimeout(function() {
-		tempSnack.classList.add('show');
-		close();
-		}, 15);
-
-		function close() {
-		disappearTimeout = setTimeout(function() {
-			tempSnack.classList.remove('show');
-			setTimeout(function() {
-			tempSnack.remove();
-			tempEnd();
-			}, 200);
-		}, tempLength);
-		}
-	} else {
-		snackbar_list.push(this);
-	}
-	};
-
-	this.end = function() {
-	if (snackbar_list.length > 0) {
-		snackbar_list[0].show();
-		snackbar_list.splice(0, 1);
-	}
-	}
-
-	// this.save = function() {
-	//   var snackbar_data = {
-	//     text: this.text
-	//   }
-	//
-	//   if (lStorage.noti != undefined) noti_list = JSON.parse(lStorage.noti); else noti_list = [];
-	//   noti_list.push(snackbar_data);
-	//   lStorage.noti =  JSON.stringify(noti_list);
-	// }
-	//
-	// if (persistant) this.save();
-}
-
 var preset = {
 	snackbar: {
-	length: {
-		short: 3000,
-		long: 10000
-	}
+		length: {
+			short: 3000,
+			long: 10000
+		}
 	}
 };
 

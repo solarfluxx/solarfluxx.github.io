@@ -14,7 +14,7 @@ body {
   -o-transition: background 0.2s;
   transition: background 0.2s;
   background-color: var(--semi);
-  border-radius: 10px;
+  border-radius: 5px;
   margin-top: 20px;
   -webkit-box-shadow: 0 2px 20px rgba(0,0,0,0.1);
           box-shadow: 0 2px 20px rgba(0,0,0,0.1);
@@ -201,7 +201,7 @@ body {
 .calendar-container {
   -webkit-box-shadow: 0 2px 20px rgba(0,0,0,0.1);
           box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-  border-radius: 10px;
+  border-radius: 5px;
   -webkit-transition: background 0.2s;
   -o-transition: background 0.2s;
   transition: background 0.2s;

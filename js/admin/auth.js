@@ -32,7 +32,7 @@ firebase.auth().onAuthStateChanged(function(loggedUser) {
       if (!cUser.admin) {
         controller.page.goto("home");
       } else {
-        $("cc-loader").toggleClass("hide");
+        $("cc-page-loader").toggleClass("hide");
         var timer = setTimeout(function() {$("cc-loader").remove()}, 500);
       }
     });

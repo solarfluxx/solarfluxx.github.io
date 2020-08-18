@@ -37,6 +37,8 @@ navbar.size = function(stage) {
 			root.style.setProperty('--sidebar-blocker-events', "none");
 			root.style.setProperty('--sidenav-margin-top', "unset");
 			root.style.setProperty('--overflow-x', "overlay");
+
+			document.getElementById('navbar').querySelector('div.nohover.item').style.setProperty('opacity', '1');
 			navbar.stage = 0;
 			break;
 		case 1:
@@ -52,7 +54,6 @@ navbar.size = function(stage) {
 			root.style.setProperty('--overflow-x', "overlay");
 
 			document.getElementById('navbar').querySelector('div.nohover.item').style.setProperty('opacity', '0');
-
 			navbar.stage = 1;
 			break;
 		case 2:
@@ -68,7 +69,6 @@ navbar.size = function(stage) {
 			root.style.setProperty('--overflow-x', "overlay");
 
 			document.getElementById('navbar').querySelector('div.nohover.item').style.setProperty('opacity', '1');
-
 			navbar.stage = 2;
 			break;
 		case 3:
@@ -81,6 +81,8 @@ navbar.size = function(stage) {
 			root.style.setProperty('--sidebar-blocker-events', "all");
 			root.style.setProperty('--sidenav-margin-top', "unset");
 			root.style.setProperty('--overflow-x', "hidden");
+
+			document.getElementById('navbar').querySelector('div.nohover.item').style.setProperty('opacity', '1');
 			navbar.stage = 3;
 			break;
 	}
@@ -104,6 +106,7 @@ function navbarResize(animation) {
 			navbar.size(0);
 			$(".title_bars").css("display", "block");
 		}
+		
 	}
 
 	if ($(window).width() > window_stage[0] && $(window).width() < window_stage[1] && window_old != 1) {
@@ -121,7 +124,7 @@ function navbarResize(animation) {
 			$(".title_bars").css("display", "none");
 		}
 	}
-
+	navbar.animation.enable();
 }
 
 function getLocations() {
@@ -166,5 +169,8 @@ document.getElementById("blocker").onclick = function(event) {
 window.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('navbar').querySelectorAll('a, button').forEach(element => {
 		if (!element.parentElement.classList.contains('item')) new EasyRipple(element, {transparency: 0.09, color: 1, anim_time: 0.5});
+	});
+	document.querySelectorAll('.title_bars, .heading_icon').forEach(element => {
+		new EasyRipple(element, {transparency: 0.1, anim_time: 0.2, unbounded: true, centered: true})
 	});
 });

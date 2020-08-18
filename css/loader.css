@@ -1,6 +1,6 @@
 /* #region Loader */
 
-cc-loader {
+cc-page-loader {
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -12,12 +12,12 @@ cc-loader {
 	-o-transition: opacity 0.5s ease;
 	transition: opacity 0.5s ease;
 }
-cc-loader.hide {
+cc-page-loader.hide {
 	opacity: 0;
 	pointer-events: none;
 }
 
-cc-loader cc-circle {
+cc-page-loader cc-circle {
 	display: block;
 	position: relative;
 	left: 50%;
@@ -31,7 +31,7 @@ cc-loader cc-circle {
 	-webkit-animation: spin 2s linear infinite;
 	animation: spin 2s linear infinite;
 }
-cc-loader cc-circle:before {
+cc-page-loader cc-circle:before {
 	content: "";
 	position: absolute;
 	top: 5px;
@@ -44,7 +44,7 @@ cc-loader cc-circle:before {
 	-webkit-animation: spin 3s linear infinite;
 	animation: spin 3s linear infinite;
 }
-cc-loader cc-circle:after {
+cc-page-loader cc-circle:after {
 	content: "";
 	position: absolute;
 	top: 15px;
